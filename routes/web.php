@@ -11,6 +11,8 @@ Route::group([
     'namespace' => 'Admin',
 //    'middleware' => 'auth'
 ], function() {
+    Route::resource('/', 'DashboardController');
+    Route::resource('/dashboard', 'DashboardController');
     Route::resource('/users', 'UserController');
 });
 

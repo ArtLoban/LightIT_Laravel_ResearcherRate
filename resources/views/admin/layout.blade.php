@@ -7,8 +7,8 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/style_admin.css">
+    <link rel="stylesheet" href="/css/admin_lte_panel.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,23 +42,23 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{--<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
-                        </form>
+                        </form>--}}
                     </li>
                     <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             @if(isset(Auth::user()->image->path))
                                 <img src="{{ asset( Auth::user()->image->path) }}" class="user-image" alt="User Image">
                             @else
                                 <img src="{{ asset(App\Services\ImageUploader\ImageUpload::DEFAULT_MO_IMAGE_PATH) }}" class="user-image" alt="User Image">
                             @endif
                             <span class="hidden-xs">{{ Auth::user()->role->name }}</span>
-                        </a>
+                        </a>--}}
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
@@ -112,7 +112,7 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                <div class="pull-left image">
+                {{--<div class="pull-left image">
                     @if(isset(Auth::user()->image->path))
                         <img src="{{ asset( Auth::user()->image->path) }}" class="img-circle" alt="User Image">
                     @else
@@ -121,8 +121,8 @@
                 </div>
                 <div class="pull-left info">
                     <p>{{ Auth::user()->role->name }}</p>
-                    {{--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--}}
-                </div>
+                    --}}{{--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--}}{{--
+                </div>--}}
             </div>
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
@@ -143,16 +143,7 @@
                         <i class="fa fa-dashboard"></i> <span>Админ-панель</span>
                     </a>
                 </li>
-                <li><a href="{{ route('dishes.index') }}"><i class="fa fa-book"></i> <span>Блюда</span></a></li>
-                <li><a href="{{ route('categories.index') }}"><i class="fa fa-list-ul"></i> <span>Категории блюд</span></a></li>
-                <li><a href="{{ route('ingredients.index') }}"><i class="fa fa-hand-pointer-o"></i> <span>Ингредиенты</span></a></li>
-                <li><a href="{{ route('orders.index') }}"><i class="fa fa-shopping-cart"></i> <span>Заказы</span></a></li>
-                {{--<li><a href="{{ route('customers.index') }}"><i class="fa fa-bars"></i><span>Клиенты</span></a></li>--}}
-                @can('seeUsers')
-                    <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
-                    <li><a href="{{ route('roles.index') }}"><i class="fa fa-user"></i> <span>Роли</span></a></li>
-                @endcan
-                {{--<li><a href="{{ route('permitions.index') }}"><i class="fa fa-key"></i> <span>Права</span></a></li>--}}
+                <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

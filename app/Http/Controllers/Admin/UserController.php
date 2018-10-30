@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin\User;
+use App\Services\Repositories\Admin\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * UserController constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        echo '<h1><a href="#">admin.users</a></h1>';
+        return view('admin.users.index', ['users' => $this->userRepository->all()]);
     }
 
     /**
@@ -78,8 +94,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $this->userRepository->delete($user);
+
+        return back();
     }
 }

@@ -1,15 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 29.10.18
- * Time: 14:54
- */
 
 namespace App\Services\Repositories\Admin;
 
+use App\Models\Admin\User;
+use App\Services\Repositories\Repository;
 
-class UserRepository
+class UserRepository extends Repository
 {
-
+    /**
+     * @return string
+     */
+    protected function getClassName(): string
+    {
+        return User::class;
+    }
 }
