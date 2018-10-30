@@ -1,0 +1,22 @@
+
+/* ### Admin. delete button ###*/
+
+table.table form{
+    display: inline-block;
+}
+
+button.delete-task{
+    background: transparent;
+    border: none;
+    padding: 0px;
+}
+
+.permissions-inline div{
+    display: inline-block;
+    padding-left: 25px;
+}
+
+div .back-btn {
+    margin: 15px 10px;
+}
+
