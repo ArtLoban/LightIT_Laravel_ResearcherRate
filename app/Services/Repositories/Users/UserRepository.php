@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Repositories\Admin;
+namespace App\Services\Repositories\Users;
 
-use App\Models\Admin\User;
+use App\Models\Users\User;
 use App\Services\Repositories\Repository;
 
 class UserRepository extends Repository

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Users;
 
-use App\Models\Admin\User;
-use App\Services\Repositories\Admin\UserRepository;
+use App\Models\Users\User;
+use App\Services\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
