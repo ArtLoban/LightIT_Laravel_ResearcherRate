@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\Users\User;
-use App\Services\Repositories\Users\UserRepository;
+use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index', ['users' => $this->userRepository->all()]);
+        return view('admin.users.index', ['users' => $this->userRepository->allWithRelations(['role'])]);
     }
 
     /**

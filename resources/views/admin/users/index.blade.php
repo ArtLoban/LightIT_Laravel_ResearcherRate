@@ -6,7 +6,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Пользователи</h1>
+            <h1>Users</h1>
         </section>
 
         <!-- Main content -->
@@ -17,27 +17,29 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="form-group">
-                        <a href="{{ route('users.create') }}" class="btn btn-success">Добавить</a>
+                        <a href="{{ route('users.create') }}" class="btn btn-success">Add</a>
                     </div>
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>E-mail</th>
-                            <th>Роль</th>
-                            <th>Действия</th>
+                            <th>Profile</th>
+                            <th>Role</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->getKey() }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>no role yet ...</td>
+                                <td><a href="#">{{ 'link_to_user_profile' }}</a></td>
+                                <td>{{ $user->role->name }}</td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="fa fa-pencil"></a>
+                                    <a href="{{ route('users.edit', $user->getKey()) }}" class="fa fa-pencil"></a>
                                     {!! Form::open([
-                                        'route' => ['users.destroy', $user->id],
+                                        'route' => ['users.destroy', $user->getKey()],
                                         'method' => 'delete'])
                                     !!}
                                     <button type="submit" class="delete-task" onclick="return confirm('Are you sure?')">

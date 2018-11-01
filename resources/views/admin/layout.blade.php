@@ -27,7 +27,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Users</b>LTE</span>
+            <span class="logo-lg"><b>Admin</b>LTE</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -42,13 +42,13 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
-                        {{--<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
-                        </form>--}}
+                        </form>
                     </li>
                     <li class="dropdown user user-menu">
                         {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -140,10 +140,34 @@
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="treeview">
                     <a href="{{ route('dashboard.index') }}">
-                        <i class="fa fa-dashboard"></i> <span>Админ-панель</span>
+                        <i class="fa fa-dashboard"></i><span>Dashboard</span>
                     </a>
                 </li>
-                <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> <span>Пользователи</span></a></li>
+                <li>
+                    <a href="{{ route('users.index') }}">
+                        <i class="fa fa-users"></i><span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('roles.index') }}">
+                        <i class="fa fa-user"></i><span>Roles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('permissions.index') }}">
+                        <i class="fa fa-check"></i><span>Permissions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('faculties.index') }}">
+                        <i class="fa fa-graduation-cap"></i><span>Faculties</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('departments.index') }}">
+                        <i class="fa fa-clone"></i><span>Departments</span>
+                    </a>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->

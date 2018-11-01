@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Organization\Employees\Profile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email',
+        'password',
+        'role_id',
     ];
 
     /**
@@ -27,4 +30,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the Profile associated with the User
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Get the Role that owns the User
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
