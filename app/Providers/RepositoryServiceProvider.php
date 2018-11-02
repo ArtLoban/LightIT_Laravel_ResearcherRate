@@ -7,6 +7,10 @@ use App\Services\Users\Role\Repository\Repository as RoleRepository;
 use App\Services\Users\User\Repository\Repository as UserRepository;
 use App\Services\Organization\Facility\Faculty\Repository\Repository as FacultyRepository;
 use App\Services\Organization\Facility\Department\Repository\Repository as DepartmentRepository;
+use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as AcademicDegreeRepository;
+use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
+use App\Services\Organization\Employees\Position\Repository\Repository as PositionRepository;
+use App\Services\Organization\Employees\Profile\Repository\Repository as ProfileRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -28,10 +32,35 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Users
         $this->app->bind(\App\Services\Users\Permission\Repository\Contracts\Repository::class, PermissionRepository::class);
         $this->app->bind(\App\Services\Users\Role\Repository\Contracts\Repository::class, RoleRepository::class);
         $this->app->bind(\App\Services\Users\User\Repository\Contracts\Repository::class, UserRepository::class);
-        $this->app->bind(\App\Services\Organization\Facility\Faculty\Repository\Contracts\Repository::class, FacultyRepository::class);
-        $this->app->bind(\App\Services\Organization\Facility\Department\Repository\Contracts\Repository::class, DepartmentRepository::class);
+        // Organization/Facility
+        $this->app->bind(
+            \App\Services\Organization\Facility\Faculty\Repository\Contracts\Repository::class,
+            FacultyRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Organization\Facility\Department\Repository\Contracts\Repository::class,
+            DepartmentRepository::class
+        );
+        // Organization/Employees
+        $this->app->bind(
+            \App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository::class,
+            AcademicDegreeRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Organization\Employees\AcademicTitle\Repository\Contracts\Repository::class,
+            AcademicTitleRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Organization\Employees\Position\Repository\Contracts\Repository::class,
+            PositionRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Organization\Employees\Profile\Repository\Contracts\Repository::class,
+            ProfileRepository::class
+        );
     }
 }

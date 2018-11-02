@@ -31,7 +31,7 @@ class Profile extends Model
      */
     public function academicDegree()
     {
-        return $this->belongsTo(AcademicDegree::class);
+        return $this->belongsTo(AcademicDegree::class, 'ac_degree_id');
     }
 
     /**
@@ -39,7 +39,7 @@ class Profile extends Model
      */
     public function academicTitle()
     {
-        return $this->belongsTo(AcademicTitle::class);
+        return $this->belongsTo(AcademicTitle::class, 'ac_title_id');
     }
 
     /**

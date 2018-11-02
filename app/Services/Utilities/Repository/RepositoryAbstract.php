@@ -2,12 +2,11 @@
 
 namespace App\Services\Utilities\Repository;
 
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-abstract class RepositoryAbstract implements MainRepository
+abstract class RepositoryAbstract
 {
     /**
      * @var string

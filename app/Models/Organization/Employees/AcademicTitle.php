@@ -18,6 +18,6 @@ class AcademicTitle extends Model
      */
     public function profiles()
     {
-        return $this->hasMany(Profile::class);
+        return $this->hasMany(Profile::class, 'ac_title_id');
     }
 }

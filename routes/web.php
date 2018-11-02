@@ -17,6 +17,10 @@ Route::group([
     Route::resource('/permissions', 'Users\PermissionController');
     Route::resource('/faculties', 'Organization\Facility\FacultyController');
     Route::resource('/departments', 'Organization\Facility\DepartmentController');
+    Route::resource('/profiles', 'Organization\Employees\ProfileController');
+    Route::resource('/positions', 'Organization\Employees\PositionController');
+    Route::resource('/academic_degrees', 'Organization\Employees\AcademicDegreeController');
+    Route::resource('/academic_titles', 'Organization\Employees\AcademicTitleController');
 });
 
 Auth::routes();
