@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Models\Users\User;
-use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
+use App\Models\Users\BlankUser;
+use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class BlankUserController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var BlankUserRepository
      */
-    private $userRepository;
+    private $blankUserRepository;
 
     /**
-     * UserController constructor.
-     * @param UserRepository $userRepository
+     * BlankUserController constructor.
+     * @param BlankUserRepository $blankUserRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(BlankUserRepository $blankUserRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->blankUserRepository = $blankUserRepository;
     }
 
     /**
@@ -30,8 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-//        dd($this->userRepository->allWithRelations(['role', 'profile']));
-        return view('admin.users.index', ['users' => $this->userRepository->allWithRelations(['role', 'profile'])]);
+        return view('admin.blank_users.index', [ 'blankUsers' =>  $this->blankUserRepository->all()]);
     }
 
     /**
@@ -61,11 +60,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(BlankUser $blankUser)
     {
-        $userWithRelations = $this->userRepository->getWithNestedRelationsById($user->getKey());
-
-        return view('admin.users.show', ['user' => $userWithRelations]);
+        return view('admin.blank_users.show', ['blankUser' => $blankUser]);
     }
 
     /**
@@ -76,7 +73,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -97,10 +94,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $this->userRepository->delete($user);
-
-        return back();
+        //
     }
 }

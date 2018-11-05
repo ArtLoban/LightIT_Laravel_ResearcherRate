@@ -15,6 +15,4 @@ class Repository extends RepositoryAbstract implements ProfileRepository
     {
         return Profile::class;
     }
-
-
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Organization\Employees;
 
+use App\Http\Requests\Organization\Employees\Profile\StoreRequest;
+use App\Models\Organization\Employees\Profile;
+use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Organization\Employees\Profile\Repository\Contracts\Repository as ProfileRepository;
@@ -33,7 +36,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $allprofilesWithRelations = $this->profileRepository->allWithRelations([
+        $allProfilesWithRelations = $this->profileRepository->allWithRelations([
             'academicDegree',
             'academicTitle',
             'position',
@@ -41,10 +44,7 @@ class ProfileController extends Controller
             'user'
         ]);
 
-
-//        dd($allprofilesWithRelations);
-
-        return view('admin.profiles.index', ['profiles' => $allprofilesWithRelations]);
+        return view('admin.profiles.index', ['profiles' => $allProfilesWithRelations]);
     }
 
     /**
@@ -72,9 +72,12 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request, KeyGenerator $keyGenerator)
     {
-        dd($request);
+        $newProfile = $this->profileRepository->create($request->all());
+        $newProfile->blankUser()->create(['personal_key' => $keyGenerator->generate()]);
+
+        return redirect()->route('profiles.index');
     }
 
     /**
@@ -117,8 +120,10 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Profile $profile)
     {
-        //
+        $this->profileRepository->delete($profile);
+
+        return back();
     }
 }

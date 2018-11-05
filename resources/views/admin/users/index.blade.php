@@ -24,7 +24,7 @@
                         <tr>
                             <th>ID</th>
                             <th>E-mail</th>
-                            <th>Profile</th>
+                            <th>Profile id</th>
                             <th>Role</th>
                             <th>Actions</th>
                         </tr>
@@ -32,12 +32,18 @@
                         <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <td>{{ $user->getKey() }}</td>
+                                <td>
+                                    {{ $user->getKey() }}
+                                </td>
                                 <td>{{ $user->email }}</td>
-                                <td><a href="#">{{ 'link_to_user_profile' }}</a></td>
+                                <td>
+                                    <a href="{{ route('users.show', $user->getKey()) }}">
+                                        {{ $user->profile ? $user->profile->id : 'no profile' }}
+                                    </a>
+                                </td>
                                 <td>{{ $user->role->name }}</td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->getKey()) }}" class="fa fa-pencil"></a>
+                                    <a href="#" class="fa fa-pencil"></a>
                                     {!! Form::open([
                                         'route' => ['users.destroy', $user->getKey()],
                                         'method' => 'delete'])

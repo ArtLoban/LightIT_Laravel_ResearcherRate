@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Users\User;
+use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -30,14 +32,17 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
+    private $blankUserRepository;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(BlankUserRepository $blankUserRepository)
     {
         $this->middleware('guest');
+        $this->blankUserRepository = $blankUserRepository;
     }
 
     /**
@@ -49,7 +54,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'personal_key' => 'required|integer|digits:8|exists:blank_users,personal_key',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -63,10 +68,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        dd($this->blankUserRepository->all()->where('personal_key', $data['personal_key'])->first());
+
+//        return User::create([
+//            'email' => $data['email'],
+//            'password' => Hash::make($data['password']),
+//        ]);
+
+
+
+        DB::transaction(function() use ($data)
+        {
+            User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        });
     }
 }

@@ -39,7 +39,17 @@
                         @foreach($profiles as $profile)
                             <tr>
                                 <td>{{ $profile->getKey() }}</td>
-                                <td>{{ $profile->user ? $profile->user->id : 'blank'}}</td>
+                                <td>
+                                    @if($profile->user)
+                                        <a href="{{ route('users.show', $profile->user->getKey()) }}">
+                                            {{ $profile->user->getKey() }}
+                                        </a>
+                                    @else
+                                        <a href="{{ route('blank_users.show', $profile->blankUser->getKey()) }}">
+                                            {{ 'blank' }}
+                                        </a>
+                                    @endif
+                                </td>
                                 <td>{{ $profile->name }}</td>
                                 <td>{{ $profile->surname }}</td>
                                 <td>{{ $profile->patronymic }}</td>
@@ -49,7 +59,8 @@
                                 <td>{{ $profile->academicTitle->name }}</td>
                                 <td>{{ $profile->department->name }}</td>
                                 <td>
-                                    <a href="{{ route('profiles.edit', $profile->getKey()) }}" class="fa fa-pencil"></a>
+                                    <a href="#" class="fa fa-pencil"></a>
+                                    {{--<a href="{{ route('profiles.edit', $profile->getKey()) }}" class="fa fa-pencil"></a>--}}
                                     {!! Form::open([
                                         'route' => ['profiles.destroy', $profile->getKey()],
                                         'method' => 'delete'])

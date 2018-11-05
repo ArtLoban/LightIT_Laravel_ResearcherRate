@@ -23,7 +23,7 @@
                             @include('admin.errors')
 
                             <div class="form-group">
-                                <label for="ProfileName">Name</label>
+                                <label for="ProfileName">Name<span class="field-required_star"> *</span></label>
                                 <input
                                     class="form-control"
                                     id="ProfileName"
@@ -34,7 +34,7 @@
                                 >
                             </div>
                             <div class="form-group">
-                                <label for="ProfileSurame">Surame</label>
+                                <label for="ProfileSurame">Surame<span class="field-required_star"> *</span></label>
                                 <input
                                     class="form-control"
                                     id="ProfileSurame"
@@ -52,12 +52,11 @@
                                     type="text"
                                     name="patronymic"
                                     value="{{ old('patronymic') }}"
-                                    required
                                 >
                             </div>
                             <hr>
                             <div class="form-group">
-                                <label>Date of birth</label>
+                                <label>Date of birth<span class="field-required_star"> *</span></label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
@@ -73,7 +72,7 @@
                             </div>
                             <hr>
                             <div class="form-group">
-                                <label>Position</label>
+                                <label>Position<span class="field-required_star"> *</span></label>
                                 <select name="position_id" class="form-control" required>
                                     <option></option>
                                     @foreach($positions as $position)
@@ -82,7 +81,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Academic Degree</label>
+                                <label>Academic Degree<span class="field-required_star"> *</span></label>
                                 <select name="ac_degree_id" class="form-control" required>
                                     <option></option>
                                     @foreach($academicDegrees as $academicDegree)
@@ -91,7 +90,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Academic Title</label>
+                                <label>Academic Title<span class="field-required_star"> *</span></label>
                                 <select name="ac_title_id" class="form-control" required>
                                     <option></option>
                                     @foreach($academicTitles as $academicTitle)
@@ -100,7 +99,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Department</label>
+                                <label>Department<span class="field-required_star"> *</span></label>
                                 <select name="department_id" class="form-control" required>
                                     <option></option>
                                     @foreach($departments as $department)
@@ -108,11 +107,17 @@
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                     </div>
+                    <div class="box-body">
+                        <p class="help-block">
+                            <span class="field-required_star"> *</span> - Field is required
+                        </p>
+                        <p class="help-block">** The personal key for a blank user will be generated automatically</p>
+                    </div>
+
                     <!-- /.box-body -->
-                    <div class="box-footer">
+                    <div class="body">
                         <button class="btn btn-success">Add</button>
                         <a href="{{ route('profiles.index') }}" class="btn btn-default">Back</a>
                     </div>

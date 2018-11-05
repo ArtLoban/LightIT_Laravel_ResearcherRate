@@ -61,7 +61,7 @@ class Profile extends Model
     /**
      * Get the Inactive User associated with the Profile
      */
-    public function inactiveUser()
+    public function blankUser()
     {
         return $this->hasOne(BlankUser::class);
     }

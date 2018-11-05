@@ -25,3 +25,4 @@ class BlankUser extends Model
         return $this->belongsTo(Profile::class);
     }
 }
+

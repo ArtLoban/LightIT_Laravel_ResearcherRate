@@ -177,6 +177,11 @@
                         <i class="fa fa-files-o"></i><span>Profiles</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('blank_users.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Blank Users</span>
+                    </a>
+                </li>
                 <hr>
                 <li>
                     <a href="{{ route('positions.index') }}">

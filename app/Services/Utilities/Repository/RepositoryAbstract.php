@@ -72,6 +72,14 @@ abstract class RepositoryAbstract
     }
 
     /**
+     * @return mixed
+     */
+    public function where(string $column)
+    {
+        return $this->className::where($column);
+    }
+
+    /**
      * @param int $id
      * @param array $params
      * @return Model

@@ -21,6 +21,7 @@ Route::group([
     Route::resource('/positions', 'Organization\Employees\PositionController');
     Route::resource('/academic_degrees', 'Organization\Employees\AcademicDegreeController');
     Route::resource('/academic_titles', 'Organization\Employees\AcademicTitleController');
+    Route::resource('/blank_users', 'Users\BlankUserController');
 });
 
 Auth::routes();
