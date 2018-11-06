@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Admin\Organization\Employees;
 
-use App\Models\Users\User;
-use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
 
-class UserController extends Controller
+class PositionController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var PositionRepository
      */
-    private $userRepository;
+    private $positionRepository;
 
     /**
-     * UserController constructor.
-     * @param UserRepository $userRepository
+     * PositionController constructor.
+     * @param PositionRepository $positionRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(PositionRepository $positionRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->positionRepository = $positionRepository;
     }
 
     /**
@@ -30,8 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-//        dd($this->userRepository->allWithRelations(['role', 'profile']));
-        return view('admin.users.index', ['users' => $this->userRepository->allWithRelations(['role', 'profile'])]);
+        return view('admin.positions.index', ['positions' => $this->positionRepository->all()]);
     }
 
     /**
@@ -61,11 +59,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        $userWithRelations = $this->userRepository->getWithNestedRelationsById($user->getKey());
-
-        return view('admin.users.show', ['user' => $userWithRelations]);
+        //
     }
 
     /**
@@ -97,10 +93,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $this->userRepository->delete($user);
-
-        return back();
+        //
     }
 }

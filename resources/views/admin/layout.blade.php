@@ -45,20 +45,15 @@
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
-
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                     </li>
                     <li class="dropdown user user-menu">
-                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            @if(isset(Auth::user()->image->path))
-                                <img src="{{ asset( Auth::user()->image->path) }}" class="user-image" alt="User Image">
-                            @else
-                                <img src="{{ asset(App\Services\ImageUploader\ImageUpload::DEFAULT_MO_IMAGE_PATH) }}" class="user-image" alt="User Image">
-                            @endif
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ Auth::user()->role->name }}</span>
-                        </a>--}}
+                        </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
@@ -112,17 +107,13 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                {{--<div class="pull-left image">
-                    @if(isset(Auth::user()->image->path))
-                        <img src="{{ asset( Auth::user()->image->path) }}" class="img-circle" alt="User Image">
-                    @else
-                        <img src="{{ asset(App\Services\ImageUploader\ImageUpload::DEFAULT_MO_IMAGE_PATH) }}" class="img-circle" alt="User Image">
-                    @endif
+                <div class="pull-left image">
+                    <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p>{{ Auth::user()->role->name }}</p>
-                    --}}{{--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--}}{{--
-                </div>--}}
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
             </div>
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">

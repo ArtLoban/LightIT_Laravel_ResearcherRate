@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Organization\Employees;
+namespace App\Http\Controllers\Admin\Organization\Employees;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
+use App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository as AcademicDegreeRepository;
 
-class PositionController extends Controller
+class AcademicDegreeController extends Controller
 {
     /**
-     * @var PositionRepository
+     * @var AcademicDegreeRepository
      */
-    private $positionRepository;
+    private $academicDegreeRepository;
 
     /**
-     * PositionController constructor.
-     * @param PositionRepository $positionRepository
+     * AcademicDegreeController constructor.
+     * @param AcademicDegreeRepository $academicDegreeRepository
      */
-    public function __construct(PositionRepository $positionRepository)
+    public function __construct(AcademicDegreeRepository $academicDegreeRepository)
     {
-        $this->positionRepository = $positionRepository;
+        $this->academicDegreeRepository = $academicDegreeRepository;
     }
 
     /**
@@ -29,7 +29,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        return view('admin.positions.index', ['positions' => $this->positionRepository->all()]);
+        return view('admin.academic_degrees.index', ['academicDegrees' => $this->academicDegreeRepository->all()]);
     }
 
     /**

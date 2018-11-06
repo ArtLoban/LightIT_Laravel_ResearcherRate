@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Admin\Organization\Facility;
 
-use App\Models\Users\Role;
-use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Organization\Facility\Department\Repository\Contracts\Repository as DepartmentRepository;
 
-class RoleController extends Controller
+class DepartmentController extends Controller
 {
     /**
-     * @var RoleRepository
+     * @var DepartmentRepository
      */
-    private $roleRepository;
+    private $departmentRepository;
 
     /**
-     * UserController constructor.
-     * @param RoleRepository $role
+     * DepartmentController constructor.
+     * @param DepartmentRepository $departmentRepository
      */
-    public function __construct(RoleRepository $roleRepository)
+    public function __construct(DepartmentRepository $departmentRepository)
     {
-        $this->roleRepository = $roleRepository;
+        $this->departmentRepository = $departmentRepository;
     }
 
     /**
@@ -30,9 +29,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin.roles.index', [
-            'roles' => $this->roleRepository->all(),
-        ]);
+//        dd($this->departmentRepository->all());
+        return view('admin.departments.index', ['departments' => $this->departmentRepository->all()]);
     }
 
     /**
@@ -62,11 +60,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
-        $permissions = $this->roleRepository->getAllPermissionsByRoleId($role->getKey());
-
-        return view('admin.roles.show', ['role' => $role, 'permissions' => $permissions]);
+        //
     }
 
     /**

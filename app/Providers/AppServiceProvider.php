@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
 use App\Services\Users\BlankUser\KeyGenerator\RandomGenerator;
+use App\Services\Users\User\UserRegister\Contracts\UserRegister;
+use App\Services\Users\User\UserRegister\Register;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(KeyGenerator::class, RandomGenerator::class);
+        $this->app->bind(UserRegister::class, Register::class);
     }
 }

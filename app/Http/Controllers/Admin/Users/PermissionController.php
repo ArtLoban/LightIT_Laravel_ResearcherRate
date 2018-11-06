@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Admin\Users;
 
+use App\Models\Users\Permission;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\Permission\StoreRequest;
 use App\Http\Requests\Users\Permission\UpdateRequest;
-use App\Models\Users\Permission;
 use App\Services\Users\Permission\Repository\Contracts\Repository as PermissionRepository;
-use App\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {
@@ -86,10 +86,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $permission)
+    public function update(UpdateRequest $request, $permissionId)
     {
-//        dd($request);
-        $this->permissionRepository->updateById($permission->getKey(), $request->input());
+        $this->permissionRepository->updateById($permissionId, $request->input());
 
         return redirect()->route('permissions.index');
     }

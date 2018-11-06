@@ -74,9 +74,9 @@ abstract class RepositoryAbstract
     /**
      * @return mixed
      */
-    public function where(string $column)
+    public function where(string $column, string $operator = null, $value = null, string $boolean = 'and')
     {
-        return $this->className::where($column);
+        return $this->className::where($column, $operator, $value, $boolean);
     }
 
     /**

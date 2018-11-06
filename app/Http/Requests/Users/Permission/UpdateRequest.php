@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Users\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,12 +25,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|string|unique:permissions|max:255'
+            'updatedPermissionId' => 'required|integer',
+            'name' => sprintf('required|string|unique:permissions,name,%s|max:255', $this->updatedPermissionId),
         ];
-
-        if ($this->updatedPermissionId) {
-            $rules['name'] = sprintf('required|string|unique:permissions,name,%s|max:255', $this->updatedPermissionId);
-        }
 
         return $rules;
     }

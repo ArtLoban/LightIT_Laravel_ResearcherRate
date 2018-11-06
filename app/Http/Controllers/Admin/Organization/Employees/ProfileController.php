@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Organization\Employees;
+namespace App\Http\Controllers\Admin\Organization\Employees;
 
 use App\Http\Requests\Organization\Employees\Profile\StoreRequest;
 use App\Models\Organization\Employees\Profile;
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
-use Illuminate\Http\Request;
+use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
 use App\Http\Controllers\Controller;
 use App\Services\Organization\Employees\Profile\Repository\Contracts\Repository as ProfileRepository;
 use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
@@ -72,46 +72,15 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request, KeyGenerator $keyGenerator)
+    public function store(StoreRequest $request, KeyGenerator $keyGenerator, BlankUserRepository $blankUserRepository)
     {
         $newProfile = $this->profileRepository->create($request->all());
-        $newProfile->blankUser()->create(['personal_key' => $keyGenerator->generate()]);
+        $blankUserRepository->create([
+            'personal_key' => $keyGenerator->generate(),
+            'profile_id' => $newProfile->getKey()
+        ]);
 
         return redirect()->route('profiles.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

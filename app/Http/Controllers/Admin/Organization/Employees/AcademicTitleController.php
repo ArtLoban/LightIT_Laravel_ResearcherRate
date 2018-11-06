@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Organization\Employees;
+namespace App\Http\Controllers\Admin\Organization\Employees;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository as AcademicDegreeRepository;
+use App\Services\Organization\Employees\AcademicTitle\Repository\Contracts\Repository as AcademicTitleRepository;
 
-class AcademicDegreeController extends Controller
+class AcademicTitleController extends Controller
 {
     /**
-     * @var AcademicDegreeRepository
+     * @var AcademicTitleRepository
      */
-    private $academicDegreeRepository;
+    private $academicTitleRepository;
 
     /**
-     * AcademicDegreeController constructor.
-     * @param AcademicDegreeRepository $academicDegreeRepository
+     * AcademicTitleController constructor.
+     * @param AcademicTitleRepository $academicTitleRepository
      */
-    public function __construct(AcademicDegreeRepository $academicDegreeRepository)
+    public function __construct(AcademicTitleRepository $academicTitleRepository)
     {
-        $this->academicDegreeRepository = $academicDegreeRepository;
+        $this->academicTitleRepository = $academicTitleRepository;
     }
 
     /**
@@ -29,7 +29,7 @@ class AcademicDegreeController extends Controller
      */
     public function index()
     {
-        return view('admin.academic_degrees.index', ['academicDegrees' => $this->academicDegreeRepository->all()]);
+        return view('admin.academic_titles.index', ['academicTitles' => $this->academicTitleRepository->all()]);
     }
 
     /**

@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Organization\Facility;
+namespace App\Http\Controllers\Admin\Users;
 
-use App\Services\Organization\Facility\Department\Repository\Contracts\Repository as DepartmentRepository;
 use Illuminate\Http\Request;
+use App\Models\Users\BlankUser;
 use App\Http\Controllers\Controller;
+use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
 
-class DepartmentController extends Controller
+class BlankUserController extends Controller
 {
     /**
-     * @var DepartmentRepository
+     * @var BlankUserRepository
      */
-    private $departmentRepository;
+    private $blankUserRepository;
 
     /**
-     * DepartmentController constructor.
-     * @param DepartmentRepository $departmentRepository
+     * BlankUserController constructor.
+     * @param BlankUserRepository $blankUserRepository
      */
-    public function __construct(DepartmentRepository $departmentRepository)
+    public function __construct(BlankUserRepository $blankUserRepository)
     {
-        $this->departmentRepository = $departmentRepository;
+        $this->blankUserRepository = $blankUserRepository;
     }
 
     /**
@@ -29,8 +30,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-//        dd($this->departmentRepository->all());
-        return view('admin.departments.index', ['departments' => $this->departmentRepository->all()]);
+        return view('admin.blank_users.index', [ 'blankUsers' =>  $this->blankUserRepository->all()]);
     }
 
     /**
@@ -60,9 +60,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(BlankUser $blankUser)
     {
-        //
+        return view('admin.blank_users.show', ['blankUser' => $blankUser]);
     }
 
     /**
@@ -73,7 +73,7 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

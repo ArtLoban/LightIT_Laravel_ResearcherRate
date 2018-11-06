@@ -16,13 +16,4 @@ class Repository extends RepositoryAbstract implements RoleRepository
     {
         return Role::class;
     }
-
-    /**
-     * @param int $id
-     * @return Collection|null
-     */
-    public function getAllPermissionsByRoleId(int $id): ?Collection
-    {
-        return $this->className::find($id)->permissionRoles()->with('permission')->get()->pluck('permission');
-    }
 }
