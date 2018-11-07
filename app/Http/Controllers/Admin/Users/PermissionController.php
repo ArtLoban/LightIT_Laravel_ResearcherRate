@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Models\Users\Permission;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\Permission\StoreRequest;
-use App\Http\Requests\Users\Permission\UpdateRequest;
+use App\Http\Requests\Admin\Users\Permission\StoreRequest;
+use App\Http\Requests\Admin\Users\Permission\UpdateRequest;
 use App\Services\Users\Permission\Repository\Contracts\Repository as PermissionRepository;
 
 class PermissionController extends Controller

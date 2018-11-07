@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Organization\Employees;
 
-use App\Http\Requests\Organization\Employees\Profile\StoreRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Organization\Employees\Profile;
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
+use App\Http\Requests\Admin\Organization\Employees\Profile\StoreRequest;
 use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
-use App\Http\Controllers\Controller;
 use App\Services\Organization\Employees\Profile\Repository\Contracts\Repository as ProfileRepository;
 use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
 use App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository as AcademicDegreeRepository;

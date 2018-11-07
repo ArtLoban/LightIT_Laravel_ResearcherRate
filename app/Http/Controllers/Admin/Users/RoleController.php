@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Http\Requests\Admin\Users\Role\StoreRequest;
+use App\Http\Requests\Admin\Users\Role\UpdateRequest;
 use App\Models\Users\Role;
 use App\Http\Controllers\Controller;
 use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
@@ -36,15 +38,77 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for creating a new resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.roles.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreRequest $request)
+    {
+        $this->roleRepository->create($request->all());
+
+        return redirect()->route('roles.index');
+    }
+
+    /**
+     * Display the specified resource
+     *
+     * @param Role $role
+     * @param PermissionRoleRepository $permissionRoleRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Role $role, PermissionRoleRepository $permissionRoleRepository )
     {
         $permissions = $permissionRoleRepository->getAllPermissionsByRoleId($role->getKey());
 
         return view('admin.roles.show', ['role' => $role, 'permissions' => $permissions]);
+    }
+
+    /**
+     * Show the form for editing the specified resource
+     *
+     * @param Role $role
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Role $role)
+    {
+        return view('admin.roles.edit', ['role' => $role]);
+    }
+
+    /**
+     * Update the specified resource in storage
+     *
+     * @param UpdateRequest $request
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateRequest $request, Role $role)
+    {
+        $this->roleRepository->updateById($role->getKey(), $request->input());
+
+        return redirect()->route('roles.index');
+    }
+
+    /**
+     * Remove the specified resource from storage
+     *
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Role $role)
+    {
+        $this->roleRepository->delete($role);
+
+        return back();
     }
 }

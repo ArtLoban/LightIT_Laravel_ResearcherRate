@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Organization\Facility;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Organization\Facility\Department;
+use App\Http\Requests\Admin\Organization\Facility\Department\StoreRequest;
+use App\Http\Requests\Admin\Organization\Facility\Department\UpdateRequest;
+use App\Services\Organization\Facility\Faculty\Repository\Contracts\Repository as FacultyRepository;
 use App\Services\Organization\Facility\Department\Repository\Contracts\Repository as DepartmentRepository;
 
 class DepartmentController extends Controller
@@ -29,7 +32,6 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-//        dd($this->departmentRepository->all());
         return view('admin.departments.index', ['departments' => $this->departmentRepository->all()]);
     }
 
@@ -38,9 +40,9 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FacultyRepository $facultyRepository)
     {
-        //
+        return view('admin.departments.create', ['faculties' => $facultyRepository->all()]);
     }
 
     /**
@@ -49,20 +51,11 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
-    }
+        $this->departmentRepository->create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('departments.index');
     }
 
     /**
@@ -71,9 +64,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Department $department, FacultyRepository $facultyRepository)
     {
-        //
+        return view('admin.departments.edit', ['department' => $department, 'faculties' => $facultyRepository->all()]);
     }
 
     /**
@@ -83,9 +76,12 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Department $department)
     {
-        //
+        dd($request->cookie('name'));
+        $this->departmentRepository->updateById($department->getKey(), $request->input());
+
+        return redirect()->route('departments.index');
     }
 
     /**
@@ -94,8 +90,10 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        //
+        $this->departmentRepository->delete($department);
+
+        return back();
     }
 }

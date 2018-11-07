@@ -7,7 +7,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Edit permission
+                Edit department
             </h1>
         </section>
 
@@ -17,7 +17,7 @@
             <!-- Default box -->
             <div class="box">
 
-                {!! Form::open(['route' => ['permissions.update', $permission->getKey()],
+                {!! Form::open(['route' => ['departments.update', $department->getKey()],
                                 'method' => 'put']) !!}
 
                 <div class="box-body">
@@ -25,7 +25,7 @@
 
                         @include('admin.errors')
 
-                        <input type="hidden" name="updatedPermissionId" value="{{ $permission->getKey() }}">
+                        <input type="hidden" name="updatedDepartmentId" value="{{ $department->getKey() }}">
                         <div class="form-group">
                             <label for="inputName">Name<span class="field-required_star"> *</span></label>
                             <input
@@ -33,7 +33,21 @@
                                 class="form-control"
                                 name="name"
                                 id="inputName"
-                                value="{{ $permission->name }}">
+                                value="{{ $department->name }}"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label>Faculty<span class="field-required_star"> *</span></label>
+                            <select name="faculty_id" class="form-control" required>
+                                @foreach($faculties as $faculty)
+                                    <option
+                                        value = "{{ $faculty->getKey() }}"
+                                        @if ($department->faculty_id === $faculty->getKey()) {{ 'selected' }} @endif
+                                    >
+                                        {{ $faculty->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -45,7 +59,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button class="btn btn-warning">Update</button>
-                    <a href="{{ route('permissions.index')}}" class="btn btn-default">Back</a>
+                    <a href="{{ route('departments.index')}}" class="btn btn-default">Back</a>
                 </div>
                 <!-- /.box-footer-->
 

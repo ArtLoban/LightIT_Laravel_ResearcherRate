@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Users\Permission;
+namespace App\Http\Requests\Admin\Organization\Facility\Faculty;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
@@ -25,8 +25,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'updatedPermissionId' => 'required|integer',
-            'name' => sprintf('required|string|unique:permissions,name,%s|max:255', $this->updatedPermissionId),
+            'updatedFacultyId' => 'required|integer',
+            'name' => sprintf('required|string|unique:faculties,name,%s|max:255', $this->updatedFacultyId),
         ];
 
         return $rules;

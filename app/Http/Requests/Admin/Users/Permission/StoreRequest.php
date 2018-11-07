@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Organization\Employees\Profile;
+namespace App\Http\Requests\Admin\Users\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -25,14 +25,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
-            'patronymic' => 'nullable|string|max:255',
-            'birth_date' => 'required|date_format:Y-m-d',
-            'position_id' => 'required|integer',
-            'ac_degree_id' => 'required|integer',
-            'ac_title_id' => 'required|integer',
-            'department_id' => 'required|integer',
+            'name' => 'required|string|unique:permissions|max:255'
         ];
     }
 }

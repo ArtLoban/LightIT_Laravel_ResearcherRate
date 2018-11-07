@@ -7,7 +7,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Add permission
+            Add faculty
         </h1>
     </section>
 
@@ -17,7 +17,7 @@
         <!-- Default box -->
         <div class="box">
 
-            {!! Form::open(['route' => 'permissions.store']) !!}
+            {!! Form::open(['route' => 'faculties.store']) !!}
 
             <div class="box-body">
                 <div class="col-md-6">
@@ -38,7 +38,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <button class="btn btn-success">Add</button>
-                <a href="{{ route('permissions.index')}}" class="btn btn-default">Back</a>
+                <a href="{{ route('faculties.index')}}" class="btn btn-default">Back</a>
             </div>
             <!-- /.box-footer-->
             {!! Form::close() !!}

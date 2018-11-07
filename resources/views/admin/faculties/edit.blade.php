@@ -7,7 +7,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Edit permission
+                Edit faculty
             </h1>
         </section>
 
@@ -17,7 +17,7 @@
             <!-- Default box -->
             <div class="box">
 
-                {!! Form::open(['route' => ['permissions.update', $permission->getKey()],
+                {!! Form::open(['route' => ['faculties.update', $faculty->getKey()],
                                 'method' => 'put']) !!}
 
                 <div class="box-body">
@@ -25,27 +25,23 @@
 
                         @include('admin.errors')
 
-                        <input type="hidden" name="updatedPermissionId" value="{{ $permission->getKey() }}">
+                        <input type="hidden" name="updatedFacultyId" value="{{ $faculty->getKey() }}">
                         <div class="form-group">
-                            <label for="inputName">Name<span class="field-required_star"> *</span></label>
+                            <label for="inputName">Name</label>
                             <input
                                 type="text"
                                 class="form-control"
                                 name="name"
                                 id="inputName"
-                                value="{{ $permission->name }}">
+                                value="{{ $faculty->name }}"
+                            >
                         </div>
                     </div>
-                </div>
-                <div class="box-body">
-                    <p class="help-block">
-                        <span class="field-required_star"> *</span> - Field is required
-                    </p>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button class="btn btn-warning">Update</button>
-                    <a href="{{ route('permissions.index')}}" class="btn btn-default">Back</a>
+                    <a href="{{ route('faculties.index')}}" class="btn btn-default">Back</a>
                 </div>
                 <!-- /.box-footer-->
 

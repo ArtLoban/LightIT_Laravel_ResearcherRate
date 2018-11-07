@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 Route::group([
     'prefix' => 'admin',
-//    'middleware' => 'auth'
+    'middleware' => 'auth'
 ], function() {
     Route::resource('/', 'Admin\DashboardController');
     Route::resource('/dashboard', 'Admin\DashboardController');

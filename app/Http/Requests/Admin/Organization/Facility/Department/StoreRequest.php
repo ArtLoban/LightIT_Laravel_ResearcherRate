@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Users\Permission;
+namespace App\Http\Requests\Admin\Organization\Facility\Department;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
 {
@@ -25,7 +25,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:permissions|max:255'
+            'name' => 'required|string|unique:departments|max:255',
+            'faculty_id' => 'required|integer'
         ];
     }
 }

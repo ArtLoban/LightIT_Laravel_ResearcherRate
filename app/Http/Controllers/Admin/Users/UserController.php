@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Http\Requests\Admin\Users\User\StoreRequest;
+use App\Http\Requests\Admin\Users\User\UpdateRequest;
 use App\Models\Users\User;
 use App\Http\Controllers\Controller;
+use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
+use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
 use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
 
 class UserController extends Controller
@@ -33,6 +37,29 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(RoleRepository $roleRepository)
+    {
+        return view('admin.users.create', ['roles' => $roleRepository->all()]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreRequest $request)
+    {
+        $this->userRepository->create($request->all());
+
+        return redirect()->route('users.index');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -43,6 +70,32 @@ class UserController extends Controller
         $userWithRelations = $this->userRepository->getWithNestedRelationsById($user->getKey());
 
         return view('admin.users.show', ['user' => $userWithRelations]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user, RoleRepository $roleRepository)
+    {
+        return view('admin.users.edit', ['user' => $user, 'roles' => $roleRepository->all()]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateRequest $request, User $user, DataTransformer $transformer)
+    {
+        $transformedData = $transformer->transform($request->input());
+        $this->userRepository->updateById($user->getKey(), $transformedData);
+
+        return redirect()->route('users.index');
     }
 
     /**

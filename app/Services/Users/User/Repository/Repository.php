@@ -3,11 +3,27 @@
 namespace App\Services\Users\User\Repository;
 
 use App\Models\Users\User;
-use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
+use App\Helpers\Hasher\Contracts\HasherInterface;
 use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
 
 class Repository extends RepositoryAbstract implements UserRepository
 {
+    /**
+     * @var HasherInterface
+     */
+    private $hasher;
+
+    /**
+     * Repository constructor.
+     * @param HasherInterface $hasher
+     */
+    public function __construct(HasherInterface $hasher)
+    {
+        parent::__construct();
+        $this->hasher = $hasher;
+    }
+
     /**
      * @return string
      */
@@ -17,10 +33,23 @@ class Repository extends RepositoryAbstract implements UserRepository
     }
 
     /**
-     * @param int $id
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data)
+    {
+        if ($data['password']) {
+            $data['password'] = $this->hasher->make($data['password']);
+        }
+
+        return $this->className::create($data);
+    }
+
+    /**
+     * @param int $userId
      * @return User
      */
-    public function getWithNestedRelationsById(int $id): User
+    public function getWithNestedRelationsById(int $userId): User
     {
         return $this->className::with([
                 'role',
@@ -28,6 +57,6 @@ class Repository extends RepositoryAbstract implements UserRepository
                 'profile.academicDegree',
                 'profile.academicTitle',
                 'profile.department'
-            ])->whereId($id)->firstOrFail();
+            ])->whereId($userId)->firstOrFail();
     }
 }

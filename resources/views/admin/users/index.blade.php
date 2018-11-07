@@ -43,7 +43,7 @@
                                 </td>
                                 <td>{{ $user->role->name }}</td>
                                 <td>
-                                    <a href="#" class="fa fa-pencil"></a>
+                                    <a href="{{ route('users.edit', $user->getKey()) }}" class="fa fa-pencil"></a>
                                     {!! Form::open([
                                         'route' => ['users.destroy', $user->getKey()],
                                         'method' => 'delete'])
