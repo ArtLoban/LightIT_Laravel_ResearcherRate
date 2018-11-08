@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Organization\Employees;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Organization\Employees\AcademicDegree;
+use App\Http\Requests\Admin\Organization\Employees\AcademicDegree\StoreRequest;
+use App\Http\Requests\Admin\Organization\Employees\AcademicDegree\UpdateRequest;
 use App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository as AcademicDegreeRepository;
 
 class AcademicDegreeController extends Controller
@@ -23,9 +25,7 @@ class AcademicDegreeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -33,31 +33,26 @@ class AcademicDegreeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('admin.academic_degrees.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $this->academicDegreeRepository->create($request->all());
+
+        return redirect()->route('academic_degrees.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function show($id)
     {
@@ -65,36 +60,34 @@ class AcademicDegreeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param AcademicDegree $academicDegree
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(AcademicDegree $academicDegree)
     {
-        //
+        return view('admin.academic_degrees.edit', ['academicDegree' => $academicDegree]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param AcademicDegree $academicDegree
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, AcademicDegree $academicDegree)
     {
-        //
+        $this->academicDegreeRepository->updateById($academicDegree->getKey(), $request->input());
+
+        return redirect()->route('academic_degrees.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param AcademicDegree $academicDegree
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(AcademicDegree $academicDegree)
     {
-        //
+        $this->academicDegreeRepository->delete($academicDegree);
+
+        return back();
     }
 }

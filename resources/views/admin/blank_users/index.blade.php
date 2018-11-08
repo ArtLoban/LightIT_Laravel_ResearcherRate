@@ -22,6 +22,7 @@
                             <th>ID</th>
                             <th>Profile id</th>
                             <th>Personal key</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -30,6 +31,17 @@
                                 <td>{{ $blankUser->getKey() }}</td>
                                 <td>{{ $blankUser->profile_id }}</td>
                                 <td>{{ $blankUser->personal_key }}</td>
+                                <td>
+                                    <a href="{{ route('blank_users.edit', $blankUser->getKey()) }}" class="fa fa-pencil"></a>
+                                    {!! Form::open([
+                                        'route' => ['blank_users.destroy', $blankUser->getKey()],
+                                        'method' => 'delete'])
+                                    !!}
+                                        <button type="submit" class="delete-task" onclick="return confirm('Are you sure?')">
+                                            <a class="fa fa-remove"></a>
+                                        </button>
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

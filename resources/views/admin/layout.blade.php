@@ -152,7 +152,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('permissions.index') }}">
+                    <a href="{{ route('assign_permissions.index') }}">
                         <i class="fa fa-check-circle-o"></i><span>Assign permissions</span>
                     </a>
                 </li>

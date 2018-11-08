@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Organization\Employees;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Organization\Employees\AcademicTitle;
+use App\Http\Requests\Admin\Organization\Employees\AcademicTitle\StoreRequest;
+use App\Http\Requests\Admin\Organization\Employees\AcademicTitle\UpdateRequest;
 use App\Services\Organization\Employees\AcademicTitle\Repository\Contracts\Repository as AcademicTitleRepository;
 
 class AcademicTitleController extends Controller
@@ -33,31 +35,26 @@ class AcademicTitleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('admin.academic_titles.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $this->academicTitleRepository->create($request->all());
+
+        return redirect()->route('academic_titles.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function show($id)
     {
@@ -65,36 +62,34 @@ class AcademicTitleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param AcademicTitle $academicTitle
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(AcademicTitle $academicTitle)
     {
-        //
+        return view('admin.academic_titles.edit', ['academicTitle' => $academicTitle]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param AcademicTitle $academicTitle
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, academicTitle $academicTitle)
     {
-        //
+        $this->academicTitleRepository->updateById($academicTitle->getKey(), $request->input());
+
+        return redirect()->route('academic_titles.index');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param AcademicTitle $academicTitle
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(AcademicTitle $academicTitle)
     {
-        //
+        $this->academicTitleRepository->delete($academicTitle);
+
+        return back();
     }
 }

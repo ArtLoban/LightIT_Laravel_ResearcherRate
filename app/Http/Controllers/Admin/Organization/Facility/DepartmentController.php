@@ -78,7 +78,6 @@ class DepartmentController extends Controller
      */
     public function update(UpdateRequest $request, Department $department)
     {
-        dd($request->cookie('name'));
         $this->departmentRepository->updateById($department->getKey(), $request->input());
 
         return redirect()->route('departments.index');

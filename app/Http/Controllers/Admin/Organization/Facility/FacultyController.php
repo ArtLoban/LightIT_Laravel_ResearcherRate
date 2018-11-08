@@ -34,11 +34,18 @@ class FacultyController extends Controller
         return view('admin.faculties.index', ['faculties' => $this->facultyRepository->all()]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.faculties.create');
     }
 
+    /**
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreRequest $request)
     {
         $this->facultyRepository->create($request->all());
@@ -46,11 +53,20 @@ class FacultyController extends Controller
         return redirect()->route('faculties.index');
     }
 
+    /**
+     * @param Faculty $faculty
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Faculty $faculty)
     {
         return view('admin.faculties.edit', ['faculty' => $faculty]);
     }
 
+    /**
+     * @param UpdateRequest $request
+     * @param Faculty $faculty
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(UpdateRequest $request, Faculty $faculty)
     {
         $this->facultyRepository->updateById($faculty->getKey(), $request->input());
@@ -58,6 +74,10 @@ class FacultyController extends Controller
         return redirect()->route('faculties.index');
     }
 
+    /**
+     * @param Faculty $faculty
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Faculty $faculty)
     {
         $this->facultyRepository->delete($faculty);

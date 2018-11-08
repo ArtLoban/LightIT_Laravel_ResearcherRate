@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization\Employees\Profile;
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
 use App\Http\Requests\Admin\Organization\Employees\Profile\StoreRequest;
+use App\Http\Requests\Admin\Organization\Employees\Profile\UpdateRequest;
 use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
 use App\Services\Organization\Employees\Profile\Repository\Contracts\Repository as ProfileRepository;
 use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
@@ -30,9 +31,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -48,9 +47,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param PositionRepository $positionRepository
+     * @param AcademicDegreeRepository $academicDegreeRepository
+     * @param AcademicTitleRepository $academicTitleRepository
+     * @param DepartmentRepository $departmentRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(
         PositionRepository $positionRepository,
@@ -67,10 +68,10 @@ class ProfileController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRequest $request
+     * @param KeyGenerator $keyGenerator
+     * @param BlankUserRepository $blankUserRepository
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreRequest $request, KeyGenerator $keyGenerator, BlankUserRepository $blankUserRepository)
     {
@@ -84,10 +85,44 @@ class ProfileController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Profile $profile
+     * @param PositionRepository $positionRepository
+     * @param AcademicDegreeRepository $academicDegreeRepository
+     * @param AcademicTitleRepository $academicTitleRepository
+     * @param DepartmentRepository $departmentRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(
+        Profile $profile,
+        PositionRepository $positionRepository,
+        AcademicDegreeRepository $academicDegreeRepository,
+        AcademicTitleRepository $academicTitleRepository,
+        DepartmentRepository $departmentRepository
+    ) {
+        return view('admin.profiles.edit', [
+            'profile' => $profile,
+            'positions' => $positionRepository->all(),
+            'academicDegrees' => $academicDegreeRepository->all(),
+            'academicTitles' => $academicTitleRepository->all(),
+            'departments' => $departmentRepository->all()
+        ]);
+    }
+
+    /**
+     * @param UpdateRequest $request
+     * @param Profile $profile
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateRequest $request, Profile $profile)
+    {
+        $this->profileRepository->updateById($profile->getKey(), $request->input());
+
+        return redirect()->route('profiles.index');
+    }
+
+    /**
+     * @param Profile $profile
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Profile $profile)
     {

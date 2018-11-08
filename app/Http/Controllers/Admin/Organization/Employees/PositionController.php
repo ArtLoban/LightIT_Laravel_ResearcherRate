@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Organization\Employees;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Organization\Employees\Position\StoreRequest;
+use App\Http\Requests\Admin\Organization\Employees\Position\UpdateRequest;
+use App\Models\Organization\Employees\Position;
 use App\Http\Controllers\Controller;
 use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
 
@@ -39,7 +41,7 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.positions.create');
     }
 
     /**
@@ -48,9 +50,11 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $this->positionRepository->create($request->all());
+
+        return redirect()->route('positions.index');
     }
 
     /**
@@ -70,9 +74,9 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Position $position)
     {
-        //
+        return view('admin.positions.edit', ['position' => $position]);
     }
 
     /**
@@ -82,9 +86,11 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Position $position)
     {
-        //
+        $this->positionRepository->updateById($position->getKey(), $request->input());
+
+        return redirect()->route('positions.index');
     }
 
     /**
@@ -93,8 +99,10 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Position $position)
     {
-        //
+        $this->positionRepository->delete($position);
+
+        return back();
     }
 }
