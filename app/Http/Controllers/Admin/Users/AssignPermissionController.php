@@ -3,16 +3,34 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Users\PermissionRole\UpdateRequest;
+use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
 use App\Services\Users\Permission\Repository\Contracts\Repository as PermissionRepository;
 use App\Services\Users\PermissionRole\Repository\Contracts\Repository as PermissionRoleRepository;
-use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
 
 class AssignPermissionController extends Controller
 {
+    /**
+     * @var RoleRepository
+     */
     private $roleRepository;
+
+    /**
+     * @var PermissionRepository
+     */
     private $permissionRepository;
+
+    /**
+     * @var PermissionRoleRepository
+     */
     private $permissionRoleRepository;
 
+    /**
+     * AssignPermissionController constructor.
+     * @param RoleRepository $roleRepository
+     * @param PermissionRepository $permissionRepository
+     * @param PermissionRoleRepository $permissionRoleRepository
+     */
     public function __construct(
         RoleRepository $roleRepository,
         PermissionRepository $permissionRepository,
@@ -46,9 +64,14 @@ class AssignPermissionController extends Controller
         ]);
     }
 
-    public function update(UpdateRequest $request, $roleId)
+    /**
+     * @param UpdateRequest $request
+     * @param int $roleId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateRequest $request, int $roleId)
     {
-//        $this->permissionRepository->updateById($permissionId, $request->input());
+        $this->permissionRoleRepository->updateByRoleId($roleId, $request->permission_id);
 
         return redirect()->route('assign_permissions.index');
     }

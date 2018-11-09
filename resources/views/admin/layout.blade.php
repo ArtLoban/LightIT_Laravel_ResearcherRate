@@ -136,6 +136,7 @@
 
                 </li>
                 <hr>
+                @can('fullAccess')
                 <li>
                     <a href="{{ route('users.index') }}">
                         <i class="fa fa-users"></i><span>Users</span>
@@ -157,6 +158,7 @@
                     </a>
                 </li>
                 <hr>
+                @endcan
                 <li>
                     <a href="{{ route('faculties.index') }}">
                         <i class="fa fa-graduation-cap"></i><span>Faculties</span>
@@ -168,17 +170,22 @@
                     </a>
                 </li>
                 <hr>
+                @can('seeProfiles')
                 <li>
                     <a href="{{ route('profiles.index') }}">
                         <i class="fa fa-files-o"></i><span>Profiles</span>
                     </a>
                 </li>
+                <hr>
+                @endcan
+                @can('fullAccess')
                 <li>
                     <a href="{{ route('blank_users.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Blank Users</span>
                     </a>
                 </li>
                 <hr>
+                @endcan
                 <li>
                     <a href="{{ route('positions.index') }}">
                         <i class="fa fa-paper-plane"></i><span>Positions</span>

@@ -13,6 +13,7 @@ use App\Services\Organization\Employees\Position\Repository\Contracts\Repository
 use App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository as AcademicDegreeRepository;
 use App\Services\Organization\Employees\AcademicTitle\Repository\Contracts\Repository as AcademicTitleRepository;
 use App\Services\Organization\Facility\Department\Repository\Contracts\Repository as DepartmentRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -35,15 +36,19 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $allProfilesWithRelations = $this->profileRepository->allWithRelations([
-            'academicDegree',
-            'academicTitle',
-            'position',
-            'department',
-            'user'
-        ]);
+        $profiles = $this->profileRepository
+            ->getProfilesBySameDepartment(
+                Auth::getUser()->profile,
+                [
+                    'academicDegree',
+                    'academicTitle',
+                    'position',
+                    'department',
+                    'user'
+                ]
+            );
 
-        return view('admin.profiles.index', ['profiles' => $allProfilesWithRelations]);
+        return view('admin.profiles.index', ['profiles' => $profiles]);
     }
 
     /**

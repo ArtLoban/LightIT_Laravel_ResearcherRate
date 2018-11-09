@@ -36,12 +36,6 @@ class UserSeeder extends Seeder
                 'remember_token' => str_random(10)
             ],
             [
-                'email' => 'admin@mail.com',
-                'password' => bcrypt(111111),
-                'role_id' => Role::ADMIN,
-                'remember_token' => str_random(10)
-            ],
-            [
                 'email' => 'senior_admin@mail.com',
                 'password' => bcrypt(111111),
                 'role_id' => Role::SENIOR_ADMIN,

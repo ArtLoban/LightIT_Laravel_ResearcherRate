@@ -54,10 +54,10 @@ abstract class RepositoryAbstract
 
     /**
      * @param int $id
-     * @param string $relations
+     * @param array $relations
      * @return mixed
      */
-    public function getWithRelations(int $id, string $relations)
+    public function getWithRelations(int $id, array $relations)
     {
         return $this->className::with($relations)->whereId($id)->first();
     }

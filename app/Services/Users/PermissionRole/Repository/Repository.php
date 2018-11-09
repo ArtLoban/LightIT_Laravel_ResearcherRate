@@ -34,4 +34,50 @@ class Repository extends RepositoryAbstract implements PermissionRoleRepository
     {
         return  $this->className::where('role_id', $roleId)->pluck('permission_id');
     }
+
+    /**
+     * @param int $roleId
+     * @param array|null $permissions
+     */
+    public function updateByRoleId(int $roleId, ?array $permissions = [])
+    {
+        $assignedPermissions = $this->getAllPermissionIdsByRoleId($roleId);
+        $permissionsToRemove = $assignedPermissions->diff($permissions);
+        $permissionsToAdd = collect($permissions)->diff($assignedPermissions);
+
+        if ($permissionsToAdd->isNotEmpty()) {
+            $data = $this->transformData($roleId, $permissionsToAdd->all());
+
+            $this->className::insert($data);
+        }
+
+        if ($permissionsToRemove->isNotEmpty()) {
+            $this->deleteByIdValues($roleId, $permissionsToRemove->all());
+        }
+    }
+
+    /**
+     * @param $roleId
+     * @param $permissionIds
+     * @return array
+     */
+    private function transformData($roleId, $permissionIds): array
+    {
+        $data = [];
+        foreach ($permissionIds as $permissionId) {
+            $data[] = ['role_id' => $roleId, 'permission_id' => $permissionId];
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param int $roleId
+     * @param array $permissionIds
+     * @return mixed
+     */
+    private function deleteByIdValues(int $roleId, array $permissionIds)
+    {
+        return $this->className::where('role_id', $roleId)->whereIn('permission_id', $permissionIds)->delete();
+    }
 }

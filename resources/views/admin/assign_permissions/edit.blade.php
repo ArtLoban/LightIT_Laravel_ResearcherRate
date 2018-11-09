@@ -22,13 +22,14 @@
 
                         {!! Form::open(['route' => ['assign_permissions.update', $role->getKey()],
                                 'method' => 'put']) !!}
+                            @include('admin.errors')
                             <div class="form-group">
                                 @forelse($permissions as $permission)
                                     <div class="checkbox">
                                         <label>
                                             <input
                                                 type="checkbox"
-                                                name="role_id"
+                                                name="permission_id[]"
                                                 value="{{ $permission->getKey() }}"
                                                 @if ($assignedPermissions->contains($permission->getKey()) ) {{ 'checked' }} @endif
                                             >
