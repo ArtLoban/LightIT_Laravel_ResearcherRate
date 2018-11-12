@@ -51,12 +51,20 @@ class Repository extends RepositoryAbstract implements UserRepository
      */
     public function getWithNestedRelationsById(int $userId): User
     {
-        return $this->className::with([
-                'role',
-                'profile.position',
-                'profile.academicDegree',
-                'profile.academicTitle',
-                'profile.department'
-            ])->whereId($userId)->firstOrFail();
+        return $this->className::with($this->getRelations())->whereId($userId)->firstOrFail();
+    }
+
+    /**
+     * @return array
+     */
+    private function getRelations(): array
+    {
+        return [
+            'role',
+            'profile.position',
+            'profile.academicDegree',
+            'profile.academicTitle',
+            'profile.department'
+        ];
     }
 }

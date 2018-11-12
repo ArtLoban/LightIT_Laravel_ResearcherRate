@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Organization\Employees;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Organization\Employees\Profile;
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
@@ -13,7 +14,6 @@ use App\Services\Organization\Employees\Position\Repository\Contracts\Repository
 use App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository as AcademicDegreeRepository;
 use App\Services\Organization\Employees\AcademicTitle\Repository\Contracts\Repository as AcademicTitleRepository;
 use App\Services\Organization\Facility\Department\Repository\Contracts\Repository as DepartmentRepository;
-use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -36,17 +36,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profiles = $this->profileRepository
-            ->getProfilesBySameDepartment(
-                Auth::getUser()->profile,
-                [
-                    'academicDegree',
-                    'academicTitle',
-                    'position',
-                    'department',
-                    'user'
-                ]
-            );
+        $profiles = $this->profileRepository->getProfilesBySameDepartment(Auth::getUser()->profile);
 
         return view('admin.profiles.index', ['profiles' => $profiles]);
     }

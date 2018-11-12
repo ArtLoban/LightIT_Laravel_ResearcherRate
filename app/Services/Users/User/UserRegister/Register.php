@@ -15,10 +15,12 @@ class Register implements UserRegister
      * @var UserRepository
      */
     private $userRepository;
+
     /**
      * @var HasherInterface
      */
     private $hasher;
+
     /**
      * @var BlankUserRepository
      */
