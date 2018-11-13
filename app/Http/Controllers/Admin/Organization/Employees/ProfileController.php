@@ -54,12 +54,13 @@ class ProfileController extends Controller
         AcademicTitleRepository $academicTitleRepository,
         DepartmentRepository $departmentRepository
     ) {
-        return view('admin.profiles.create', [
-            'positions' => $positionRepository->all(),
-            'academicDegrees' => $academicDegreeRepository->all(),
-            'academicTitles' => $academicTitleRepository->all(),
-            'departments' => $departmentRepository->all(),
-        ]);
+        return view('admin.profiles.create')
+            ->with([
+                'positions' => $positionRepository->all(),
+                'academicDegrees' => $academicDegreeRepository->all(),
+                'academicTitles' => $academicTitleRepository->all(),
+                'departments' => $departmentRepository->all(),
+            ]);
     }
 
     /**
@@ -94,13 +95,14 @@ class ProfileController extends Controller
         AcademicTitleRepository $academicTitleRepository,
         DepartmentRepository $departmentRepository
     ) {
-        return view('admin.profiles.edit', [
-            'profile' => $profile,
-            'positions' => $positionRepository->all(),
-            'academicDegrees' => $academicDegreeRepository->all(),
-            'academicTitles' => $academicTitleRepository->all(),
-            'departments' => $departmentRepository->all()
-        ]);
+        return view('admin.profiles.edit')
+            ->with([
+                'profile' => $profile,
+                'positions' => $positionRepository->all(),
+                'academicDegrees' => $academicDegreeRepository->all(),
+                'academicTitles' => $academicTitleRepository->all(),
+                'departments' => $departmentRepository->all()
+            ]);
     }
 
     /**

@@ -6,6 +6,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', 'IndexController@index')->name('/');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
 Route::group([
     'middleware' => ['auth', 'can:accessAdminPanel'],
     'prefix' => 'admin',
@@ -27,9 +32,16 @@ Route::group([
     Route::resource('/academic_titles', 'Organization\Employees\AcademicTitleController');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'cabinet',
+    'namespace' => 'Cabinet',
+], function() {
+    Route::get('/profile', 'ProfileController@index')->name('cabinet.profile');
+    Route::get('/articles', 'ArticleController@index')->name('cabinet.articles');
+    Route::get('/patents', 'PatentController@index')->name('cabinet.patents');
+    Route::get('/theses', 'ThesisController@index')->name('cabinet.theses');
+});
 
 Route::fallback(function () {
     print '<h1>404 -> Fallback route</h1>';
