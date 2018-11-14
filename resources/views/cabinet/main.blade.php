@@ -10,21 +10,61 @@
                         class="list-group-item  {{ Request::is('cabinet/profile') ? 'active' : '' }}">
                         Profile
                     </a>
-                    <a href="{{ route('cabinet.articles') }}"
-                       class="list-group-item {{ Request::is('cabinet/articles') ? 'active' : '' }}">
-                        Articles
-                    </a>
-                    <a href="{{ route('cabinet.patents') }}"
-                       class="list-group-item {{ Request::is('cabinet/patents') ? 'active' : '' }}">
-                        Patents
-                    </a>
-                    <a href="{{ route('cabinet.theses') }}"
-                       class="list-group-item {{ Request::is('cabinet/theses') ? 'active' : '' }}">
-                        Theses
+                    <div>
+                        <a href="#"
+                           class="list-group-item dropdown-toggle"
+                           data-toggle="collapse"
+                           data-target="#collapse-down-menu">
+                            Publications
+                        </a>
+                        <div id="collapse-down-menu" class="collapse">
+                            <div class="dropdown dropright">
+                                <a href="#"
+                                   class="list-group-item publication-item dropdown-toggle"
+                                   data-toggle="dropdown">
+                                    Scientific
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{{ route('cabinet.articles') }}"
+                                       class="list-group-item publication-item">
+                                        Articles
+                                    </a>
+                                    <a href="#"
+                                       class="list-group-item publication-item">
+                                        Patents
+                                    </a>
+                                    <a href="#"
+                                       class="list-group-item publication-item">
+                                        Theses
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="dropdown dropright">
+                                <a href="#"
+                                   class="list-group-item publication-item dropdown-toggle"
+                                   data-toggle="dropdown">
+                                    Academic
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="#"
+                                       class="list-group-item publication-item">
+                                        Articles
+                                    </a>
+                                    <a href="#"
+                                       class="list-group-item publication-item">
+                                        Theses
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"
+                       class="list-group-item">
+                        Menu item
                     </a>
                 </div>
             </div>
-            @yield('contentA')
+            @yield('cabinet')
         </div>
     </div>
 @endsection

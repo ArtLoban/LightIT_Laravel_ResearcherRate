@@ -13,6 +13,6 @@ class ThesisController extends Controller
      */
     public function index()
     {
-        return view('cabinet.theses');
+//        return view('cabinet.theses');
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
-use App\Http\Requests\Admin\Users\User\StoreRequest;
-use App\Http\Requests\Admin\Users\User\UpdateRequest;
 use App\Models\Users\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Users\User\StoreRequest;
+use App\Http\Requests\Admin\Users\User\UpdateRequest;
 use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
-use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
 use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
+use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
 
 class UserController extends Controller
 {

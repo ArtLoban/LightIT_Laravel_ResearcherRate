@@ -7,3 +7,12 @@ body {
         padding-top: 56px;
     }
 }
+
+.publication-item {
+    color: #fff;
+    background-color: #aab2b8;
+}
+
+footer {
+    height: 50px;
+}

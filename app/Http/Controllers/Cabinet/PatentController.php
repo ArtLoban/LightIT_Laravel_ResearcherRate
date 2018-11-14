@@ -13,6 +13,6 @@ class PatentController extends Controller
      */
     public function index()
     {
-        return view('cabinet.patents');
+//        return view('cabinet.patents');
     }
 }
