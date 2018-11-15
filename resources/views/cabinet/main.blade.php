@@ -25,7 +25,7 @@
                                     Scientific
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="{{ route('cabinet.articles') }}"
+                                    <a href="{{ route('articles.index') }}"
                                        class="list-group-item publication-item">
                                         Articles
                                     </a>

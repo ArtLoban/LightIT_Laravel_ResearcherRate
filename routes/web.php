@@ -40,7 +40,9 @@ Route::group([
     Route::get('/', 'ProfileController@index')->name('cabinet.profile');
     Route::get('/profile', 'ProfileController@index')->name('cabinet.profile');
     Route::put('/profile', 'ProfileController@update')->name('cabinet.profile.update');
-    Route::get('/articles', 'ArticleController@index')->name('cabinet.articles');
+
+    Route::resource('/articles', 'ArticleController');
+
     Route::get('/patents', 'PatentController@index')->name('cabinet.patents');
     Route::get('/theses', 'ThesisController@index')->name('cabinet.theses');
 });

@@ -2,7 +2,17 @@
 
 namespace App\Models\Publications\Articles\Journal;
 
-class JournalType
-{
+use Illuminate\Database\Eloquent\Model;
 
+class JournalType extends Model
+{
+    /**
+     * Get the Journals for the JournalType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function journals()
+    {
+        return $this->hasMany(Journal::class);
+    }
 }

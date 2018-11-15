@@ -2,7 +2,10 @@
 
 namespace App\Models\Publications\Articles\Article;
 
+use App\Models\Publications\Author;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Publications\PublicationType;
+use App\Models\Publications\Articles\Journal\Journal;
 
 class Article extends Model
 {
@@ -12,10 +15,9 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-       'name',
-        'slug',
+        'name',
         'journal_id',
-        'article_type_id',
+        'publication_type_id',
         'journal_number',
         'year',
         'pages',
@@ -23,16 +25,30 @@ class Article extends Model
     ];
 
     /**
-     * Return the sluggable configuration array for this model.
+     * Get the PublicationType that owns the Article
      *
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sluggable()
+    public function publicationType()
     {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
+        return $this->belongsTo(PublicationType::class);
+    }
+
+    /**
+     * Get the Journal that owns the Article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function journal()
+    {
+        return $this->belongsTo(Journal::class);
+    }
+
+    /**
+     * The Authors that belong to the Article
+     */
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class);
     }
 }

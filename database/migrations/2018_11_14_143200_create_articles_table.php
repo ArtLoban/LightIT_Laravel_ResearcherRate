@@ -16,7 +16,6 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('slug');
             $table->integer('journal_id')->unsigned()->index();
             $table->foreign('journal_id')->references('id')->on('journals')->onDelete('cascade');
             $table->integer('publication_type_id')->unsigned()->index();
@@ -25,6 +24,8 @@ class CreateArticlesTable extends Migration
             $table->date('year')->format('Y');
             $table->string('pages');
             $table->tinyInteger('language_id');
+            $table->text('description')->nullable();
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,7 @@
 body {
     padding-top: 54px;
+    /* Margin bottom by footer height */
+    margin-bottom: 100px;
 }
 
 @media (min-width: 992px) {
@@ -15,4 +17,8 @@ body {
 
 footer {
     height: 50px;
+}
+
+.field-required_star {
+    color: red;
 }

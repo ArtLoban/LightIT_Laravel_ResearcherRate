@@ -8,6 +8,8 @@ use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
 use App\Services\Users\User\InputUpdateTransformer\UpdateDataTransformer;
 use App\Services\Users\User\UserRegister\Contracts\UserRegister;
 use App\Services\Users\User\UserRegister\Register;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('current_password', function ($attribute, $value, $parameters, $validator) {
+            return Hash::check($value, auth()->user()->password);
+        });
     }
 
     /**

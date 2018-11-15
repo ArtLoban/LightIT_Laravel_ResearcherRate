@@ -34,11 +34,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">One
+                    <a class="nav-link" href="#">Item
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Two</a>
+                    <a class="nav-link" href="#">Item</a>
                 </li>
                 @can('accessAdminPanel')
                     <li class="nav-item">
