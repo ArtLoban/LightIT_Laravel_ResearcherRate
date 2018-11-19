@@ -34,6 +34,7 @@ class StoreRequest extends FormRequest
             'year' => 'required|integer|digits:4',
             'pages' => 'required|string',
             'language' => 'required|string',
+            'file' => 'nullable|mimes:pdf,doc,docx',
         ];
     }
 }

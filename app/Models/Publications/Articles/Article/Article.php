@@ -2,12 +2,14 @@
 
 namespace App\Models\Publications\Articles\Article;
 
+use App\Models\App\File;
 use App\Models\Publications\Author;
+use App\Services\Utilities\Files\Contracts\HasFile;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Publications\PublicationType;
 use App\Models\Publications\Articles\Journal\Journal;
 
-class Article extends Model
+class Article extends Model implements HasFile
 {
     /**
      * The attributes that are mass assignable.
@@ -52,5 +54,37 @@ class Article extends Model
     public function authors()
     {
         return $this->belongsToMany(Author::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function file()
+    {
+        return $this->morphOne(File::class, 'fileable');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return string
+     */
+    public function ownerType(): string
+    {
+        return get_class($this);
+    }
+
+    /**
+     * @return int
+     */
+    public function ownerId(): int
+    {
+        return $this->getKey();
     }
 }

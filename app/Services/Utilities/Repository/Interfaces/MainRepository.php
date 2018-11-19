@@ -63,4 +63,10 @@ interface MainRepository
      * @return mixed
      */
     public function delete($model);
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getByName(string $name);
 }

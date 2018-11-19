@@ -15,7 +15,7 @@
         </div>
         <hr>
 
-            {!! Form::open(['route' => 'articles.store']) !!}
+            {!! Form::open(['route' => 'articles.store', 'files' => true]) !!}
 
                 @include('pieces.errors')
 

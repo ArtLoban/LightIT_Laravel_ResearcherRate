@@ -3,7 +3,7 @@
 @section('cabinet')
     <div class="col-lg-10">
         <div class="mt-4">
-            <p class="h5">Publications/Scientific/Articles</p>
+            <p class="h5">Publications / Scientific / Articles</p>
         </div>
         @if (session('status'))
             <div class="alert alert-success">
@@ -40,8 +40,12 @@
                             <tbody>
                                 @foreach($articles as $article)
                                     <tr class="table">
-                                        <td>{{ $article->name }}</td>
-                                        <td>{{ 'authors, list, here' }}</td>
+                                        <td>
+                                            <a href="{{ route('articles.show', $article->getKey()) }}">
+                                                {{ $article->name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $article->authors->pluck('name')->implode(', ') }}</td>
                                         <td>{{ $article->journal->name }}</td>
                                         <td>{{ $article->year }}</td>
                                         <td>{{ $article->publicationType->name }}</td>

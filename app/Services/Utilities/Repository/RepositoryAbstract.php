@@ -122,4 +122,13 @@ abstract class RepositoryAbstract implements MainRepository
     {
         return $model->delete();
     }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getByName(string $name)
+    {
+        return $this->className::where('name', $name)->first();
+    }
 }

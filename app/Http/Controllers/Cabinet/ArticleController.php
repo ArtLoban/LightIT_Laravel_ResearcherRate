@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Cabinet;
 
-use App\Http\Requests\Cabinet\Article\StoreRequest;
-use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
-use App\Services\Publications\Article\StoreHandler\Contracts\StoreHandlerInterface as StoreHandler;
-use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinet\Article\StoreRequest;
+use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
+use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
+use App\Services\Publications\Article\ArticleStorageService\Contracts\ArticleStorageService;
 use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
 
 class ArticleController extends Controller
@@ -35,7 +34,7 @@ class ArticleController extends Controller
     {
         return view('cabinet.publications.scientific.articles.index')
             ->with([
-                'articles' => $this->articleRepository->allWithRelations(['journal', 'publicationType'])
+                'articles' => $this->articleRepository->allWithRelations(['journal', 'authors', 'publicationType'])
             ]);
     }
 
@@ -53,18 +52,26 @@ class ArticleController extends Controller
             ]);
     }
 
-    public function store(StoreRequest $request, StoreHandler $storeHandler)
+    /**
+     * @param StoreRequest $request
+     * @param ArticleStorageService $articleStorageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreRequest $request, ArticleStorageService $articleStorageService)
     {
+        $articleStorageService->store($request->all());
 
-        $article = $this->articleRepository->createNewArticle($request->all(), $storeHandler);
+        return redirect()->route('articles.index')->with('status', 'The new article is added!');
+    }
 
-//        $article = $this->articleRepository->create($request->all());
-//        $article->authors()->attach($request->author_id);
-//
-//        if ($request->has('file')) {
-//            $fileUploader->store($request->file('file'), $article);
-//        }
+    /**
+     * @param $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($article)
+    {
+        $articleEntity = $this->articleRepository->getWithRelations($article, ['journal', 'authors', 'publicationType']);
 
-        return redirect()->route('articles.index')->with('status', 'New article is added!');
+        return view('cabinet.publications.scientific.articles.show', ['article' => $articleEntity]);
     }
 }

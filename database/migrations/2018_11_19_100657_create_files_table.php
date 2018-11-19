@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthorsTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAuthorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
-            $table->integer('profile_id')->unsigned()->nullable();
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->string('path')->nullable();
+            $table->integer('fileable_id');
+            $table->string('fileable_type');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAuthorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('files');
     }
 }

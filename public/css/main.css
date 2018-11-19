@@ -22,3 +22,13 @@ footer {
 .field-required_star {
     color: red;
 }
+
+.article-item .row {
+    margin: 15px 0;
+}
+
+.article-item .article-item-header {
+    color: #575757;
+    background-color: #e2e2e2;
+    font-size: 15px;
+}

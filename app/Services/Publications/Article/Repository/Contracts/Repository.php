@@ -2,7 +2,9 @@
 
 namespace App\Services\Publications\Article\Repository\Contracts;
 
-interface Repository
+use App\Services\Utilities\Repository\Interfaces\MainRepository;
+
+interface Repository extends MainRepository
 {
-    public function createNewArticle(array $request, $storeHandler);
+
 }

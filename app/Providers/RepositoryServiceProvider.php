@@ -17,6 +17,8 @@ use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as 
 use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
 use App\Services\Organization\Employees\Position\Repository\Repository as PositionRepository;
 use App\Services\Organization\Employees\Profile\Repository\Repository as ProfileRepository;
+
+use App\Services\Utilities\Files\Repository\Repository;
 use App\Services\Utilities\LanguageRepository\ConfigLanguageRepository;
 
 use Illuminate\Support\ServiceProvider;
@@ -88,6 +90,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\Publications\Author\Repository\Contracts\Repository::class,
             AuthorRepository::class
+        );
+
+        $this->app->bind(
+            \App\Services\Utilities\Files\Repository\Contracts\Repository::class,
+            Repository::class
         );
 
         // LanguageRepository
