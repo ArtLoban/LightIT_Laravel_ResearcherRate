@@ -5,14 +5,19 @@
         <div class="mt-4">
             <p class="h5">Publications/Scientific/Articles</p>
         </div>
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div>
-            <p>Total count: 3</p>
+            <p>Total count: <b>{{ $articles->count() }}</b></p>
         </div>
         <div class="form-group">
             <a href="{{ route('articles.create') }}" class="btn btn-success">Add new article</a>
         </div>
         <hr>
-        {{--@if(! $orders->isEmpty())--}}
+        @if(! $articles->isEmpty())
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="col">
@@ -33,57 +38,29 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr class="table">
-                                    <td>(Coumarin-3-yl)-benzoates as a Series of New Fluorescent Compounds: Synthesis, Characterization and Fluorescence Properties in the Solid State</td>
-                                    <td>Sosso Siaka, Jules Yoda, Abdoulaye Djandé, Bruno Coulomb</td>
-                                    <td>American Journal of Organic Chemistry</td>
-                                    <td>2018</td>
-                                    <td>Scientific</td>
-                                    <td>8(2)</td>
-                                    <td>32-36</td>
-                                    <td>En</td>
-                                </tr>
-                                <tr class="table">
-                                    <td>(Coumarin-3-yl)-benzoates as a Series of New Fluorescent Compounds: Synthesis, Characterization and Fluorescence Properties in the Solid State</td>
-                                    <td>Sosso Siaka, Jules Yoda, Abdoulaye Djandé, Bruno Coulomb</td>
-                                    <td>American Journal of Organic Chemistry</td>
-                                    <td>2018</td>
-                                    <td>Scientific</td>
-                                    <td>8(2)</td>
-                                    <td>32-36</td>
-                                    <td>En</td>
-                                </tr>
-                                <tr class="table">
-                                    <td>(Coumarin-3-yl)-benzoates as a Series of New Fluorescent Compounds: Synthesis, Characterization and Fluorescence Properties in the Solid State</td>
-                                    <td>Sosso Siaka, Jules Yoda, Abdoulaye Djandé, Bruno Coulomb</td>
-                                    <td>American Journal of Organic Chemistry</td>
-                                    <td>2018</td>
-                                    <td>Scientific</td>
-                                    <td>8(2)</td>
-                                    <td>32-36</td>
-                                    <td>En</td>
-                                </tr>
-                            {{--@foreach($orders as $order)--}}
-                                {{--<tr class="table">--}}
-                                    {{--<td>{{ $loop->iteration }}</td>--}}
-                                    {{--<td>{{ $order->created_at }}</td>--}}
-                                    {{--<td class="text-left">{{ $order->dishOrders->pluck('dish')->implode('name', ', ') }}</td>--}}
-                                    {{--<td>-</td>--}}
-                                    {{--<td>{{ $order->status->name }}</td>--}}
-                                {{--</tr>--}}
-                            {{--@endforeach--}}
-
+                                @foreach($articles as $article)
+                                    <tr class="table">
+                                        <td>{{ $article->name }}</td>
+                                        <td>{{ 'authors, list, here' }}</td>
+                                        <td>{{ $article->journal->name }}</td>
+                                        <td>{{ $article->year }}</td>
+                                        <td>{{ $article->publicationType->name }}</td>
+                                        <td>{{ $article->journal_number }}</td>
+                                        <td>{{ $article->pages }}</td>
+                                        <td>{{ $article->language }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            {{--@else--}}
-                {{--<div class="row justify-content-center">--}}
-                    {{--<div class="col">--}}
-                        {{--<p class="text-center">У вас пока нет заказов</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--@endif--}}
+            @else
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <p class="text-center">... no articles added yet</p>
+                    </div>
+                </div>
+            @endif
     </div>
 @endsection

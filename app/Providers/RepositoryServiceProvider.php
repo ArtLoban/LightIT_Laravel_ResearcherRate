@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\Publications\Article\Repository\Repository as ArticleRepository;
+use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
+use App\Services\Publications\Journal\Repository\Repository as JournalRepository;
 use App\Services\Publications\PublicationType\Repository\Repository as PublicationTypeRepository;
 use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
 use App\Services\Users\PermissionRole\Repository\Repository as PermissionRoleRepository;
@@ -73,6 +76,18 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\Publications\PublicationType\Repository\Contracts\Repository::class,
             PublicationTypeRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Article\Repository\Contracts\Repository::class,
+            ArticleRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Journal\Repository\Contracts\Repository::class,
+            JournalRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Author\Repository\Contracts\Repository::class,
+            AuthorRepository::class
         );
 
         // LanguageRepository

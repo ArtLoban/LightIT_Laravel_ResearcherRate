@@ -16,9 +16,9 @@ class CreateJournalsTable extends Migration
         Schema::create('journals', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('issn');
-            $table->string('subject_area');
-            $table->integer('journal_type_id')->unsigned()->index();
+            $table->string('issn')->nullable();
+            $table->string('subject_area')->nullable();
+            $table->integer('journal_type_id')->unsigned()->index()->nullable();
             $table->foreign('journal_type_id')->references('id')->on('journal_types')->onDelete('cascade');
             $table->timestamps();
         });

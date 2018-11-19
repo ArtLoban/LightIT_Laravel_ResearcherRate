@@ -21,7 +21,9 @@ class Article extends Model
         'journal_number',
         'year',
         'pages',
-        'language_id',
+        'language',
+        'description',
+        'path',
     ];
 
     /**

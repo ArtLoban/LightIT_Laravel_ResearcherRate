@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Cabinet;
 
+use App\Http\Requests\Cabinet\Article\StoreRequest;
+use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
+use App\Services\Publications\Article\StoreHandler\Contracts\StoreHandlerInterface as StoreHandler;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,13 +13,30 @@ use App\Services\Publications\PublicationType\Repository\Contracts\Repository as
 class ArticleController extends Controller
 {
     /**
+     * @var ArticleRepository
+     */
+    private $articleRepository;
+
+    /**
+     * ArticleController constructor.
+     * @param ArticleRepository $articleRepository
+     */
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+    }
+
+    /**
      * Show the application main page
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('cabinet.publications.scientific.articles.index');
+        return view('cabinet.publications.scientific.articles.index')
+            ->with([
+                'articles' => $this->articleRepository->allWithRelations(['journal', 'publicationType'])
+            ]);
     }
 
     /**
@@ -33,9 +53,18 @@ class ArticleController extends Controller
             ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request, StoreHandler $storeHandler)
     {
-        dd($request->input());
-        return 'Stored!';
+
+        $article = $this->articleRepository->createNewArticle($request->all(), $storeHandler);
+
+//        $article = $this->articleRepository->create($request->all());
+//        $article->authors()->attach($request->author_id);
+//
+//        if ($request->has('file')) {
+//            $fileUploader->store($request->file('file'), $article);
+//        }
+
+        return redirect()->route('articles.index')->with('status', 'New article is added!');
     }
 }

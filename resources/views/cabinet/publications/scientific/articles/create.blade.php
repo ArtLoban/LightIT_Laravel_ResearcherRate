@@ -29,7 +29,14 @@
                     <label for="articleAuthors">
                         Authors @include('pieces.required-star')
                     </label>
-                    <input type="text" class="form-control" id="articleAuthors" name="name" value="{{ 'articleAuthors' }}" required>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="articleAuthors"
+                        name="authors"
+                        value="{{ old('authors') }}"
+                        required
+                    >
                 </div>
                 <div class="form-group">
                     <label for="articleDescription">Description</label>
@@ -39,7 +46,7 @@
                     <label for="publicationType">
                         Type of publication @include('pieces.required-star')
                     </label>
-                    <select name="publication_type" class="form-control" id="publicationType" required>
+                    <select name="publication_type_id" class="form-control" id="publicationType" required>
                         <option></option>
                         @foreach($publicationTypes as $publicationType)
                             <option value="{{ $publicationType->getKey() }}">{{ $publicationType->name }}</option>
@@ -50,7 +57,7 @@
                     <label for="journalName">
                         Journal Name @include('pieces.required-star')
                     </label>
-                    <input type="text" class="form-control" id="journalName" name="journal_name" value="{{ 'some text' }}" required>
+                    <input type="text" class="form-control" id="journalName" name="journal_name" value="{{ old('journal_name') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="journalNumber">
@@ -74,7 +81,7 @@
                     <label for="publicationLanguage">
                         Language @include('pieces.required-star')
                     </label>
-                    <select name="language_id" class="form-control" id="publicationLanguage" required>
+                    <select name="language" class="form-control" id="publicationLanguage" required>
                         <option></option>
                         @foreach($languages as $language)
                         <option value="{{ $language }}">{{ $language }}</option>
@@ -82,10 +89,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="file">
+                    <label for="uploadFile">Upload file</label>
+                    <input type="file" name="file" id="uploadFile">
                 </div>
-        <small class="form-text text-muted">@include('pieces.required-star') - Field is required</small>
-
+                <small class="form-text text-muted">@include('pieces.required-star') - Field is required</small>
                 <hr>
                 <button type="submit" class="btn btn-primary">Submit</button>
 

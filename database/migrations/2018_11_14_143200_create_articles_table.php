@@ -21,9 +21,9 @@ class CreateArticlesTable extends Migration
             $table->integer('publication_type_id')->unsigned()->index();
             $table->foreign('publication_type_id')->references('id')->on('publication_types')->onDelete('cascade');
             $table->integer('journal_number');
-            $table->date('year')->format('Y');
+            $table->integer('year');
             $table->string('pages');
-            $table->tinyInteger('language_id');
+            $table->string('language');
             $table->text('description')->nullable();
             $table->string('path')->nullable();
             $table->timestamps();
