@@ -17,6 +17,7 @@ class File extends Model
         self::PATH,
         self::FILEABLE_ID,
         self::FILEABLE_TYPE,
+        'extension'
     ];
 
     /**

@@ -25,7 +25,6 @@ class CreateArticlesTable extends Migration
             $table->string('pages');
             $table->string('language');
             $table->text('description')->nullable();
-            $table->string('path')->nullable();
             $table->timestamps();
         });
     }

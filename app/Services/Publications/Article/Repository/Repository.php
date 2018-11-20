@@ -16,17 +16,14 @@ class Repository extends RepositoryAbstract implements ArticleRepository
         return Article::class;
     }
 
-    // Journal Id handler
-    // Author list handler
-    // File uploader handler
-    public function createNewArticle(array $request, $storeHandler)
+    /**
+     * @param int $id
+     * @return null|string
+     */
+    public function getFilePathById(int $id): ?string
     {
-//        dd($request);
-        $request['journal_id'] = $storeHandler->getJournalId($request['journal_name']);
-        $createdArticle = $this->create($request);
+        $file = $this->whereId($id)->file;
 
-        $storeHandler->assignAuthors($request['authors'], $createdArticle);
-
-        return null;
+        return $filePath = $file ? $file->path : null;
     }
 }

@@ -17,6 +17,7 @@ use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as 
 use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
 use App\Services\Organization\Employees\Position\Repository\Repository as PositionRepository;
 use App\Services\Organization\Employees\Profile\Repository\Repository as ProfileRepository;
+use App\Services\Publications\JournalType\Repository\Repository as JournalTypeRepository;
 
 use App\Services\Utilities\Files\Repository\Repository;
 use App\Services\Utilities\LanguageRepository\ConfigLanguageRepository;
@@ -90,6 +91,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\Publications\Author\Repository\Contracts\Repository::class,
             AuthorRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\JournalType\Repository\Contracts\Repository::class,
+            JournalTypeRepository::class
         );
 
         $this->app->bind(

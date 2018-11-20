@@ -25,7 +25,6 @@ class Article extends Model implements HasFile
         'pages',
         'language',
         'description',
-        'path',
     ];
 
     /**

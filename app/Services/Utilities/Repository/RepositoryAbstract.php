@@ -45,6 +45,16 @@ abstract class RepositoryAbstract implements MainRepository
     }
 
     /**
+     * @param int $id
+     * @param array $relations
+     * @return mixed
+     */
+    public function getWithRelationsById(int $id, array $relations)
+    {
+        return $this->className::with($relations)->whereId($id)->first();
+    }
+
+    /**
      * @param array $relations
      * @return Collection|null
      */
@@ -53,15 +63,10 @@ abstract class RepositoryAbstract implements MainRepository
         return $this->className::with($relations)->get();
     }
 
-    /**
-     * @param int $id
-     * @param array $relations
-     * @return mixed
-     */
-    public function getWithRelations(int $id, array $relations)
-    {
-        return $this->className::with($relations)->whereId($id)->first();
-    }
+//    public function allWithRelationsById(array $relations): ?Collection
+//    {
+//        return $this->className::with($relations)->whereId($id)->get();
+//    }
 
     /**
      * @param int $id

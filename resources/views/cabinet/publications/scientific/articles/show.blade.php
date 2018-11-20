@@ -76,9 +76,16 @@
             </div>
         </div>
         <hr>
-        <div class="form-group">
-            <a href="#" class="btn btn-light">View file</a>
-            <a href="#" class="btn btn-light">Download file</a>
-        </div>
+        @if($article->file)
+            <div class="form-group">
+                {!! Form::open(['route' => ['articles.file', $article->getKey()], 'method' => 'GET']) !!}
+                    <button type="submit" class="btn btn-light">View file</button>
+                {!! Form::close() !!}
+
+                {!! Form::open(['route' => ['articles.download', $article->getKey()], 'method' => 'GET']) !!}
+                    <button type="submit" class="btn btn-light">Download file</button>
+                {!! Form::close() !!}
+            </div>
+        @endif
     </div>
 @endsection

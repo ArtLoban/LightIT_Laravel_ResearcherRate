@@ -17,7 +17,8 @@ class CreateJournalsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('issn')->nullable();
-            $table->string('subject_area')->nullable();
+            $table->string('country')->nullable();
+            $table->string('category')->nullable();
             $table->integer('journal_type_id')->unsigned()->index()->nullable();
             $table->foreign('journal_type_id')->references('id')->on('journal_types')->onDelete('cascade');
             $table->timestamps();

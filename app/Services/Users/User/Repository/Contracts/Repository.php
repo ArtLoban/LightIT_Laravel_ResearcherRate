@@ -3,8 +3,9 @@
 namespace App\Services\Users\User\Repository\Contracts;
 
 use App\Models\Users\User;
+use App\Services\Utilities\Repository\Interfaces\MainRepository;
 
-interface Repository
+interface Repository extends MainRepository
 {
     /**
      * @param array $data

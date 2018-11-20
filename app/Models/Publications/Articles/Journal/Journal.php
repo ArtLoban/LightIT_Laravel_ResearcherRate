@@ -13,11 +13,15 @@ class Journal extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'issn',
+        'country',
+        'category',
+        'journal_type_id',
     ];
 
     /**
-     * Get the JournalType that owns the Journal
+     * Get the Repository that owns the Journal
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

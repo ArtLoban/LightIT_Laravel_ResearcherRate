@@ -41,7 +41,11 @@ Route::group([
     Route::get('/profile', 'ProfileController@index')->name('cabinet.profile');
     Route::put('/profile', 'ProfileController@update')->name('cabinet.profile.update');
 
+    Route::get('/articles/file/{id}', 'ArticleController@file')->name('articles.file');
+    Route::get('/articles/download/{id}', 'ArticleController@download')->name('articles.download');
     Route::resource('/articles', 'ArticleController');
+
+    Route::resource('/journals', 'JournalController');
 
     Route::get('/patents', 'PatentController@index')->name('cabinet.patents');
     Route::get('/theses', 'ThesisController@index')->name('cabinet.theses');

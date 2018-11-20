@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\Article\StoreRequest;
+use App\Services\Publications\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
 use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
 use App\Services\Publications\Article\ArticleStorageService\Contracts\ArticleStorageService;
@@ -43,12 +44,16 @@ class ArticleController extends Controller
      * @param LanguageRepository $languageRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(PublicationTypeRepository $publicationTypeRepository, LanguageRepository $languageRepository)
-    {
+    public function create(
+        PublicationTypeRepository $publicationTypeRepository,
+        LanguageRepository $languageRepository,
+        JournalTypeRepository $journalTypeRepository
+    ) {
         return view('cabinet.publications.scientific.articles.create')
             ->with([
                 'publicationTypes' => $publicationTypeRepository->all(),
                 'languages' => $languageRepository->all(),
+                'journalTypes' => $journalTypeRepository->all(),
             ]);
     }
 
@@ -70,8 +75,26 @@ class ArticleController extends Controller
      */
     public function show($article)
     {
-        $articleEntity = $this->articleRepository->getWithRelations($article, ['journal', 'authors', 'publicationType']);
+        $articleEntity = $this->articleRepository->getWithRelationsById($article, ['journal', 'authors', 'publicationType']);
 
         return view('cabinet.publications.scientific.articles.show', ['article' => $articleEntity]);
+    }
+
+    /**
+     * @param $articleId
+     * @return mixed
+     */
+    public function file(int $articleId)
+    {
+        return response()->file($this->articleRepository->getFilePathById($articleId));
+    }
+
+    /**
+     * @param int $articleId
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function download(int $articleId)
+    {
+        return response()->download($this->articleRepository->getFilePathById($articleId));
     }
 }

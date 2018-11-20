@@ -9,6 +9,8 @@ use App\Services\Utilities\Files\Repository\Contracts\Repository as FileReposito
 
 class FileUploader
 {
+    const PATH = 'public/uploads/files';
+
     /**
      * @var FileRepository
      */
@@ -44,6 +46,7 @@ class FileUploader
     {
         return [
             File::PATH => $this->getPath($uploadedFile),
+            'extension' => $uploadedFile->extension(),
             File::FILEABLE_TYPE => $owner->ownerType(),
             File::FILEABLE_ID => $owner->ownerId(),
         ];
@@ -55,7 +58,7 @@ class FileUploader
      */
     private function getPath(UploadedFile $uploadedFile): string
     {
-        $path = $uploadedFile->store('public/uploads/files');
+        $path = $uploadedFile->store(self::PATH);
 
         return $this->editStoragePath($path);
     }

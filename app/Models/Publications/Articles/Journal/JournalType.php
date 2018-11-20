@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class JournalType extends Model
 {
     /**
-     * Get the Journals for the JournalType
+     * Get the Journals for the Repository
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

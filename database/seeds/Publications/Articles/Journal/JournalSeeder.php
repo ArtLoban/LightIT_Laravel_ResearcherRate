@@ -34,7 +34,7 @@ class JournalSeeder extends Seeder
             $result[] = [
                 'name' => $journal['name'],
                 'issn' => $journal['issn'],
-                'subject_area' => $journal['subject_area'],
+                'category' => $journal['category'],
                 'journal_type_id' => $journal['journal_type_id'],
             ];
         }
