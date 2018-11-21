@@ -53,19 +53,19 @@
                         <input type="hidden" name="updatedUserId" value="{{ $user->getKey() }}">
                         <div class="form-group">
                             <label for="inputEmail">Email</label>
-                            <input type="text" name="email" class="form-control" id="inputEmail" value="{{ $user->email }}">
+                            <input type="text" name="email" class="form-control form-control-sm" id="inputEmail" value="{{ $user->email }}">
                         </div>
                         <div class="form-group">
                             <label for="inputCurrentPassword">Current password</label>
-                            <input type="password" name="current_password" class="form-control" id="inputCurrentPassword">
+                            <input type="password" name="current_password" class="form-control form-control-sm" id="inputCurrentPassword">
                         </div>
                         <div class="form-group">
                             <label for="inputPassword">New password</label>
-                            <input type="password" name="password" class="form-control" id="inputPassword">
+                            <input type="password" name="password" class="form-control form-control-sm" id="inputPassword">
                         </div>
                         <div class="form-group">
                             <label for="inputPasswordConfirm">Confirm password</label>
-                            <input type="password" name="password_confirmation" class="form-control" id="inputPasswordConfirm">
+                            <input type="password" name="password_confirmation" class="form-control form-control-sm" id="inputPasswordConfirm">
                         </div>
                         <small class="text-muted">* some text</small>
 

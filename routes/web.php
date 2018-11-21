@@ -43,6 +43,8 @@ Route::group([
 
     Route::get('/articles/file/{id}', 'ArticleController@file')->name('articles.file');
     Route::get('/articles/download/{id}', 'ArticleController@download')->name('articles.download');
+    Route::get('/articles/authors', 'ArticleController@authors')->name('articles.authors');
+    Route::get('/articles/journals', 'ArticleController@journals')->name('articles.journals');
     Route::resource('/articles', 'ArticleController');
 
     Route::resource('/journals', 'JournalController');

@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
 use App\Http\Requests\Cabinet\Article\StoreRequest;
+use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
+use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
 use App\Services\Publications\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
 use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
 use App\Services\Publications\Article\ArticleStorageService\Contracts\ArticleStorageService;
 use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -18,12 +22,29 @@ class ArticleController extends Controller
     private $articleRepository;
 
     /**
+     * @var AuthorRepository
+     */
+    private $authorRepository;
+
+    /**
+     * @var JournalRepository
+     */
+    private $journalRepository;
+
+    /**
      * ArticleController constructor.
      * @param ArticleRepository $articleRepository
+     * @param AuthorRepository $authorRepository
+     * @param JournalRepository $journalRepository
      */
-    public function __construct(ArticleRepository $articleRepository)
-    {
+    public function __construct(
+        ArticleRepository $articleRepository,
+        AuthorRepository $authorRepository,
+        JournalRepository $journalRepository
+    ) {
         $this->articleRepository = $articleRepository;
+        $this->authorRepository = $authorRepository;
+        $this->journalRepository = $journalRepository;
     }
 
     /**
@@ -96,5 +117,27 @@ class ArticleController extends Controller
     public function download(int $articleId)
     {
         return response()->download($this->articleRepository->getFilePathById($articleId));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function authors(Request $request)
+    {
+        $result = $this->authorRepository->getAuthorNamesByAjaxQuery($request->get('name'));
+
+        return response()->json($result);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function journals(Request $request)
+    {
+        $result = $this->journalRepository->getJournalNamesByAjaxQuery($request->get('name'));
+
+        return response()->json($result);
     }
 }

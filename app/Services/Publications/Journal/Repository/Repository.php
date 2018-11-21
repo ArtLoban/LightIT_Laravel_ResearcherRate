@@ -15,4 +15,13 @@ class Repository extends RepositoryAbstract implements JournalRepository
     {
         return Journal::class;
     }
+
+    /**
+     * @param string $query
+     * @return array|null
+     */
+    public function getJournalNamesByAjaxQuery(string $query): ?array
+    {
+        return $this->where('name', 'like', '%' . $query . '%')->pluck('name')->all();
+    }
 }

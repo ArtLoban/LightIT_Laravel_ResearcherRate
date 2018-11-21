@@ -8,15 +8,24 @@ use App\Services\Publications\Journal\Repository\Contracts\Repository as Journal
 
 class JournalController extends Controller
 {
-
+    /**
+     * @var JournalRepository
+     */
     private $journalRepository;
 
-
+    /**
+     * JournalController constructor.
+     * @param JournalRepository $journalRepository
+     */
     public function __construct(JournalRepository $journalRepository)
     {
         $this->journalRepository = $journalRepository;
     }
 
+    /**
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreRequest $request)
     {
         $this->journalRepository->create($request->all());
