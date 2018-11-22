@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Organization\Facility;
 
 use App\Http\Controllers\Controller;
+use App\Models\Organization\Facility\Faculty;
 use App\Http\Requests\Admin\Organization\Facility\Faculty\UpdateRequest;
 use App\Http\Requests\Admin\Organization\Facility\Faculty\StoreRequest;
-use App\Models\Organization\Facility\Faculty;
 use App\Services\Organization\Facility\Faculty\Repository\Contracts\Repository as FacultyRepository;
 
 class FacultyController extends Controller

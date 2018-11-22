@@ -9,9 +9,7 @@
             <p>Some text</p>
         </div>
         <div class="">
-            <button type="submit" class="btn ">
-                <a href="{{ route('articles.index')}}" class="">Back</a>
-            </button>
+            <a class="btn btn-outline-success" href="{{ route('articles.index')}}">Back</a>
         </div>
         <hr>
         <!-- Modal Form -->
@@ -104,6 +102,7 @@
                     value="{{ old('authors') }}"
                     required
                 >
+                <small class="form-text text-muted">Enter the names of the authors using ',' as a separator</small>
                 <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('articles.authors') }}">
             </div>
             <div class="form-group">
@@ -114,7 +113,12 @@
                 <label for="publicationType">
                     Type of publication @include('pieces.required-star')
                 </label>
-                <select name="publication_type_id" class="form-control form-control-sm" id="publicationType" required>
+                <select
+                    name="publication_type_id"
+                    class="form-control form-control-sm"
+                    id="publicationType"
+                    required
+                >
                     <option></option>
                     @foreach($publicationTypes as $publicationType)
                         <option value="{{ $publicationType->getKey() }}">{{ $publicationType->name }}</option>
@@ -126,7 +130,7 @@
                     Journal Name @include('pieces.required-star')
                 </label>
                 <!-- Link Button trigger modal -->
-                <a href="#" class="btn btn-outline-info" data-toggle="modal" data-target="#ajax-journalModal">Add journal</a>
+                <a href="#" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#ajax-journalModal">Add journal</a>
                 <input type="text" class="form-control form-control-sm" id="journalName" name="journal_name" value="{{ old('journal_name') }}" required>
                 <input type="hidden" id="ajax-journal-autocomplete" value="{{ route('articles.journals') }}">
             </div>
@@ -135,19 +139,43 @@
                 <label for="journalNumber">
                     Journal Number @include('pieces.required-star')
                 </label>
-                <input type="text" class="form-control form-control-sm" id="journalNumber" name="journal_number" value="{{ old('journal_number') }}" required>
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="journalNumber"
+                    name="journal_number"
+                    value="{{ old('journal_number') }}"
+                    required
+                >
             </div>
             <div class="form-group">
                 <label for="articleYear">
                     Year @include('pieces.required-star')
                 </label>
-                <input class="form-control form-control-sm" type="number" placeholder="2015" name="year" value="{{ old('year') }}" id="articleYear">
+                <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    pattern="[0-9]{4}"
+                    placeholder="2018"
+                    name="year"
+                    value="{{ old('year') }}"
+                    id="articleYear"
+                    required
+                >
             </div>
             <div class="form-group">
                 <label for="articlePages">
                     Pages @include('pieces.required-star')
                 </label>
-                <input class="form-control form-control-sm" type="tel" placeholder="00-00" name="pages" value="{{ old('pages') }}" id="articlePages">
+                <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    pattern="[0-9]{1,}-[0-9]{1,}"
+                    placeholder="00-00"
+                    name="pages"
+                    value="{{ old('pages') }}"
+                    id="articlePages"
+                >
             </div>
             <div class="form-group">
                 <label for="publicationLanguage">
@@ -164,6 +192,7 @@
                 <label for="uploadFile">Upload file</label>
                 <input type="file" class="form-control-file  form-control-sm" name="file" id="uploadFile">
             </div>
+            <small class="form-text text-muted">Acceptable file extensions: .pdf, .doc, .docx</small>
             <small class="form-text text-muted">@include('pieces.required-star') - Field is required</small>
             <hr>
             <button type="submit" class="btn btn-primary">Submit</button>

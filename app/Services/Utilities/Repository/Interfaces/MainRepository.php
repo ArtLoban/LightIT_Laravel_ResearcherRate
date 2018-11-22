@@ -31,6 +31,14 @@ interface MainRepository
     public function getWithRelationsById(int $id, array $relations);
 
     /**
+     * @param string $column
+     * @param $value
+     * @param array $relations
+     * @return mixed
+     */
+    public function getAllWithRelationsBy(string $column, $value, array $relations);
+
+    /**
      * @param int $id
      * @return mixed
      */

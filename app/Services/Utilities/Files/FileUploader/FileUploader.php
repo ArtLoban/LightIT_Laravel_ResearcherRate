@@ -33,6 +33,7 @@ class FileUploader
     public function store(UploadedFile $uploadedFile, HasFile $owner)
     {
         $params = $this->getStoreParams($uploadedFile, $owner);
+        $this->removePreviousFile($owner);
 
         return $this->fileRepository->create($params);
     }
@@ -70,5 +71,18 @@ class FileUploader
     private function editStoragePath(string $path): string
     {
         return str_replace('public', 'storage', $path);
+    }
+
+    /**
+     * @param HasFile $model
+     * @return bool|null
+     */
+    private function removePreviousFile(HasFile $model): ?bool
+    {
+        if ($model->getFile()) {
+            return $this->fileRepository->delete($model->getFile());
+        }
+
+        return false;
     }
 }

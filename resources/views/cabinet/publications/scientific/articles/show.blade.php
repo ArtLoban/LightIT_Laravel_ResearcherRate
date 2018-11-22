@@ -5,10 +5,16 @@
         <div class="mt-4">
             <p class="h4">{{ $article->name }}</p>
         </div>
-        <button type="submit" class="btn ">
-            <a href="{{ route('articles.index')}}" class="">Back</a>
-        </button>
+            <a class="btn btn-outline-success" href="{{ route('articles.index')}}">Back</a>
+            <a class="btn btn-outline-info" href="{{ route('articles.edit', $article->getKey()) }}">Edit article</a>
         <hr>
+        @if (session('status'))
+            <div class="row">
+                <div class="col-4 alert alert-success">
+                    {{ session('status') }}
+                </div>
+            </div>
+        @endif
         <div class="container article-item">
             <div class="row">
                 <div class="col-2 text-right article-item-header">
@@ -86,6 +92,16 @@
                     <button type="submit" class="btn btn-light">Download file</button>
                 {!! Form::close() !!}
             </div>
+            <hr>
         @endif
+
+        {!! Form::open([
+            'route' => ['articles.destroy', $article->getKey()],
+            'method' => 'delete'])
+        !!}
+            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">
+                Delete article
+            </button>
+        {!! Form::close() !!}
     </div>
 @endsection

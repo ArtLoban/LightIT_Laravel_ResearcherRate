@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Cabinet;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
-use App\Http\Requests\Cabinet\Article\StoreRequest;
-use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
-use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
-use App\Services\Publications\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
-use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
-use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
-use App\Services\Publications\Article\ArticleStorageService\Contracts\ArticleStorageService;
-use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard as Auth;
+use App\Http\Requests\Cabinet\Article\StoreRequest;
+use App\Http\Requests\Cabinet\Article\UpdateRequest;
+use App\Models\Publications\Articles\Article\Article;
+use Illuminate\Contracts\Filesystem\Filesystem as Storage;
+use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
+use App\Services\Publications\Article\ArticleService\Contracts\ArticleUpdateService;
+use App\Services\Publications\Article\ArticleService\Contracts\ArticleStorageService;
+use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
+use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
+use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
+use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
+use App\Services\Publications\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
+use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
 
 class ArticleController extends Controller
 {
@@ -52,12 +57,12 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Auth $auth)
     {
-        return view('cabinet.publications.scientific.articles.index')
-            ->with([
-                'articles' => $this->articleRepository->allWithRelations(['journal', 'authors', 'publicationType'])
-            ]);
+        $articles = $this->articleRepository
+            ->getAllWithRelationsBy('user_id', $auth->id(), ['journal', 'authors', 'publicationType']);
+
+        return view('cabinet.publications.scientific.articles.index', ['articles' => $articles]);
     }
 
     /**
@@ -85,7 +90,7 @@ class ArticleController extends Controller
      */
     public function store(StoreRequest $request, ArticleStorageService $articleStorageService)
     {
-        $articleStorageService->store($request->all());
+        $articleStorageService->store($request->all(), $request->user()->getKey());
 
         return redirect()->route('articles.index')->with('status', 'The new article is added!');
     }
@@ -102,21 +107,75 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param $articleId
-     * @return mixed
+     * @param Article $article
+     * @param LanguageRepository $languageRepository
+     * @param JournalTypeRepository $journalTypeRepository
+     * @param PublicationTypeRepository $publicationTypeRepository
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function file(int $articleId)
+    public function edit(
+        Article $article,
+        LanguageRepository $languageRepository,
+        JournalTypeRepository $journalTypeRepository,
+        PublicationTypeRepository $publicationTypeRepository
+    ) {
+        return view('cabinet.publications.scientific.articles.edit')
+            ->with([
+                'article' => $article,
+                'languages' => $languageRepository->all(),
+                'journalTypes' => $journalTypeRepository->all(),
+                'publicationTypes' => $publicationTypeRepository->all()
+            ]);
+    }
+
+    public function update(UpdateRequest $request, int $articleId, ArticleUpdateService $updateService)
     {
-        return response()->file($this->articleRepository->getFilePathById($articleId));
+        $updateService->update($articleId, $request->all());
+
+        return redirect()->route('articles.show', $articleId)->with('status', 'The article is updated!');
+    }
+
+    /**
+     * @param Article $article
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Article $article)
+    {
+        $this->articleRepository->delete($article);
+
+        return redirect()->route('articles.index')->with('status', 'The article has been deleted!');
     }
 
     /**
      * @param int $articleId
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @param Storage $storage
      */
-    public function download(int $articleId)
+    public function file(int $articleId, Storage $storage)
     {
-        return response()->download($this->articleRepository->getFilePathById($articleId));
+        $filePath = $this->articleRepository->getFilePathById($articleId);
+        $actualPath = str_replace('storage', 'public', $filePath);
+
+        if ($storage->exists($actualPath)) {
+            return response()->file($filePath);
+        }
+
+        return abort(404);
+    }
+
+    /**
+     * @param int $articleId
+     * @param Storage $storage
+     */
+    public function download(int $articleId, Storage $storage)
+    {
+        $filePath = $this->articleRepository->getFilePathById($articleId);
+        $actualPath = str_replace('storage', 'public', $filePath);
+
+        if ($storage->exists($actualPath)) {
+            return response()->download($filePath);
+        }
+
+        return abort(404);
     }
 
     /**

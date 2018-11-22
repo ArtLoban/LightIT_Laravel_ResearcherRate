@@ -25,6 +25,8 @@ class CreateArticlesTable extends Migration
             $table->string('pages');
             $table->string('language');
             $table->text('description')->nullable();
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

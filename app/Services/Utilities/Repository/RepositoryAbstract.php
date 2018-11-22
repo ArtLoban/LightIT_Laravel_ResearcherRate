@@ -2,10 +2,10 @@
 
 namespace App\Services\Utilities\Repository;
 
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\Utilities\Repository\Interfaces\MainRepository;
 
 abstract class RepositoryAbstract implements MainRepository
 {
@@ -63,10 +63,16 @@ abstract class RepositoryAbstract implements MainRepository
         return $this->className::with($relations)->get();
     }
 
-//    public function allWithRelationsById(array $relations): ?Collection
-//    {
-//        return $this->className::with($relations)->whereId($id)->get();
-//    }
+    /**
+     * @param string $column
+     * @param $value
+     * @param array $relations
+     * @return mixed
+     */
+    public function getAllWithRelationsBy(string $column, $value, array $relations)
+    {
+        return $this->className::where($column, $value)->with($relations)->get();
+    }
 
     /**
      * @param int $id

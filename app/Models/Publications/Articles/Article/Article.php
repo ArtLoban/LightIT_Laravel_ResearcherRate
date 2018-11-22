@@ -4,12 +4,14 @@ namespace App\Models\Publications\Articles\Article;
 
 use App\Models\App\File;
 use App\Models\Publications\Author;
-use App\Services\Utilities\Files\Contracts\HasFile;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Publications\PublicationType;
+use App\Services\Utilities\Files\Contracts\HasFile;
 use App\Models\Publications\Articles\Journal\Journal;
+use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
 
-class Article extends Model implements HasFile
+class Article extends Model implements HasFile, HasMorphRelations
 {
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,7 @@ class Article extends Model implements HasFile
         'pages',
         'language',
         'description',
+        'user_id',
     ];
 
     /**
@@ -45,6 +48,16 @@ class Article extends Model implements HasFile
     public function journal()
     {
         return $this->belongsTo(Journal::class);
+    }
+
+    /**
+     * Get the User that owns the Article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -85,5 +98,13 @@ class Article extends Model implements HasFile
     public function ownerId(): int
     {
         return $this->getKey();
+    }
+
+    /**
+     * @return array
+     */
+    public function getMorphRelations(): array
+    {
+        return ['file'];
     }
 }

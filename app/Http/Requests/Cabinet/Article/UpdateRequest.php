@@ -5,7 +5,7 @@ namespace App\Http\Requests\Cabinet\Article;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class StoreRequest extends FormRequest
             'description' => 'nullable|string',
             'publication_type_id' => 'required|integer',
             'journal_name' => 'required|string',
-            'journal_number' => 'required|integer',
+            'journal_number' => 'required|string',
             'year' => 'required|integer|digits:4',
             'pages' => 'required|string',
             'language' => 'required|string',
