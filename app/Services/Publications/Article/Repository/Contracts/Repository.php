@@ -2,13 +2,14 @@
 
 namespace App\Services\Publications\Article\Repository\Contracts;
 
+use App\Models\App\File;
 use App\Services\Utilities\Repository\Interfaces\MainRepository;
 
 interface Repository extends MainRepository
 {
     /**
      * @param int $id
-     * @return null|string
+     * @return File|null
      */
-    public function getFilePathById(int $id): ?string;
+    public function getFileById(int $id): ?File;
 }

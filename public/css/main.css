@@ -32,3 +32,8 @@ footer {
     background-color: #e2e2e2;
     font-size: 15px;
 }
+
+.cabinet-item:hover {
+    background-color: #dcdcdc;
+    color: #00a7d0;
+}

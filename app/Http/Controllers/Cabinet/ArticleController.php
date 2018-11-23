@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cabinet;
 
+use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard as Auth;
@@ -10,8 +11,6 @@ use App\Http\Requests\Cabinet\Article\UpdateRequest;
 use App\Models\Publications\Articles\Article\Article;
 use Illuminate\Contracts\Filesystem\Filesystem as Storage;
 use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
-use App\Services\Publications\Article\ArticleService\Contracts\ArticleUpdateService;
-use App\Services\Publications\Article\ArticleService\Contracts\ArticleStorageService;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
 use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
@@ -85,12 +84,19 @@ class ArticleController extends Controller
 
     /**
      * @param StoreRequest $request
-     * @param ArticleStorageService $articleStorageService
+     * @param PublicationStorageInterface $publicationStorage
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreRequest $request, ArticleStorageService $articleStorageService)
+    public function store(StoreRequest $request, PublicationStorageInterface $publicationStorage)
     {
-        $articleStorageService->store($request->all(), $request->user()->getKey());
+        $publicationStorage->create(
+            $request->all(),
+            $request->user()->getKey(),
+            'journal_name',
+            'journal_id',
+            $this->articleRepository,
+            $this->journalRepository
+        );
 
         return redirect()->route('articles.index')->with('status', 'The new article is added!');
     }
@@ -128,9 +134,22 @@ class ArticleController extends Controller
             ]);
     }
 
-    public function update(UpdateRequest $request, int $articleId, ArticleUpdateService $updateService)
+    /**
+     * @param UpdateRequest $request
+     * @param int $articleId
+     * @param PublicationStorageInterface $publicationStorage
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateRequest $request, int $articleId, PublicationStorageInterface $publicationStorage)
     {
-        $updateService->update($articleId, $request->all());
+        $publicationStorage->update(
+            $request->all(),
+            $articleId,
+            'journal_name',
+            'journal_id',
+            $this->articleRepository,
+            $this->journalRepository
+        );
 
         return redirect()->route('articles.show', $articleId)->with('status', 'The article is updated!');
     }
@@ -152,14 +171,12 @@ class ArticleController extends Controller
      */
     public function file(int $articleId, Storage $storage)
     {
-        $filePath = $this->articleRepository->getFilePathById($articleId);
-        $actualPath = str_replace('storage', 'public', $filePath);
-
-        if ($storage->exists($actualPath)) {
-            return response()->file($filePath);
+        $file = $this->articleRepository->getFileById($articleId);
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->file($file->path);
         }
 
-        return abort(404);
+        return response()->view('cabinet.errors.file_not_found');
     }
 
     /**
@@ -168,14 +185,12 @@ class ArticleController extends Controller
      */
     public function download(int $articleId, Storage $storage)
     {
-        $filePath = $this->articleRepository->getFilePathById($articleId);
-        $actualPath = str_replace('storage', 'public', $filePath);
-
-        if ($storage->exists($actualPath)) {
-            return response()->download($filePath);
+        $file = $this->articleRepository->getFileById($articleId);
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->download($file->path);
         }
 
-        return abort(404);
+        return response()->view('cabinet.errors.file_not_found');
     }
 
     /**

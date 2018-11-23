@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Guard as Auth;
 use App\Http\Requests\Cabinet\Profile\UpdateRequest;
 use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
 use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
@@ -29,12 +29,10 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Auth $auth)
     {
 //        Auth::loginUsingId(4);
-        $user = $this->userRepository->getWithRelationsById(Auth::id(), ['role', 'profile']);
-
-        return view('cabinet.profile', ['user' => $user]);
+        return view('cabinet.profile', ['user' => $auth->user()]);
     }
 
     /**

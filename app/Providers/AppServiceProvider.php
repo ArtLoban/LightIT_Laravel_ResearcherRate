@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use App\Services\Users\User\UserRegister\Register;
 use App\Services\Users\BlankUser\KeyGenerator\RandomGenerator;
 use App\Services\Users\User\UserRegister\Contracts\UserRegister;
+use App\Services\Utilities\PublicationService\PublicationService;
+use App\Services\Utilities\PublicationStorage\PublicationStorage;
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
 use App\Services\Users\User\InputUpdateTransformer\UpdateDataTransformer;
 use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
-use App\Services\Publications\Article\ArticleService\UpdateService\UpdateService;
-use App\Services\Publications\Article\ArticleService\StorageService\StorageService;
-use App\Services\Publications\Article\ArticleService\Contracts\ArticleUpdateService;
-use App\Services\Publications\Article\ArticleService\Contracts\ArticleStorageService;
+use App\Services\Utilities\PublicationService\Contracts\PublicationServiceInterface;
+use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(KeyGenerator::class, RandomGenerator::class);
         $this->app->bind(UserRegister::class, Register::class);
         $this->app->bind(DataTransformer::class, UpdateDataTransformer::class);
-        $this->app->bind(ArticleStorageService::class, StorageService::class);
-        $this->app->bind(ArticleUpdateService::class, UpdateService::class);
+        $this->app->bind(PublicationServiceInterface::class, PublicationService::class);
+        $this->app->bind(PublicationStorageInterface::class, PublicationStorage::class);
     }
 }

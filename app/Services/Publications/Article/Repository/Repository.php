@@ -2,9 +2,11 @@
 
 namespace App\Services\Publications\Article\Repository;
 
+use App\Models\App\File;
 use App\Models\Publications\Articles\Article\Article;
 use App\Services\Utilities\Repository\RepositoryAbstract;
 use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Repository extends RepositoryAbstract implements ArticleRepository
 {
@@ -18,12 +20,18 @@ class Repository extends RepositoryAbstract implements ArticleRepository
 
     /**
      * @param int $id
-     * @return null|string
+     * @return File|null
      */
-    public function getFilePathById(int $id): ?string
+    public function getFileById(int $id): ?File
     {
-        $file = $this->whereId($id)->file;
+        /**
+         * @var Article $arcticle
+         */
+        $arcticle = $this->whereId($id);
+        if (! $arcticle) {
+            throw new ModelNotFoundException();
+        }
 
-        return $filePath = $file ? $file->path : null;
+        return $arcticle->getFile();
     }
 }

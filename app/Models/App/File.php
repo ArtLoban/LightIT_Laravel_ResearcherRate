@@ -27,4 +27,14 @@ class File extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * @return string
+     */
+    public function getActualPath(): string
+    {
+        $path = $this->{self::PATH};
+
+        return str_replace('storage', 'public', $path);
+    }
 }

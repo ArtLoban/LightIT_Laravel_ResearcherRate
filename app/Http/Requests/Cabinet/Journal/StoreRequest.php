@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:journals|string|max:255',
-            'issn' => 'required|string',
+            'issn' => 'required|string|unique:journals',
             'country' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
             'journal_type_id' => 'required|integer',

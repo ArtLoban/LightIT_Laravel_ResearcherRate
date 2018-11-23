@@ -5,13 +5,15 @@ namespace App\Models\Publications\Articles\Article;
 use App\Models\App\File;
 use App\Models\Publications\Author;
 use App\Models\Users\User;
+use App\Services\Utilities\Repository\Interfaces\Publishable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Publications\PublicationType;
 use App\Services\Utilities\Files\Contracts\HasFile;
 use App\Models\Publications\Articles\Journal\Journal;
 use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Article extends Model implements HasFile, HasMorphRelations
+class Article extends Model implements HasFile, HasMorphRelations, Publishable
 {
     /**
      * The attributes that are mass assignable.
@@ -62,8 +64,10 @@ class Article extends Model implements HasFile, HasMorphRelations
 
     /**
      * The Authors that belong to the Article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function authors()
+    public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class);
     }
