@@ -3,7 +3,7 @@
 @section('cabinet')
     <div class="col-lg-10">
         <div class="mt-4">
-            <p class="h5">Publications / Scientific / Articles</p>
+            <p class="h5">Publications / Scientific / <span class="publication-tipe-title">Articles</span></p>
         </div>
         @if (session('status'))
             <div class="alert alert-success">
@@ -14,7 +14,7 @@
             <p>Total count: <b>{{ $articles->count() }}</b></p>
         </div>
         <div class="form-group">
-            <a href="{{ route('articles.create') }}" class="btn btn-success">Add new article</a>
+            <a href="{{ route('scientific.articles.create') }}" class="btn btn-success">Add new article</a>
         </div>
         <hr>
         @if(! $articles->isEmpty())
@@ -27,6 +27,7 @@
                         <table class="table text-center" cellspacing="0">
                             <thead class="thead-dark">
                             <tr class="table">
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Authors</th>
                                 <th>Journal</th>
@@ -40,8 +41,9 @@
                             <tbody>
                                 @foreach($articles as $article)
                                     <tr class="table">
+                                        <td>{{ $loop->iteration . '.'}}</td>
                                         <td>
-                                            <a href="{{ route('articles.show', $article->getKey()) }}">
+                                            <a href="{{ route('scientific.articles.show', $article->getKey()) }}">
                                                 {{ $article->name }}
                                             </a>
                                         </td>

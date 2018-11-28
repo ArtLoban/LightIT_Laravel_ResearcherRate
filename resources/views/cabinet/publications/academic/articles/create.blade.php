@@ -9,13 +9,13 @@
             <p>Some text</p>
         </div>
         <div class="">
-            <a class="btn btn-outline-success" href="{{ route('scientific.articles.index')}}">Back</a>
+            <a class="btn btn-outline-success" href="{{ route('academic.articles.index')}}">Back</a>
         </div>
         <hr>
 
         @include('cabinet.publications.create_journal_modal')
 
-        {!! Form::open(['route' => 'scientific.articles.store', 'files' => true]) !!}
+        {!! Form::open(['route' => 'academic.articles.store', 'files' => true]) !!}
 
             @include('components.errors')
             <div class="form-group">
@@ -56,7 +56,7 @@
                     @foreach($publicationTypes as $publicationType)
                         <option
                             value="{{ $publicationType->getKey() }}"
-                            {{ $publicationType->name == 'Scientific' ? 'selected' : 'disabled' }}
+                            {{ $publicationType->name == 'Academic' ? 'selected' : 'disabled' }}
                         >
                             {{ $publicationType->name }}
                         </option>

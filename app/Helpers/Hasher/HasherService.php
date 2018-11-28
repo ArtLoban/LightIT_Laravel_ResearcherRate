@@ -2,8 +2,8 @@
 
 namespace App\Helpers\Hasher;
 
-use App\Helpers\Hasher\Contracts\HasherInterface;
 use Illuminate\Contracts\Hashing\Hasher;
+use App\Helpers\Hasher\Contracts\HasherInterface;
 
 class HasherService implements HasherInterface
 {

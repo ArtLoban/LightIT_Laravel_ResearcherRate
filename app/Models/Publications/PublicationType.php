@@ -2,8 +2,8 @@
 
 namespace App\Models\Publications;
 
-use App\Models\Publications\Articles\Article\Article;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Publications\Articles\Article\Article;
 
 class PublicationType extends Model
 {

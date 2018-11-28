@@ -4,6 +4,7 @@ namespace App\Models\Users;
 
 use App\Models\Organization\Employees\Profile;
 use App\Models\Publications\Articles\Article\Article;
+use App\Models\Publications\Patents\Patent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -56,5 +57,15 @@ class User extends Authenticatable
     public function articles()
     {
         return $this->hasMany(Article::class);
+    }
+
+    /**
+     * Get the Patents for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function patents()
+    {
+        return $this->hasMany(Patent::class);
     }
 }

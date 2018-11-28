@@ -5,8 +5,8 @@
         <div class="mt-4">
             <p class="h4">{{ $article->name }}</p>
         </div>
-            <a class="btn btn-outline-success" href="{{ route('scientific.articles.index')}}">Back</a>
-            <a class="btn btn-outline-info" href="{{ route('scientific.articles.edit', $article->getKey()) }}">Edit article</a>
+            <a class="btn btn-outline-success" href="{{ route('academic.articles.index')}}">Back</a>
+            <a class="btn btn-outline-info" href="{{ route('academic.articles.edit', $article->getKey()) }}">Edit article</a>
         <hr>
         @if (session('status'))
             <div class="row">
@@ -96,7 +96,7 @@
         @endif
 
         {!! Form::open([
-            'route' => ['scientific.articles.destroy', $article->getKey()],
+            'route' => ['academic.articles.destroy', $article->getKey()],
             'method' => 'delete'])
         !!}
             <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">

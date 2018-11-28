@@ -3,26 +3,25 @@
 @section('cabinet')
     <div class="col-lg-10">
         <div class="mt-4">
-            <p class="h4">New article</p>
-        </div>
-        <div>
-            <p>Some text</p>
+            <p class="h4">Edit article</p>
         </div>
         <div class="">
-            <a class="btn btn-outline-success" href="{{ route('scientific.articles.index')}}">Back</a>
+            <a class="btn btn-outline-success" href="{{ route('academic.articles.index')}}">Back</a>
         </div>
         <hr>
-
-        @include('cabinet.publications.create_journal_modal')
-
-        {!! Form::open(['route' => 'scientific.articles.store', 'files' => true]) !!}
+        {!! Form::open([
+            'route' => ['academic.articles.update', $article->getKey()],
+            'method' => 'put',
+            'files' => true
+            ])
+        !!}
 
             @include('components.errors')
             <div class="form-group">
                 <label for="articleName">
                     Article Name @include('components.required-star')
                 </label>
-                <input type="text" class="form-control form-control-sm" id="articleName" name="name" value="{{ old('name') }}" required>
+                <input type="text" class="form-control form-control-sm" id="articleName" name="name" value="{{ $article->name }}" required>
             </div>
             <div class="form-group">
                 <label for="articleAuthors">
@@ -33,7 +32,7 @@
                     class="form-control form-control-sm"
                     id="articleAuthors"
                     name="authors"
-                    value="{{ old('authors') }}"
+                    value="{{ $article->authors->pluck('name')->implode(', ') }}"
                     required
                 >
                 <small class="form-text text-muted">Enter the names of the authors using ',' as a separator</small>
@@ -41,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="articleDescription">Description</label>
-                <textarea class="form-control form-control-sm" id="articleDescription" rows="3" name="description">{{ old('description') }}</textarea>
+                <textarea class="form-control form-control-sm" id="articleDescription" rows="3" name="description">{{ $article->description }}</textarea>
             </div>
             <div class="form-group">
                 <label for="publicationType">
@@ -53,10 +52,11 @@
                     id="publicationType"
                     required
                 >
+                    <option></option>
                     @foreach($publicationTypes as $publicationType)
                         <option
                             value="{{ $publicationType->getKey() }}"
-                            {{ $publicationType->name == 'Scientific' ? 'selected' : 'disabled' }}
+                            @if ($article->publication_type_id === $publicationType->getKey()) {{ 'selected' }} @endif
                         >
                             {{ $publicationType->name }}
                         </option>
@@ -67,9 +67,7 @@
                 <label for="journalName">
                     Journal Name @include('components.required-star')
                 </label>
-                <!-- Link Button trigger modal -->
-                <a href="#" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#ajax-journalModal">Add journal</a>
-                <input type="text" class="form-control form-control-sm" id="journalName" name="journal_name" value="{{ old('journal_name') }}" required>
+                <input type="text" class="form-control form-control-sm" id="journalName" name="journal_name" value="{{ $article->journal->name }}" required>
                 <input type="hidden" id="ajax-journal-autocomplete" value="{{ route('journals.ajax') }}">
             </div>
             <div class="alert alert-success d-none" id='msg'></div>
@@ -82,7 +80,7 @@
                     class="form-control form-control-sm"
                     id="journalNumber"
                     name="journal_number"
-                    value="{{ old('journal_number') }}"
+                    value="{{ $article->journal_number }}"
                     required
                 >
             </div>
@@ -96,7 +94,7 @@
                     pattern="[0-9]{4}"
                     placeholder="2018"
                     name="year"
-                    value="{{ old('year') }}"
+                    value="{{ $article->year }}"
                     id="articleYear"
                     required
                 >
@@ -111,7 +109,7 @@
                     pattern="[0-9]{1,}-[0-9]{1,}"
                     placeholder="00-00"
                     name="pages"
-                    value="{{ old('pages') }}"
+                    value="{{ $article->pages }}"
                     id="articlePages"
                 >
             </div>
@@ -122,18 +120,27 @@
                 <select name="language" class="form-control form-control-sm" id="publicationLanguage" required>
                     <option></option>
                     @foreach($languages as $language)
-                    <option value="{{ $language }}">{{ $language }}</option>
+                        <option
+                            value="{{ $language }}"
+                            @if ($article->language === $language) {{ 'selected' }} @endif
+                        >
+                            {{ $language }}
+                        </option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label for="uploadFile">Upload file</label>
+                @if($article->file)
+                    <label for="uploadFile">Uploaded file: {{ 'article.' . $article->file->extension }}</label>
+                @else
+                    <label for="uploadFile">Upload file</label>
+                @endif
                 <input type="file" class="form-control-file  form-control-sm" name="file" id="uploadFile">
             </div>
             <small class="form-text text-muted">Acceptable file extensions: .pdf, .doc, .docx</small>
             <small class="form-text text-muted">@include('components.required-star') - Field is required</small>
             <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-success">Update</button>
 
         {!! Form::close() !!}
     </div>

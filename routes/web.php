@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,16 +42,39 @@ Route::group([
     Route::get('/profile', 'ProfileController@index')->name('cabinet.profile');
     Route::put('/profile', 'ProfileController@update')->name('cabinet.profile.update');
 
-    Route::get('/articles/file/{id}', 'ArticleController@file')->name('articles.file');
-    Route::get('/articles/download/{id}', 'ArticleController@download')->name('articles.download');
-    Route::get('/articles/authors', 'ArticleController@authors')->name('articles.authors');
-    Route::get('/articles/journals', 'ArticleController@journals')->name('articles.journals');
-    Route::resource('/articles', 'ArticleController');
+    Route::get('/journals/ajax', 'Editions\JournalController@journalsAjax')->name('journals.ajax');
+    Route::resource('/journals', 'Editions\JournalController');
 
-    Route::resource('/journals', 'JournalController');
+    Route::get('/authors/ajax', 'Publications\AuthorController@authorsAjax')->name('authors.ajax');
+});
 
-    Route::get('/patents', 'PatentController@index')->name('cabinet.patents');
-    Route::get('/theses', 'ThesisController@index')->name('cabinet.theses');
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'cabinet/publications/scientific',
+    'namespace' => 'Cabinet\Publications\Scientific',
+    'as' => 'scientific.',
+], function() {
+    Route::get('/articles/file/{id}', 'Articles\ArticleController@file')->name('articles.file');
+    Route::get('/articles/download/{id}', 'Articles\ArticleController@download')->name('articles.download');
+    Route::resource('/articles', 'Articles\ArticleController');
+
+    Route::resource('/patents', 'Patents\PatentController');
+
+    Route::resource('/theses', 'Theses\ThesisController');
+
+});
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'cabinet/publications/academic',
+    'namespace' => 'Cabinet\Publications\Academic',
+    'as' => 'academic.',
+], function() {
+    Route::get('/articles/file/{id}', 'Articles\ArticleController@file')->name('articles.file');
+    Route::get('/articles/download/{id}', 'Articles\ArticleController@download')->name('articles.download');
+    Route::resource('/articles', 'Articles\ArticleController');
+
+    Route::resource('/theses', 'Theses\ThesisController');
 });
 
 Route::fallback(function () {

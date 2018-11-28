@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet;
+namespace App\Http\Controllers\Cabinet\Publications\Academic\Articles;
 
-use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard as Auth;
 use App\Http\Requests\Cabinet\Article\StoreRequest;
 use App\Http\Requests\Cabinet\Article\UpdateRequest;
 use App\Models\Publications\Articles\Article\Article;
-use Illuminate\Contracts\Filesystem\Filesystem as Storage;
-use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
+use Illuminate\Contracts\Auth\Guard as Auth;
+use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
 use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
@@ -36,6 +33,11 @@ class ArticleController extends Controller
     private $journalRepository;
 
     /**
+     * @var PublicationTypeRepository
+     */
+    private $publicationTypeRepository;
+
+    /**
      * ArticleController constructor.
      * @param ArticleRepository $articleRepository
      * @param AuthorRepository $authorRepository
@@ -44,24 +46,21 @@ class ArticleController extends Controller
     public function __construct(
         ArticleRepository $articleRepository,
         AuthorRepository $authorRepository,
-        JournalRepository $journalRepository
+        JournalRepository $journalRepository,
+        PublicationTypeRepository $publicationTypeRepository
     ) {
         $this->articleRepository = $articleRepository;
         $this->authorRepository = $authorRepository;
         $this->journalRepository = $journalRepository;
+        $this->publicationTypeRepository = $publicationTypeRepository;
     }
 
-    /**
-     * Show the application main page
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Auth $auth)
     {
-        $articles = $this->articleRepository
-            ->getAllWithRelationsBy('user_id', $auth->id(), ['journal', 'authors', 'publicationType']);
+        $publicationTypeId = $this->publicationTypeRepository->getAcademicId();
+        $articles = $this->articleRepository->getAllWithRelationsByUserIdAndType($auth->id(), $publicationTypeId);
 
-        return view('cabinet.publications.scientific.articles.index', ['articles' => $articles]);
+        return view('cabinet.publications.academic.articles.index', ['articles' => $articles]);
     }
 
     /**
@@ -69,14 +68,11 @@ class ArticleController extends Controller
      * @param LanguageRepository $languageRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(
-        PublicationTypeRepository $publicationTypeRepository,
-        LanguageRepository $languageRepository,
-        JournalTypeRepository $journalTypeRepository
-    ) {
-        return view('cabinet.publications.scientific.articles.create')
+    public function create(LanguageRepository $languageRepository, JournalTypeRepository $journalTypeRepository)
+    {
+        return view('cabinet.publications.academic.articles.create')
             ->with([
-                'publicationTypes' => $publicationTypeRepository->all(),
+                'publicationTypes' => $this->publicationTypeRepository->all(),
                 'languages' => $languageRepository->all(),
                 'journalTypes' => $journalTypeRepository->all(),
             ]);
@@ -98,18 +94,18 @@ class ArticleController extends Controller
             $this->journalRepository
         );
 
-        return redirect()->route('articles.index')->with('status', 'The new article is added!');
+        return redirect()->route('academic.articles.index')->with('status', 'The new article is added!');
     }
 
     /**
      * @param $article
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($article)
+    public function show(int $articleId)
     {
-        $articleEntity = $this->articleRepository->getWithRelationsById($article, ['journal', 'authors', 'publicationType']);
+        $article = $this->articleRepository->getWithRelationsById($articleId, ['journal', 'authors', 'publicationType']);
 
-        return view('cabinet.publications.scientific.articles.show', ['article' => $articleEntity]);
+        return view('cabinet.publications.academic.articles.show', ['article' => $article]);
     }
 
     /**
@@ -122,15 +118,14 @@ class ArticleController extends Controller
     public function edit(
         Article $article,
         LanguageRepository $languageRepository,
-        JournalTypeRepository $journalTypeRepository,
-        PublicationTypeRepository $publicationTypeRepository
+        JournalTypeRepository $journalTypeRepository
     ) {
-        return view('cabinet.publications.scientific.articles.edit')
+        return view('cabinet.publications.academic.articles.edit')
             ->with([
                 'article' => $article,
                 'languages' => $languageRepository->all(),
                 'journalTypes' => $journalTypeRepository->all(),
-                'publicationTypes' => $publicationTypeRepository->all()
+                'publicationTypes' => $this->publicationTypeRepository->all()
             ]);
     }
 
@@ -151,7 +146,7 @@ class ArticleController extends Controller
             $this->journalRepository
         );
 
-        return redirect()->route('articles.show', $articleId)->with('status', 'The article is updated!');
+        return redirect()->route('academic.articles.show', $articleId)->with('status', 'The article is updated!');
     }
 
     /**
@@ -162,56 +157,6 @@ class ArticleController extends Controller
     {
         $this->articleRepository->delete($article);
 
-        return redirect()->route('articles.index')->with('status', 'The article has been deleted!');
-    }
-
-    /**
-     * @param int $articleId
-     * @param Storage $storage
-     */
-    public function file(int $articleId, Storage $storage)
-    {
-        $file = $this->articleRepository->getFileById($articleId);
-        if ($file && $storage->exists($file->getActualPath())) {
-            return response()->file($file->path);
-        }
-
-        return response()->view('cabinet.errors.file_not_found');
-    }
-
-    /**
-     * @param int $articleId
-     * @param Storage $storage
-     */
-    public function download(int $articleId, Storage $storage)
-    {
-        $file = $this->articleRepository->getFileById($articleId);
-        if ($file && $storage->exists($file->getActualPath())) {
-            return response()->download($file->path);
-        }
-
-        return response()->view('cabinet.errors.file_not_found');
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function authors(Request $request)
-    {
-        $result = $this->authorRepository->getAuthorNamesByAjaxQuery($request->get('name'));
-
-        return response()->json($result);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function journals(Request $request)
-    {
-        $result = $this->journalRepository->getJournalNamesByAjaxQuery($request->get('name'));
-
-        return response()->json($result);
+        return redirect()->route('academic.articles.index')->with('status', 'The article has been deleted!');
     }
 }

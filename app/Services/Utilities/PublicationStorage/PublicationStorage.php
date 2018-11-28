@@ -102,7 +102,7 @@ class PublicationStorage implements PublicationStorageInterface
      */
     private function storeFile(array $data, HasFile $createdPublication)
     {
-        if ($data['file'] && $data['file']->isValid()) {
+        if (!empty($data['file']) && $data['file']->isValid()) {
             $this->publicationService->storeFile($data['file'], $createdPublication);
         }
     }

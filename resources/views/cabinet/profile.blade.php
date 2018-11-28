@@ -69,7 +69,7 @@
                         </div>
                         <small class="text-muted">* some text</small>
 
-                        @include('pieces.errors')
+                        @include('components.errors')
 
                         @if (session('status'))
                             <div class="alert alert-success">

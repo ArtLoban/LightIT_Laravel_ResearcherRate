@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet;
+namespace App\Http\Controllers\Cabinet\Editions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\Journal\StoreRequest;
 use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
+use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
@@ -31,5 +32,16 @@ class JournalController extends Controller
         $this->journalRepository->create($request->all());
 
         return response()->json(['msg' => 'The new journal is added!']);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function journalsAjax(Request $request)
+    {
+        $result = $this->journalRepository->getJournalNamesByAjaxQuery($request->get('name'));
+
+        return response()->json($result);
     }
 }

@@ -25,15 +25,15 @@
                                     Scientific
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="{{ route('articles.index') }}"
+                                    <a href="{{ route('scientific.articles.index') }}"
                                        class="list-group-item publication-item">
                                         Articles
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('scientific.patents.index') }}"
                                        class="list-group-item publication-item">
                                         Patents
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('scientific.theses.index') }}"
                                        class="list-group-item publication-item">
                                         Theses
                                     </a>
@@ -46,11 +46,11 @@
                                     Academic
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#"
+                                    <a href="{{ route('academic.articles.index') }}"
                                        class="list-group-item publication-item">
                                         Articles
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('academic.theses.index') }}"
                                        class="list-group-item publication-item">
                                         Theses
                                     </a>

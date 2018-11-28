@@ -6,26 +6,26 @@
             <p class="h4">Edit article</p>
         </div>
         <div class="">
-            <a class="btn btn-outline-success" href="{{ route('articles.index')}}">Back</a>
+            <a class="btn btn-outline-success" href="{{ route('scientific.articles.index')}}">Back</a>
         </div>
         <hr>
         {!! Form::open([
-            'route' => ['articles.update', $article->getKey()],
+            'route' => ['scientific.articles.update', $article->getKey()],
             'method' => 'put',
             'files' => true
             ])
         !!}
 
-            @include('pieces.errors')
+            @include('components.errors')
             <div class="form-group">
                 <label for="articleName">
-                    Article Name @include('pieces.required-star')
+                    Article Name @include('components.required-star')
                 </label>
                 <input type="text" class="form-control form-control-sm" id="articleName" name="name" value="{{ $article->name }}" required>
             </div>
             <div class="form-group">
                 <label for="articleAuthors">
-                    Authors @include('pieces.required-star')
+                    Authors @include('components.required-star')
                 </label>
                 <input
                     type="text"
@@ -36,7 +36,7 @@
                     required
                 >
                 <small class="form-text text-muted">Enter the names of the authors using ',' as a separator</small>
-                <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('articles.authors') }}">
+                <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('authors.ajax') }}">
             </div>
             <div class="form-group">
                 <label for="articleDescription">Description</label>
@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label for="publicationType">
-                    Type of publication @include('pieces.required-star')
+                    Type of publication @include('components.required-star')
                 </label>
                 <select
                     name="publication_type_id"
@@ -65,15 +65,15 @@
             </div>
             <div class="form-group">
                 <label for="journalName">
-                    Journal Name @include('pieces.required-star')
+                    Journal Name @include('components.required-star')
                 </label>
                 <input type="text" class="form-control form-control-sm" id="journalName" name="journal_name" value="{{ $article->journal->name }}" required>
-                <input type="hidden" id="ajax-journal-autocomplete" value="{{ route('articles.journals') }}">
+                <input type="hidden" id="ajax-journal-autocomplete" value="{{ route('journals.ajax') }}">
             </div>
             <div class="alert alert-success d-none" id='msg'></div>
             <div class="form-group">
                 <label for="journalNumber">
-                    Journal Number @include('pieces.required-star')
+                    Journal Number @include('components.required-star')
                 </label>
                 <input
                     type="number"
@@ -86,7 +86,7 @@
             </div>
             <div class="form-group">
                 <label for="articleYear">
-                    Year @include('pieces.required-star')
+                    Year @include('components.required-star')
                 </label>
                 <input
                     class="form-control form-control-sm"
@@ -101,7 +101,7 @@
             </div>
             <div class="form-group">
                 <label for="articlePages">
-                    Pages @include('pieces.required-star')
+                    Pages @include('components.required-star')
                 </label>
                 <input
                     class="form-control form-control-sm"
@@ -115,7 +115,7 @@
             </div>
             <div class="form-group">
                 <label for="publicationLanguage">
-                    Language @include('pieces.required-star')
+                    Language @include('components.required-star')
                 </label>
                 <select name="language" class="form-control form-control-sm" id="publicationLanguage" required>
                     <option></option>
@@ -131,14 +131,14 @@
             </div>
             <div class="form-group">
                 @if($article->file)
-                    <label for="uploadFile">Uploaded file {{ $article->file->path }}</label>
+                    <label for="uploadFile">Uploaded file: {{ 'article.' . $article->file->extension }}</label>
                 @else
                     <label for="uploadFile">Upload file</label>
                 @endif
                 <input type="file" class="form-control-file  form-control-sm" name="file" id="uploadFile">
             </div>
             <small class="form-text text-muted">Acceptable file extensions: .pdf, .doc, .docx</small>
-            <small class="form-text text-muted">@include('pieces.required-star') - Field is required</small>
+            <small class="form-text text-muted">@include('components.required-star') - Field is required</small>
             <hr>
             <button type="submit" class="btn btn-success">Update</button>
 

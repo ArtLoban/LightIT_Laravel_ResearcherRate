@@ -15,4 +15,20 @@ class Repository extends RepositoryAbstract implements PublicationTypeRepository
     {
         return PublicationType::class;
     }
+
+    /**
+     * @return int
+     */
+    public function getScientificId(): int
+    {
+        return $this->className::where('name', 'Scientific')->first()->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAcademicId(): int
+    {
+        return $this->className::where('name', 'Academic')->first()->id;
+    }
 }
