@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Publications\Patent\StorageService\Contracts\StorageServiceInterface;
+use App\Services\Publications\Patent\StorageService\StorageService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -42,5 +44,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DataTransformer::class, UpdateDataTransformer::class);
         $this->app->bind(PublicationServiceInterface::class, PublicationService::class);
         $this->app->bind(PublicationStorageInterface::class, PublicationStorage::class);
+        $this->app->bind(StorageServiceInterface::class, StorageService::class);
     }
 }

@@ -46,6 +46,8 @@ Route::group([
     Route::resource('/journals', 'Editions\JournalController');
 
     Route::get('/authors/ajax', 'Publications\AuthorController@authorsAjax')->name('authors.ajax');
+
+    Route::post('/patent_bulletin/store', 'Editions\PatentBulletinController@store')->name('scientific.patent_bulletin.store');
 });
 
 Route::group([
@@ -58,6 +60,8 @@ Route::group([
     Route::get('/articles/download/{id}', 'Articles\ArticleController@download')->name('articles.download');
     Route::resource('/articles', 'Articles\ArticleController');
 
+    Route::get('/patents/file/{id}', 'Patents\PatentController@file')->name('patents.file');
+    Route::get('/patents/download/{id}', 'Patents\PatentController@download')->name('patents.download');
     Route::resource('/patents', 'Patents\PatentController');
 
     Route::resource('/theses', 'Theses\ThesisController');

@@ -6,6 +6,7 @@ use App\Services\Publications\Patent\Repository\Repository as PatentRepository;
 use App\Services\Publications\Article\Repository\Repository as ArticleRepository;
 use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
 use App\Services\Publications\Journal\Repository\Repository as JournalRepository;
+use App\Services\Publications\PatentBulletin\Repository as PatentBulletinRepository;
 use App\Services\Publications\PublicationType\Repository\Repository as PublicationTypeRepository;
 use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
 use App\Services\Users\PermissionRole\Repository\Repository as PermissionRoleRepository;
@@ -86,6 +87,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\Publications\Patent\Repository\Contracts\Repository::class,
             PatentRepository::class
+        );
+        $this->app->bind(
+           \App\Services\Publications\PatentBulletin\Repository\Contracts\Repository::class,
+            PatentBulletinRepository::class
         );
         $this->app->bind(
             \App\Services\Publications\Journal\Repository\Contracts\Repository::class,

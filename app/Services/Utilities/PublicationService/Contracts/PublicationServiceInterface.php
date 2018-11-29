@@ -10,13 +10,6 @@ use App\Services\Utilities\Repository\Interfaces\MainRepository;
 interface PublicationServiceInterface
 {
     /**
-     * @param string $editionName
-     * @param MainRepository $repository
-     * @return int
-     */
-    public function getEditionIdByName(string $editionName, MainRepository $repository): int;
-
-    /**
      * @param string $authors
      * @param Publishable $publication
      */

@@ -131,7 +131,11 @@
             </div>
             <div class="form-group">
                 @if($article->file)
-                    <label for="uploadFile">Uploaded file: {{ 'article.' . $article->file->extension }}</label>
+                    <label for="uploadFile">
+                        Uploaded file:
+                        <i class="fa fa-file-text-o" style="font-size:24px"></i>
+                        {{ 'article.' . $article->file->extension }}
+                    </label>
                 @else
                     <label for="uploadFile">Upload file</label>
                 @endif

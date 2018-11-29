@@ -3,6 +3,7 @@
 namespace App\Services\Utilities\PublicationStorage;
 
 use App\Services\Utilities\Files\Contracts\HasFile;
+use App\Services\Utilities\PublicationService\EditionIdByName;
 use App\Services\Utilities\Repository\Interfaces\Publishable;
 use App\Services\Utilities\Repository\Interfaces\MainRepository;
 use App\Services\Utilities\PublicationService\Contracts\PublicationServiceInterface;
@@ -16,12 +17,19 @@ class PublicationStorage implements PublicationStorageInterface
     private $publicationService;
 
     /**
-     * StorageService constructor.
-     * @param PublicationServiceInterface $publicationService
+     * @var EditionIdByName
      */
-    public function __construct(PublicationServiceInterface $publicationService)
+    private $editionIdByName;
+
+    /**
+     * PublicationStorage constructor.
+     * @param PublicationServiceInterface $publicationService
+     * @param EditionIdByName $editionIdByName
+     */
+    public function __construct(PublicationServiceInterface $publicationService, EditionIdByName $editionIdByName)
     {
         $this->publicationService = $publicationService;
+        $this->editionIdByName = $editionIdByName;
     }
 
     /**
@@ -84,7 +92,7 @@ class PublicationStorage implements PublicationStorageInterface
      */
     private function getEditionIdByName(string $editionName, MainRepository $edition): int
     {
-        return $this->publicationService->getEditionIdByName($editionName, $edition);
+        return $this->editionIdByName->getEditionIdByName($editionName, $edition);
     }
 
     /**

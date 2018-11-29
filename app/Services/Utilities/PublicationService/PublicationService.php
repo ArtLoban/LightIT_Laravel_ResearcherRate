@@ -35,31 +35,6 @@ class PublicationService implements PublicationServiceInterface
     }
 
     /**
-     * @param string $editionName
-     * @param MainRepository $repository
-     * @return int
-     */
-    public function getEditionIdByName(string $editionName, MainRepository $repository): int
-    {
-        return $this->getEntityIdByName($editionName, $repository);
-    }
-
-    /**
-     * @param string $editionName
-     * @param MainRepository $repository
-     * @return int
-     */
-    private function getEntityIdByName(string $entityName, MainRepository $repository): int
-    {
-        $entity = $repository->getByName($entityName);
-        if (! $entity) {
-            $entity = $repository->create(['name' => $entityName]);
-        }
-
-        return $entity ? $entity->getKey() : null;
-    }
-
-    /**
      * @param string $authors
      * @param Model $publication
      */
@@ -83,6 +58,21 @@ class PublicationService implements PublicationServiceInterface
         };
 
         return $authorsIds;
+    }
+
+    /**
+     * @param string $editionName
+     * @param MainRepository $repository
+     * @return int
+     */
+    private function getEntityIdByName(string $entityName, MainRepository $repository): int
+    {
+        $entity = $repository->getByName($entityName);
+        if (! $entity) {
+            $entity = $repository->create(['name' => $entityName]);
+        }
+
+        return $entity ? $entity->getKey() : null;
     }
 
     /**

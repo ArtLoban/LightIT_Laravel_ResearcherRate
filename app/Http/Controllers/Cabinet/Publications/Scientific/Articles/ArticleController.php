@@ -180,6 +180,7 @@ class ArticleController extends Controller
         }
 
         return response()->view('cabinet.errors.file_not_found');
+        // TODO Вынести отдельно
     }
 
     /**
@@ -194,5 +195,6 @@ class ArticleController extends Controller
         }
 
         return response()->view('cabinet.errors.file_not_found');
+        // TODO Вынести отдельно
     }
 }

@@ -84,6 +84,7 @@
         <hr>
         @if($article->file)
             <div class="form-group">
+                <i class="fa fa-file-text-o" style="font-size:24px"></i>
                 {!! Form::open(['route' => ['scientific.articles.file', $article->getKey()], 'method' => 'GET']) !!}
                     <button type="submit" class="btn btn-light">View file</button>
                 {!! Form::close() !!}
