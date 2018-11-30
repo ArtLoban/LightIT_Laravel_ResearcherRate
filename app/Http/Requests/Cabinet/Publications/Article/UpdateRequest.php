@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Cabinet\Article;
+namespace App\Http\Requests\Cabinet\Publications\Article;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,7 +34,7 @@ class UpdateRequest extends FormRequest
             'year' => 'required|integer|digits:4',
             'pages' => 'required|string',
             'language' => 'required|string',
-            'file' => 'nullable|mimes:pdf,doc,docx',
+            'file' => 'nullable|file|mimes:pdf,doc,docx',
         ];
     }
 }

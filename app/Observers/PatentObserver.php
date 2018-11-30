@@ -2,11 +2,11 @@
 
 namespace App\Observers;
 
-use App\Models\Publications\Articles\Article\Article;
+use App\Models\Publications\Patents\Patent;
 use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
 use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
 
-class ArticleObserver
+class PatentObserver
 {
     /**
      * @var MorphRelationsDeleteInterface
@@ -14,7 +14,7 @@ class ArticleObserver
     private $service;
 
     /**
-     * ArticleObserver constructor.
+     * PatentObserver constructor.
      * @param MorphRelationsDeleteInterface $service
      */
     public function __construct(MorphRelationsDeleteInterface $service)
@@ -23,11 +23,11 @@ class ArticleObserver
     }
 
     /**
-     * @param Article $article
+     * @param Patent $patent
      * @return bool|mixed
      */
-    public function deleted(Article $article)
+    public function deleted(Patent $patent)
     {
-        return $article instanceof HasMorphRelations ? $this->service->deleteMorphRelations($article) : false;
+        return $patent instanceof HasMorphRelations ? $this->service->deleteMorphRelations($patent) : false;
     }
 }

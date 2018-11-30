@@ -27,6 +27,7 @@
                         <table class="table text-center" cellspacing="0">
                             <thead class="thead-dark">
                             <tr class="table">
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>IPC</th>
                                 <th>Patent number</th>
@@ -39,6 +40,7 @@
                             <tbody>
                                 @foreach($patents as $patent)
                                     <tr class="table">
+                                        <td>{{ $loop->iteration . '.'}}</td>
                                         <td>
                                             <a href="{{ route('scientific.patents.show', $patent->getKey()) }}">
                                                 {{ $patent->name }}

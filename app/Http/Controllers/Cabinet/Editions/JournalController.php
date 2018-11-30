@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Cabinet\Editions;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Cabinet\Journal\StoreRequest;
-use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinet\Editions\Journal\StoreRequest;
+use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
 
 class JournalController extends Controller
 {

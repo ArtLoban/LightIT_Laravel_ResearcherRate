@@ -8,6 +8,12 @@
         <div class="">
             <a class="btn btn-outline-success" href="{{ route('scientific.patents.index')}}">Back</a>
         </div>
+        @if (session('status'))
+            <hr>
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <hr>
         @include('cabinet.publications.create_bulletin_modal')
 

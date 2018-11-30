@@ -6,7 +6,7 @@
             <p class="h4">Edit article</p>
         </div>
         <div class="">
-            <a class="btn btn-outline-success" href="{{ route('academic.articles.index')}}">Back</a>
+            <a class="btn btn-outline-success" href="{{ url()->previous() }}">Back</a>
         </div>
         <hr>
         {!! Form::open([
@@ -133,9 +133,9 @@
                 @if($article->file)
                     <label for="uploadFile">
                         Uploaded file:
-                        <i class="fa fa-file-text-o" style="font-size:24px"></i>
-                        {{ 'article.' . $article->file->extension }}
                     </label>
+                    <i class="fa fa-file-text-o" style="font-size:24px"></i>
+                    <span>{{ 'patent.' . $article->file->extension }}</span>
                 @else
                     <label for="uploadFile">Upload file</label>
                 @endif

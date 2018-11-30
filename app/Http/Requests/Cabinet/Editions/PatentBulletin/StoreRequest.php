@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Cabinet\Journal;
+namespace App\Http\Requests\Cabinet\Editions\PatentBulletin;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,11 +25,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:journals|string|max:255',
-            'issn' => 'required|string|unique:journals',
-            'country' => 'required|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'journal_type_id' => 'required|integer',
+            'week' => 'required|integer|digits_between:1,2',
+            'year' => 'required|string|digits:4',
+            'date' => 'required|date|date_format:Y-m-d',
         ];
     }
 }

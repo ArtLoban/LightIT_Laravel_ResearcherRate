@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Cabinet\Publications\Scientific\Articles;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard as Auth;
-use App\Http\Requests\Cabinet\Article\StoreRequest;
-use App\Http\Requests\Cabinet\Article\UpdateRequest;
 use App\Models\Publications\Articles\Article\Article;
-use Illuminate\Contracts\Filesystem\Filesystem as Storage;
 use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
+use App\Http\Requests\Cabinet\Publications\Article\StoreRequest;
+use App\Http\Requests\Cabinet\Publications\Article\UpdateRequest;
+use App\Services\Utilities\Files\FileDownloader\Contracts\FileDownloaderInterface as FileDownloader;
 use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
@@ -169,32 +168,22 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param int $articleId
-     * @param Storage $storage
+     * @param int $patentId
+     * @param FileDownloader $fileDownloader
+     * @return \Illuminate\Http\Response
      */
-    public function file(int $articleId, Storage $storage)
+    public function file(int $patentId, FileDownloader $fileDownloader)
     {
-        $file = $this->articleRepository->getFileById($articleId);
-        if ($file && $storage->exists($file->getActualPath())) {
-            return response()->file($file->path);
-        }
-
-        return response()->view('cabinet.errors.file_not_found');
-        // TODO Вынести отдельно
+        return $fileDownloader->fetchFile($this->articleRepository->whereId($patentId), FileDownloader::FILE);
     }
 
     /**
-     * @param int $articleId
-     * @param Storage $storage
+     * @param int $patentId
+     * @param FileDownloader $fileDownloader
+     * @return mixed
      */
-    public function download(int $articleId, Storage $storage)
+    public function download(int $patentId, FileDownloader $fileDownloader)
     {
-        $file = $this->articleRepository->getFileById($articleId);
-        if ($file && $storage->exists($file->getActualPath())) {
-            return response()->download($file->path);
-        }
-
-        return response()->view('cabinet.errors.file_not_found');
-        // TODO Вынести отдельно
+        return $fileDownloader->fetchFile($this->articleRepository->whereId($patentId), FileDownloader::DOWNLOAD);
     }
 }

@@ -23,6 +23,13 @@ class StorageService implements StorageServiceInterface
         $this->publicationService = $publicationService;
     }
 
+    /**
+     * @param array $data
+     * @param int $userId
+     * @param MainRepository $publication
+     * @param MainRepository $edition
+     * @return mixed|void
+     */
     public function create(array $data, int $userId, MainRepository $publication, MainRepository $edition)
     {
         $data['user_id'] = $userId;
@@ -33,9 +40,20 @@ class StorageService implements StorageServiceInterface
         $this->storeFile($data, $createdPatent);
     }
 
-    public function update()
+    /**
+     * @param array $data
+     * @param int $patentId
+     * @param MainRepository $publication
+     * @param MainRepository $edition
+     * @return mixed|void
+     */
+    public function update(array $data, int $patentId, MainRepository $publication, MainRepository $edition)
     {
-        // TODO: Implement update() method.
+        $updatedPatent = $publication->updateById($patentId, $data);
+
+        $this->publicationService->assignAuthors($data['authors'], $updatedPatent);
+
+        $this->storeFile($data, $updatedPatent);
     }
 
     /**

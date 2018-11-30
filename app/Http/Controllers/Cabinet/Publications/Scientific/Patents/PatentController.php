@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Cabinet\Publications\Scientific\Patents;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cabinet\Publications\Patents\StoreRequest;
-use App\Services\Publications\Patent\Repository\Contracts\Repository as PatentRepository;
-use App\Services\Publications\Patent\StorageService\Contracts\StorageServiceInterface;
-use App\Services\Publications\PatentBulletin\Repository\Contracts\Repository as PatentBulletinRepository;
-use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
-use Illuminate\Contracts\Filesystem\Filesystem as Storage;
+use App\Models\Publications\Patents\Patent;
 use Illuminate\Contracts\Auth\Guard as Auth;
-use Illuminate\Http\Request;
+use App\Http\Requests\Cabinet\Publications\Patents\StoreRequest;
+use App\Http\Requests\Cabinet\Publications\Patents\UpdateRequest;
+use App\Services\Utilities\Files\FileDownloader\Contracts\FileDownloaderInterface as FileDownloader;
+use App\Services\Publications\Patent\StorageService\Contracts\StorageServiceInterface;
+use App\Services\Publications\Patent\Repository\Contracts\Repository as PatentRepository;
+use App\Services\Publications\PatentBulletin\Repository\Contracts\Repository as PatentBulletinRepository;
 
 class PatentController extends Controller
 {
@@ -47,9 +47,17 @@ class PatentController extends Controller
      */
     public function create()
     {
-        return view('cabinet.publications.scientific.patents.create', ['patentBulletins' => $this->patentBulletinRepository->all()]);
+        return view('cabinet.publications.scientific.patents.create')
+            ->with([
+                'patentBulletins' => $this->patentBulletinRepository->allSortedByDateField()
+            ]);
     }
 
+    /**
+     * @param StoreRequest $request
+     * @param StorageServiceInterface $storageService
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreRequest $request, StorageServiceInterface $storageService)
     {
         $storageService->create(
@@ -62,6 +70,10 @@ class PatentController extends Controller
         return redirect()->route('scientific.patents.index')->with('status', 'The new patent is added!');
     }
 
+    /**
+     * @param int $patentId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(int $patentId)
     {
         $patent = $this->patentRepository->getWithRelationsById($patentId, ['user', 'authors', 'patentBulletin']);
@@ -70,33 +82,64 @@ class PatentController extends Controller
     }
 
     /**
-     * @param int $articleId
-     * @param Storage $storage
+     * @param Patent $patent
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function file(int $articleId, Storage $storage)
+    public function edit(Patent $patent)
     {
-//        $file = $this->patentRepository->getFileById($articleId);
-//        if ($file && $storage->exists($file->getActualPath())) {
-//            return response()->file($file->path);
-//        }
-//
-//        return response()->view('cabinet.errors.file_not_found');
-
-        // TODO Вынести отдельно
+        return view('cabinet.publications.scientific.patents.edit')
+            ->with([
+                'patent' => $patent,
+                'patentBulletins' => $this->patentBulletinRepository->allSortedByDateField()
+            ]);
     }
 
     /**
-     * @param int $articleId
-     * @param Storage $storage
+     * @param UpdateRequest $request
+     * @param int $patentId
+     * @param StorageServiceInterface $storageService
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function download(int $articleId, Storage $storage)
+    public function update(UpdateRequest $request, int $patentId, StorageServiceInterface $storageService)
     {
-//        $file = $this->patentRepository->getFileById($articleId);
-//        if ($file && $storage->exists($file->getActualPath())) {
-//            return response()->download($file->path);
-//        }
-//
-//        return response()->view('cabinet.errors.file_not_found');
-        // TODO Вынести отдельно
+        $storageService->update(
+            $request->all(),
+            $patentId,
+            $this->patentRepository,
+            $this->patentBulletinRepository
+        );
+
+        return redirect()->route('scientific.patents.show', $patentId)->with('status', 'The patent is updated!');
+    }
+
+    /**
+     * @param Patent $patent
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Patent $patent)
+    {
+        $this->patentRepository->delete($patent);
+
+        return redirect()->route('scientific.patents.index')->with('status', 'The patent has been deleted!');
+    }
+
+    /**
+     * @param int $patentId
+     * @param FileDownloader $fileDownloader
+     * @return mixed
+     */
+    public function file(int $patentId, FileDownloader $fileDownloader)
+    {
+        return $fileDownloader->fetchFile($this->patentRepository->whereId($patentId), FileDownloader::FILE);
+    }
+
+    /**
+     * @param int $patentId
+     * @param FileDownloader $fileDownloader
+     * @return mixed
+     */
+    public function download(int $patentId, FileDownloader $fileDownloader)
+    {
+        return $fileDownloader->fetchFile($this->patentRepository->whereId($patentId), FileDownloader::DOWNLOAD);
     }
 }
