@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Cabinet\Publications\Academic\Articles;
 
+use App\Models\App\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard as Auth;
-use App\Models\Publications\Articles\Article\Article;
+use App\Models\Publications\Articles\Article;
+use Illuminate\Contracts\Filesystem\Filesystem as Storage;
 use App\Http\Requests\Cabinet\Publications\Article\StoreRequest;
 use App\Http\Requests\Cabinet\Publications\Article\UpdateRequest;
-use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
-use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
-use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
-use App\Services\Publications\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
-use App\Services\Utilities\Files\FileDownloader\Contracts\FileDownloaderInterface as FileDownloader;
+use App\Services\Publications\Services\PublicationStorage\Contracts\PublicationStorageInterface;
+use App\Services\Publications\Articles\Journal\Repository\Contracts\Repository as JournalRepository;
+use App\Services\Publications\Articles\Article\Repository\Contracts\Repository as ArticleRepository;
 use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
+use App\Services\Publications\Articles\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
 
 class ArticleController extends Controller
 {
@@ -163,21 +164,38 @@ class ArticleController extends Controller
 
     /**
      * @param int $patentId
-     * @param FileDownloader $fileDownloader
+     * @param Storage $storage
      * @return \Illuminate\Http\Response
      */
-    public function file(int $patentId, FileDownloader $fileDownloader)
+    public function displayFile(int $articleId, Storage $storage)
     {
-        return $fileDownloader->fetchFile($this->articleRepository->whereId($patentId), FileDownloader::FILE);
+        $article = $this->articleRepository->whereId($articleId);
+        /**
+         * @var File
+         */
+        $file = $article->getFile();
+
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->file($file->path);
+        }
+
+        return response()->view('cabinet.errors.file_not_found');
     }
 
     /**
      * @param int $patentId
-     * @param FileDownloader $fileDownloader
-     * @return mixed
+     * @param Storage $storage
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download(int $patentId, FileDownloader $fileDownloader)
+    public function downloadFile(int $articleId, Storage $storage)
     {
-        return $fileDownloader->fetchFile($this->articleRepository->whereId($patentId), FileDownloader::DOWNLOAD);
+        $article = $this->articleRepository->whereId($articleId);
+        $file = $article->getFile();
+
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->download($file->path);
+        }
+
+        return response()->view('cabinet.errors.file_not_found');
     }
 }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Cabinet\Publications\Scientific\Patents;
 
+use App\Models\App\File;
 use App\Http\Controllers\Controller;
 use App\Models\Publications\Patents\Patent;
 use Illuminate\Contracts\Auth\Guard as Auth;
+use Illuminate\Contracts\Filesystem\Filesystem as Storage;
 use App\Http\Requests\Cabinet\Publications\Patents\StoreRequest;
 use App\Http\Requests\Cabinet\Publications\Patents\UpdateRequest;
-use App\Services\Utilities\Files\FileDownloader\Contracts\FileDownloaderInterface as FileDownloader;
-use App\Services\Publications\Patent\StorageService\Contracts\StorageServiceInterface;
-use App\Services\Publications\Patent\Repository\Contracts\Repository as PatentRepository;
-use App\Services\Publications\PatentBulletin\Repository\Contracts\Repository as PatentBulletinRepository;
+use App\Services\Publications\Patents\Patent\StorageService\Contracts\StorageServiceInterface;
+use App\Services\Publications\Patents\Patent\Repository\Contracts\Repository as PatentRepository;
+use App\Services\Publications\Patents\PatentBulletin\Repository\Contracts\Repository as PatentBulletinRepository;
 
 class PatentController extends Controller
 {
@@ -125,21 +126,41 @@ class PatentController extends Controller
 
     /**
      * @param int $patentId
-     * @param FileDownloader $fileDownloader
-     * @return mixed
+     * @param Storage $storage
+     * @return \Illuminate\Http\Response
      */
-    public function file(int $patentId, FileDownloader $fileDownloader)
+    public function displayFile(int $patentId, Storage $storage)
     {
-        return $fileDownloader->fetchFile($this->patentRepository->whereId($patentId), FileDownloader::FILE);
+        $article = $this->patentRepository->whereId($patentId);
+        /**
+         * @var File
+         */
+        $file = $article->getFile();
+
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->file($file->path);
+        }
+
+        return response()->view('cabinet.errors.file_not_found');
     }
 
     /**
      * @param int $patentId
-     * @param FileDownloader $fileDownloader
-     * @return mixed
+     * @param Storage $storage
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download(int $patentId, FileDownloader $fileDownloader)
+    public function downloadFile(int $patentId, Storage $storage)
     {
-        return $fileDownloader->fetchFile($this->patentRepository->whereId($patentId), FileDownloader::DOWNLOAD);
+        $article = $this->patentRepository->whereId($patentId);
+        /**
+         * @var File
+         */
+        $file = $article->getFile();
+
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->download($file->path);
+        }
+
+        return response()->view('cabinet.errors.file_not_found');
     }
 }

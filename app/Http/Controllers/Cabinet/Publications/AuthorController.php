@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Cabinet\Publications;
 
 use Illuminate\Http\Request;
-
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 
 class AuthorController
@@ -26,9 +25,9 @@ class AuthorController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function authorsAjax(Request $request)
+    public function authorsNamesByAjaxAutocomplete(Request $request)
     {
-        $result = $this->authorRepository->getAuthorNamesByAjaxQuery($request->get('name'));
+        $result = $this->authorRepository->getAuthorsNamesLikeQuery($request->get('name'));
 
         return response()->json($result);
     }

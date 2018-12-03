@@ -42,10 +42,10 @@ Route::group([
     Route::get('/profile', 'ProfileController@index')->name('cabinet.profile');
     Route::put('/profile', 'ProfileController@update')->name('cabinet.profile.update');
 
-    Route::get('/journals/ajax', 'Editions\JournalController@journalsAjax')->name('journals.ajax');
+    Route::get('/journals/ajax', 'Editions\JournalController@journalsNamesByAjaxAutocomplete')->name('journals.ajax');
     Route::resource('/journals', 'Editions\JournalController');
 
-    Route::get('/authors/ajax', 'Publications\AuthorController@authorsAjax')->name('authors.ajax');
+    Route::get('/authors/ajax', 'Publications\AuthorController@authorsNamesByAjaxAutocomplete')->name('authors.ajax');
 
     Route::post('/patent_bulletin/store', 'Editions\PatentBulletinController@store')->name('scientific.patent_bulletin.store');
 });
@@ -56,12 +56,12 @@ Route::group([
     'namespace' => 'Cabinet\Publications\Scientific',
     'as' => 'scientific.',
 ], function() {
-    Route::get('/articles/file/{id}', 'Articles\ArticleController@file')->name('articles.file');
-    Route::get('/articles/download/{id}', 'Articles\ArticleController@download')->name('articles.download');
+    Route::get('/articles/file/{id}', 'Articles\ArticleController@displayFile')->name('articles.file');
+    Route::get('/articles/download/{id}', 'Articles\ArticleController@downloadFile')->name('articles.download');
     Route::resource('/articles', 'Articles\ArticleController');
 
-    Route::get('/patents/file/{id}', 'Patents\PatentController@file')->name('patents.file');
-    Route::get('/patents/download/{id}', 'Patents\PatentController@download')->name('patents.download');
+    Route::get('/patents/file/{id}', 'Patents\PatentController@displayFile')->name('patents.file');
+    Route::get('/patents/download/{id}', 'Patents\PatentController@downloadFile')->name('patents.download');
     Route::resource('/patents', 'Patents\PatentController');
 
     Route::resource('/theses', 'Theses\ThesisController');
@@ -74,8 +74,8 @@ Route::group([
     'namespace' => 'Cabinet\Publications\Academic',
     'as' => 'academic.',
 ], function() {
-    Route::get('/articles/file/{id}', 'Articles\ArticleController@file')->name('articles.file');
-    Route::get('/articles/download/{id}', 'Articles\ArticleController@download')->name('articles.download');
+    Route::get('/articles/file/{id}', 'Articles\ArticleController@displayFile')->name('articles.file');
+    Route::get('/articles/download/{id}', 'Articles\ArticleController@downloadFile')->name('articles.download');
     Route::resource('/articles', 'Articles\ArticleController');
 
     Route::resource('/theses', 'Theses\ThesisController');

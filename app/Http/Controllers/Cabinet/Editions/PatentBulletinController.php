@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Cabinet\Editions;
 
-use App\Http\Controllers\Controller;
-use App\Services\Publications\PatentBulletin\Repository\Contracts\Repository as PatentBulletinRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\Publications\Patents\PatentBulletin\Repository\Contracts\Repository as PatentBulletinRepository;
 
 class PatentBulletinController extends Controller
 {
@@ -25,7 +25,6 @@ class PatentBulletinController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->all());
         $this->patentBulletinRepository->create($request->all());
 
         return redirect()->back()->with('status', 'The new patent bulletin publication is added!');

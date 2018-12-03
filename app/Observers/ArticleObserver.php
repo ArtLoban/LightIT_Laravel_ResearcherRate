@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Publications\Articles\Article\Article;
+use App\Models\Publications\Articles\Article;
 use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
 use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
 

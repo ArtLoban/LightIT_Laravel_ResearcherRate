@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Organization\Employees\Profile;
 use Faker\Generator as Faker;
+use App\Models\Organization\Employees\Profile;
 
 $factory->define(Profile::class, function (Faker $faker) {
     static $userPrimaryKey = 4;

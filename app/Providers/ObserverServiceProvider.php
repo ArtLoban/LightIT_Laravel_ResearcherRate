@@ -8,7 +8,7 @@ use App\Observers\PatentObserver;
 use App\Observers\ArticleObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Publications\Patents\Patent;
-use App\Models\Publications\Articles\Article\Article;
+use App\Models\Publications\Articles\Article;
 use App\Services\Utilities\Observers\MorphRelationsDelete;
 use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
 

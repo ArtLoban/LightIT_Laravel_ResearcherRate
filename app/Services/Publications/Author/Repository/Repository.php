@@ -20,7 +20,7 @@ class Repository extends RepositoryAbstract implements AuthorRepository
      * @param string $query
      * @return array|null
      */
-    public function getAuthorNamesByAjaxQuery(string $query): ?array
+    public function getAuthorsNamesLikeQuery(string $query): ?array
     {
         return $this->where('name', 'like', '%' . $query . '%')->pluck('name')->all();
     }
