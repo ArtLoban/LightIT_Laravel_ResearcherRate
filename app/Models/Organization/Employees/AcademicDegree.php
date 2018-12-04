@@ -18,6 +18,6 @@ class AcademicDegree extends Model
      */
     public function profiles()
     {
-        return $this->hasMany(Profile::class);
+        return $this->hasMany(Profile::class, 'ac_degree_id');
     }
 }

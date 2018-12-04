@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
              PermissionRoleSeeder::class,
              FacultySeeder::class,
              DepartmentSeeder::class,
+             AcademicDegreeSeeder::class,
+             AcademicTitleSeeder::class,
+             PositionSeeder::class,
+             ProfileSeeder::class,
          ]);
     }
 }

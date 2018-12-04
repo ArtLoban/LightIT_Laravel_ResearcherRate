@@ -19,3 +19,15 @@ div .back-btn {
     margin: 15px 10px;
 }
 
+.field-required_star {
+    color: red;
+}
+
+.admin_panel_employee_profile {
+    font-size: 15px;
+}
+
+.profile_font_weight {
+    font-weight: 600;
+}
+

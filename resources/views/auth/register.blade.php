@@ -12,18 +12,32 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="personal_key" class="col-md-4 col-form-label text-md-right">{{ __('Personal Key') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="personal_key" type="text" class="form-control{{ $errors->has('personal_key') ? ' is-invalid' : '' }}" name="personal_key" value="{{ old('personal_key') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('personal_key'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('personal_key') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+
+                        {{--<div class="form-group row">--}}
+                            {{--<label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>--}}
+
+                            {{--<div class="col-md-6">--}}
+                                {{--<input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>--}}
+
+                                {{--@if ($errors->has('name'))--}}
+                                    {{--<span class="invalid-feedback" role="alert">--}}
+                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
+                                    {{--</span>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

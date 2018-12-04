@@ -142,7 +142,9 @@
                     <a href="{{ route('dashboard.index') }}">
                         <i class="fa fa-dashboard"></i><span>Dashboard</span>
                     </a>
+
                 </li>
+                <hr>
                 <li>
                     <a href="{{ route('users.index') }}">
                         <i class="fa fa-users"></i><span>Users</span>
@@ -158,6 +160,7 @@
                         <i class="fa fa-check"></i><span>Permissions</span>
                     </a>
                 </li>
+                <hr>
                 <li>
                     <a href="{{ route('faculties.index') }}">
                         <i class="fa fa-graduation-cap"></i><span>Faculties</span>
@@ -166,6 +169,33 @@
                 <li>
                     <a href="{{ route('departments.index') }}">
                         <i class="fa fa-clone"></i><span>Departments</span>
+                    </a>
+                </li>
+                <hr>
+                <li>
+                    <a href="{{ route('profiles.index') }}">
+                        <i class="fa fa-files-o"></i><span>Profiles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('blank_users.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Blank Users</span>
+                    </a>
+                </li>
+                <hr>
+                <li>
+                    <a href="{{ route('positions.index') }}">
+                        <i class="fa fa-paper-plane"></i><span>Positions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('academic_degrees.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Academic Degrees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('academic_titles.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Academic Titles</span>
                     </a>
                 </li>
             </ul>

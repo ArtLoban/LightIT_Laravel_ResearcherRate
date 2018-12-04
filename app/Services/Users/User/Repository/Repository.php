@@ -15,4 +15,19 @@ class Repository extends RepositoryAbstract implements UserRepository
     {
         return User::class;
     }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function getWithNestedRelationsById(int $id): User
+    {
+        return $this->className::with([
+                'role',
+                'profile.position',
+                'profile.academicDegree',
+                'profile.academicTitle',
+                'profile.department'
+            ])->whereId($id)->firstOrFail();
+    }
 }

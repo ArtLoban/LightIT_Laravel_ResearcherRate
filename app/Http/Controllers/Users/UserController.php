@@ -30,7 +30,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index', ['users' => $this->userRepository->allWithRelations(['role'])]);
+//        dd($this->userRepository->allWithRelations(['role', 'profile']));
+        return view('admin.users.index', ['users' => $this->userRepository->allWithRelations(['role', 'profile'])]);
     }
 
     /**
@@ -60,9 +61,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $userWithRelations = $this->userRepository->getWithNestedRelationsById($user->getKey());
+
+        return view('admin.users.show', ['user' => $userWithRelations]);
     }
 
     /**
