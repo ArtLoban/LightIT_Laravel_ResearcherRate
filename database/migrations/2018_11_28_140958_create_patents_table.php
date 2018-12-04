@@ -16,11 +16,13 @@ class CreatePatentsTable extends Migration
         Schema::create('patents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('ipc');
             $table->string('patent_number');
             $table->string('application_number');
             $table->date('filing_date');
             $table->date('priority_date');
-            $table->string('inventors');
+            $table->integer('patent_bulletin_id')->unsigned()->index();
+            $table->foreign('patent_bulletin_id')->references('id')->on('patent_bulletins')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

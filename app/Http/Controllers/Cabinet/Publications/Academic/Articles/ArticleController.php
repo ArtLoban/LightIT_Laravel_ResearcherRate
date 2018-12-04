@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Cabinet\Publications\Academic\Articles;
 
+use App\Models\App\File;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cabinet\Article\StoreRequest;
-use App\Http\Requests\Cabinet\Article\UpdateRequest;
-use App\Models\Publications\Articles\Article\Article;
 use Illuminate\Contracts\Auth\Guard as Auth;
-use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
+use App\Models\Publications\Articles\Article;
+use Illuminate\Contracts\Filesystem\Filesystem as Storage;
+use App\Http\Requests\Cabinet\Publications\Article\StoreRequest;
+use App\Http\Requests\Cabinet\Publications\Article\UpdateRequest;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
-use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
-use App\Services\Publications\Article\Repository\Contracts\Repository as ArticleRepository;
-use App\Services\Publications\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
+use App\Services\Publications\Services\PublicationStorage\Contracts\PublicationStorageInterface;
+use App\Services\Publications\Articles\Journal\Repository\Contracts\Repository as JournalRepository;
+use App\Services\Publications\Articles\Article\Repository\Contracts\Repository as ArticleRepository;
 use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
+use App\Services\Publications\Articles\JournalType\Repository\Contracts\Repository as JournalTypeRepository;
 
 class ArticleController extends Controller
 {
@@ -158,5 +160,42 @@ class ArticleController extends Controller
         $this->articleRepository->delete($article);
 
         return redirect()->route('academic.articles.index')->with('status', 'The article has been deleted!');
+    }
+
+    /**
+     * @param int $patentId
+     * @param Storage $storage
+     * @return \Illuminate\Http\Response
+     */
+    public function displayFile(int $articleId, Storage $storage)
+    {
+        $article = $this->articleRepository->whereId($articleId);
+        /**
+         * @var File
+         */
+        $file = $article->getFile();
+
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->file($file->path);
+        }
+
+        return response()->view('cabinet.errors.file_not_found');
+    }
+
+    /**
+     * @param int $patentId
+     * @param Storage $storage
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadFile(int $articleId, Storage $storage)
+    {
+        $article = $this->articleRepository->whereId($articleId);
+        $file = $article->getFile();
+
+        if ($file && $storage->exists($file->getActualPath())) {
+            return response()->download($file->path);
+        }
+
+        return response()->view('cabinet.errors.file_not_found');
     }
 }

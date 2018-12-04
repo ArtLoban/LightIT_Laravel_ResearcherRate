@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Cabinet\Editions;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Cabinet\Journal\StoreRequest;
-use App\Services\Publications\Journal\Repository\Contracts\Repository as JournalRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinet\Editions\Journal\StoreRequest;
+use App\Services\Publications\Articles\Journal\Repository\Contracts\Repository as JournalRepository;
 
 class JournalController extends Controller
 {
@@ -38,9 +38,9 @@ class JournalController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function journalsAjax(Request $request)
+    public function journalsNamesByAjaxAutocomplete(Request $request)
     {
-        $result = $this->journalRepository->getJournalNamesByAjaxQuery($request->get('name'));
+        $result = $this->journalRepository->getJournalsNamesLikeQuery($request->get('name'));
 
         return response()->json($result);
     }

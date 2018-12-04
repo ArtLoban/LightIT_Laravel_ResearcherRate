@@ -10,5 +10,5 @@ interface Repository extends MainRepository
      * @param string $query
      * @return array|null
      */
-    public function getAuthorNamesByAjaxQuery(string $query): ?array;
+    public function getAuthorsNamesLikeQuery(string $query): ?array;
 }

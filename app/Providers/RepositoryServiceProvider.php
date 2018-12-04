@@ -2,25 +2,26 @@
 
 namespace App\Providers;
 
-use App\Services\Publications\Patent\Repository\Repository as PatentRepository;
-use App\Services\Publications\Article\Repository\Repository as ArticleRepository;
-use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
-use App\Services\Publications\Journal\Repository\Repository as JournalRepository;
-use App\Services\Publications\PublicationType\Repository\Repository as PublicationTypeRepository;
-use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
-use App\Services\Users\PermissionRole\Repository\Repository as PermissionRoleRepository;
 use App\Services\Users\Role\Repository\Repository as RoleRepository;
 use App\Services\Users\User\Repository\Repository as UserRepository;
-use App\Services\Users\BlankUser\Repository\Repository as BlankUserRepository;
-use App\Services\Organization\Facility\Faculty\Repository\Repository as FacultyRepository;
-use App\Services\Organization\Facility\Department\Repository\Repository as DepartmentRepository;
-use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as AcademicDegreeRepository;
-use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
-use App\Services\Organization\Employees\Position\Repository\Repository as PositionRepository;
-use App\Services\Organization\Employees\Profile\Repository\Repository as ProfileRepository;
-use App\Services\Publications\JournalType\Repository\Repository as JournalTypeRepository;
-use App\Services\Utilities\Files\Repository\Repository as FileRepository;
 use App\Services\Utilities\LanguageRepository\ConfigLanguageRepository;
+use App\Services\Utilities\Files\Repository\Repository as FileRepository;
+use App\Services\Users\BlankUser\Repository\Repository as BlankUserRepository;
+use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
+use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
+use App\Services\Publications\Patents\Patent\Repository\Repository as PatentRepository;
+use App\Services\Users\PermissionRole\Repository\Repository as PermissionRoleRepository;
+use App\Services\Organization\Facility\Faculty\Repository\Repository as FacultyRepository;
+use App\Services\Publications\Articles\Article\Repository\Repository as ArticleRepository;
+use App\Services\Publications\Articles\Journal\Repository\Repository as JournalRepository;
+use App\Services\Organization\Employees\Profile\Repository\Repository as ProfileRepository;
+use App\Services\Organization\Employees\Position\Repository\Repository as PositionRepository;
+use App\Services\Organization\Facility\Department\Repository\Repository as DepartmentRepository;
+use App\Services\Publications\PublicationType\Repository\Repository as PublicationTypeRepository;
+use App\Services\Publications\Articles\JournalType\Repository\Repository as JournalTypeRepository;
+use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
+use App\Services\Publications\Patents\PatentBulletin\Repository\Repository as PatentBulletinRepository;
+use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as AcademicDegreeRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -80,15 +81,19 @@ class RepositoryServiceProvider extends ServiceProvider
             PublicationTypeRepository::class
         );
         $this->app->bind(
-            \App\Services\Publications\Article\Repository\Contracts\Repository::class,
+            \App\Services\Publications\Articles\Article\Repository\Contracts\Repository::class,
             ArticleRepository::class
         );
         $this->app->bind(
-            \App\Services\Publications\Patent\Repository\Contracts\Repository::class,
+            \App\Services\Publications\Patents\Patent\Repository\Contracts\Repository::class,
             PatentRepository::class
         );
         $this->app->bind(
-            \App\Services\Publications\Journal\Repository\Contracts\Repository::class,
+           \App\Services\Publications\Patents\PatentBulletin\Repository\Contracts\Repository::class,
+            PatentBulletinRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Articles\Journal\Repository\Contracts\Repository::class,
             JournalRepository::class
         );
         $this->app->bind(
@@ -96,7 +101,7 @@ class RepositoryServiceProvider extends ServiceProvider
             AuthorRepository::class
         );
         $this->app->bind(
-            \App\Services\Publications\JournalType\Repository\Contracts\Repository::class,
+            \App\Services\Publications\Articles\JournalType\Repository\Contracts\Repository::class,
             JournalTypeRepository::class
         );
 
@@ -109,6 +114,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Services\Utilities\LanguageRepository\Contracts\Repository::class,
             ConfigLanguageRepository::class
-            );
+        );
     }
 }

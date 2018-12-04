@@ -7,14 +7,18 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Users\User\UserRegister\Register;
 use App\Services\Users\BlankUser\KeyGenerator\RandomGenerator;
+use App\Services\Utilities\Files\FileDownloader\FileDownloader;
 use App\Services\Users\User\UserRegister\Contracts\UserRegister;
-use App\Services\Utilities\PublicationService\PublicationService;
-use App\Services\Utilities\PublicationStorage\PublicationStorage;
 use App\Services\Users\BlankUser\KeyGenerator\Contracts\KeyGenerator;
 use App\Services\Users\User\InputUpdateTransformer\UpdateDataTransformer;
+use App\Services\Publications\Patents\Patent\StorageService\StorageService;
+use App\Services\Publications\Services\PublicationStorage\PublicationStorage;
+use App\Services\Publications\Services\PublicationService\PublicationService;
 use App\Services\Users\User\InputUpdateTransformer\Contracts\DataTransformer;
-use App\Services\Utilities\PublicationService\Contracts\PublicationServiceInterface;
-use App\Services\Utilities\PublicationStorage\Contracts\PublicationStorageInterface;
+use App\Services\Utilities\Files\FileDownloader\Contracts\FileDownloaderInterface;
+use App\Services\Publications\Patents\Patent\StorageService\Contracts\StorageServiceInterface;
+use App\Services\Publications\Services\PublicationService\Contracts\PublicationServiceInterface;
+use App\Services\Publications\Services\PublicationStorage\Contracts\PublicationStorageInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,9 +41,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(KeyGenerator::class, RandomGenerator::class);
         $this->app->bind(UserRegister::class, Register::class);
+        $this->app->bind(KeyGenerator::class, RandomGenerator::class);
         $this->app->bind(DataTransformer::class, UpdateDataTransformer::class);
+        $this->app->bind(StorageServiceInterface::class, StorageService::class);
+        $this->app->bind(FileDownloaderInterface::class, FileDownloader::class);
         $this->app->bind(PublicationServiceInterface::class, PublicationService::class);
         $this->app->bind(PublicationStorageInterface::class, PublicationStorage::class);
     }

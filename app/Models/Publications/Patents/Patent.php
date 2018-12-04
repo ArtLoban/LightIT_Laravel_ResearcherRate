@@ -8,9 +8,10 @@ use App\Models\Publications\Author;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Utilities\Files\Contracts\HasFile;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Services\Utilities\Repository\Interfaces\Publishable;
 use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
 
-class Patent extends Model implements HasFile, HasMorphRelations
+class Patent extends Model implements HasFile, HasMorphRelations, Publishable
 {
     /**
      * The attributes that are mass assignable.
@@ -24,7 +25,7 @@ class Patent extends Model implements HasFile, HasMorphRelations
         'application_number',
         'filing_date',
         'priority_date',
-        'inventors',
+        'patent_bulletin_id',
         'user_id',
     ];
 
@@ -46,6 +47,14 @@ class Patent extends Model implements HasFile, HasMorphRelations
     public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class);
+    }
+
+    /**
+     * Get the PatentBulletin that owns the Patent
+     */
+    public function patentBulletin()
+    {
+        return $this->belongsTo(PatentBulletin::class);
     }
 
     /**

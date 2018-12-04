@@ -84,11 +84,12 @@
         <hr>
         @if($article->file)
             <div class="form-group">
-                {!! Form::open(['route' => ['scientific.articles.file', $article->getKey()], 'method' => 'GET']) !!}
+                <i class="fa fa-file-text-o" style="font-size:24px"></i>
+                {!! Form::open(['route' => ['academic.articles.file', $article->getKey()], 'method' => 'GET']) !!}
                     <button type="submit" class="btn btn-light">View file</button>
                 {!! Form::close() !!}
 
-                {!! Form::open(['route' => ['scientific.articles.download', $article->getKey()], 'method' => 'GET']) !!}
+                {!! Form::open(['route' => ['academic.articles.download', $article->getKey()], 'method' => 'GET']) !!}
                     <button type="submit" class="btn btn-light">Download file</button>
                 {!! Form::close() !!}
             </div>

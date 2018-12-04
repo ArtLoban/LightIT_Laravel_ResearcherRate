@@ -21,23 +21,37 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="col">
-                        <p>Articles list</p>
+                        <p>Patent list</p>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-center" cellspacing="0">
                             <thead class="thead-dark">
                             <tr class="table">
+                                <th>#</th>
                                 <th>Name</th>
+                                <th>IPC</th>
+                                <th>Patent number</th>
+                                <th>Application number</th>
+                                <th>Filing date</th>
+                                <th>Priority date</th>
+                                <th>Inventors</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach($patents as $patent)
                                     <tr class="table">
+                                        <td>{{ $loop->iteration . '.'}}</td>
                                         <td>
                                             <a href="{{ route('scientific.patents.show', $patent->getKey()) }}">
                                                 {{ $patent->name }}
                                             </a>
                                         </td>
+                                        <td>{{ $patent->ipc }}</td>
+                                        <td>{{ $patent->patent_number }}</td>
+                                        <td>{{ $patent->application_number }}</td>
+                                        <td>{{ $patent->filing_date }}</td>
+                                        <td>{{ $patent->priority_date }}</td>
+                                        <td>{{ $patent->authors->pluck('name')->implode(', ') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

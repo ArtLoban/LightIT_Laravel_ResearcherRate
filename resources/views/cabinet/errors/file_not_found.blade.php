@@ -10,7 +10,7 @@
         </div>
         <hr>
         <div>
-            <a class="btn btn-outline-success" href="{{ route('articles.index')}}">Back</a>
+            <a class="btn btn-outline-success" href="{{ url()->previous() }}">Back</a>
         </div>
     </div>
 @endsection

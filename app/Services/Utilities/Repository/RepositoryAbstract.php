@@ -80,7 +80,7 @@ abstract class RepositoryAbstract implements MainRepository
      */
     public function whereId(int $id)
     {
-        return $this->className::whereId($id)->first();
+        return $this->className::whereId($id)->firstOrFail();
     }
 
     /**
@@ -98,11 +98,11 @@ abstract class RepositoryAbstract implements MainRepository
      */
     public function updateById(int $id, array $params)
     {
-        $model = $this->whereId($id);
+        $model = $this->whereId($id); // firstOrFail
 
-        if (! $model) {
-            throw new ModelNotFoundException();
-        }
+//        if (! $model) {
+//            throw new ModelNotFoundException();
+//        }
 
         $model->update($params);
 
