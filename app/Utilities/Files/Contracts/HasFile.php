@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Utilities\Files\Contracts;
+namespace App\Utilities\Files\Contracts;
 
 interface HasFile
 {

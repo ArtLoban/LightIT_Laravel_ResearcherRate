@@ -4,10 +4,10 @@ namespace App\Services\Users\User\Repository;
 
 use App\Models\Users\User;
 use App\Helpers\Hasher\Contracts\HasherInterface;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Users\User\Repository\Contracts\Repository as UserRepository;
 
-class Repository extends RepositoryAbstract implements UserRepository
+class Repository extends \App\Utilities\Repository\RepositoryAbstract implements UserRepository
 {
     /**
      * @var HasherInterface

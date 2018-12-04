@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
+use App\Utilities\LanguageRepository\ConfigLanguageRepository;
+use App\Utilities\Files\Repository\Repository as FileRepository;
 use App\Services\Users\Role\Repository\Repository as RoleRepository;
 use App\Services\Users\User\Repository\Repository as UserRepository;
-use App\Services\Utilities\LanguageRepository\ConfigLanguageRepository;
-use App\Services\Utilities\Files\Repository\Repository as FileRepository;
 use App\Services\Users\BlankUser\Repository\Repository as BlankUserRepository;
 use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
 use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
@@ -22,7 +23,6 @@ use App\Services\Publications\Articles\JournalType\Repository\Repository as Jour
 use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
 use App\Services\Publications\Patents\PatentBulletin\Repository\Repository as PatentBulletinRepository;
 use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as AcademicDegreeRepository;
-use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -106,13 +106,13 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            \App\Services\Utilities\Files\Repository\Contracts\Repository::class,
+            \App\Utilities\Files\Repository\Contracts\Repository::class,
             FileRepository::class
         );
 
         // LanguageRepository
         $this->app->bind(
-            \App\Services\Utilities\LanguageRepository\Contracts\Repository::class,
+            \App\Utilities\LanguageRepository\Contracts\Repository::class,
             ConfigLanguageRepository::class
         );
     }

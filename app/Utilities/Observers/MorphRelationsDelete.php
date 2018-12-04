@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Utilities\Observers;
+namespace App\Utilities\Observers;
 
-use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
-use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
+use App\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
+use App\Utilities\Repository\Interfaces\HasMorphRelations;
 
 class MorphRelationsDelete implements MorphRelationsDeleteInterface
 {

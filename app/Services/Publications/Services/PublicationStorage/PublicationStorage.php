@@ -2,9 +2,9 @@
 
 namespace App\Services\Publications\Services\PublicationStorage;
 
-use App\Services\Utilities\Files\Contracts\HasFile;
-use App\Services\Utilities\Repository\Interfaces\Publishable;
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Utilities\Files\Contracts\HasFile;
+use App\Utilities\Repository\Interfaces\Publishable;
+use App\Utilities\Repository\Interfaces\MainRepository;
 use App\Services\Publications\Services\PublicationService\EditionIdByName;
 use App\Services\Publications\Services\PublicationStorage\Contracts\PublicationStorageInterface;
 use App\Services\Publications\Services\PublicationService\Contracts\PublicationServiceInterface;
@@ -97,7 +97,7 @@ class PublicationStorage implements PublicationStorageInterface
 
     /**
      * @param string $authors
-     * @param Publishable $createdPublication
+     * @param \App\Utilities\Repository\Interfaces\Publishable $createdPublication
      */
     private function assignAuthors(string $authors, Publishable $createdPublication)
     {

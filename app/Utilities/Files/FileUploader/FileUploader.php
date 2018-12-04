@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Services\Utilities\Files\FileUploader;
+namespace App\Utilities\Files\FileUploader;
 
 use App\Models\App\File;
 use Illuminate\Http\UploadedFile;
-use App\Services\Utilities\Files\Contracts\HasFile;
-use App\Services\Utilities\Files\Repository\Contracts\Repository as FileRepository;
+use App\Utilities\Files\Contracts\HasFile;
+use App\Utilities\Files\Repository\Contracts\Repository;
 
 class FileUploader
 {
     const PATH = 'public/uploads/files';
 
     /**
-     * @var FileRepository
+     * @var Repository
      */
     private $fileRepository;
 
     /**
      * FileUploader constructor.
-     * @param FileRepository $fileRepository
+     * @param Repository $fileRepository
      */
-    public function __construct(FileRepository $fileRepository)
+    public function __construct(Repository $fileRepository)
     {
         $this->fileRepository = $fileRepository;
     }
 
     /**
      * @param UploadedFile $uploadedFile
-     * @param HasFile $owner
+     * @param \App\Utilities\Files\Contracts\HasFile $owner
      * @return mixed
      */
     public function store(UploadedFile $uploadedFile, HasFile $owner)
@@ -40,7 +40,7 @@ class FileUploader
 
     /**
      * @param UploadedFile $uploadedFile
-     * @param HasFile $owner
+     * @param \App\Utilities\Files\Contracts\HasFile $owner
      * @return array
      */
     private function getStoreParams(UploadedFile $uploadedFile, HasFile $owner): array
@@ -74,7 +74,7 @@ class FileUploader
     }
 
     /**
-     * @param HasFile $model
+     * @param \App\Utilities\Files\Contracts\HasFile $model
      * @return bool|null
      */
     private function removePreviousFile(HasFile $model): ?bool

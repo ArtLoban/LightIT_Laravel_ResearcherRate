@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Utilities\LanguageRepository;
+namespace App\Utilities\LanguageRepository;
 
 use Illuminate\Config\Repository as ConfigRepository;
-use App\Services\Utilities\LanguageRepository\Contracts\Repository;
+use App\Utilities\LanguageRepository\Contracts\Repository;
 
 class ConfigLanguageRepository implements Repository
 {

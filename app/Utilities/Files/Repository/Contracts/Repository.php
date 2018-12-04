@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Publications\Articles\JournalType\Repository\Contracts;
+namespace App\Utilities\Files\Repository\Contracts;
 
 use App\Utilities\Repository\Interfaces\MainRepository;
 

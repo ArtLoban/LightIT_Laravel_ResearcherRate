@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet\Publications\Scientific\Articles;
 
 use App\Models\App\File;
 use App\Http\Controllers\Controller;
+use App\Utilities\LanguageRepository\Contracts\Repository;
 use Illuminate\Contracts\Auth\Guard as Auth;
 use App\Models\Publications\Articles\Article;
 use App\Http\Requests\Cabinet\Article\AuthorsAjaxRequest;
@@ -11,7 +12,7 @@ use Illuminate\Contracts\Filesystem\Filesystem as Storage;
 use App\Http\Requests\Cabinet\Publications\Article\StoreRequest;
 use App\Http\Requests\Cabinet\Publications\Article\UpdateRequest;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
-use App\Services\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
+use App\Utilities\LanguageRepository\Contracts\Repository as LanguageRepository;
 use App\Services\Publications\Services\PublicationStorage\Contracts\PublicationStorageInterface;
 use App\Services\Publications\Articles\Journal\Repository\Contracts\Repository as JournalRepository;
 use App\Services\Publications\Articles\Article\Repository\Contracts\Repository as ArticleRepository;

@@ -3,7 +3,7 @@
 namespace App\Services\Publications\Articles\Journal\Repository;
 
 use App\Models\Publications\Articles\Journal\Journal;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Publications\Articles\Journal\Repository\Contracts\Repository as JournalRepository;
 
 class Repository extends RepositoryAbstract implements JournalRepository

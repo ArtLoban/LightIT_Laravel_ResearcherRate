@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Utilities\Observers\Contracts;
+namespace App\Utilities\Observers\Contracts;
 
-use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
+use App\Utilities\Repository\Interfaces\HasMorphRelations;
 
 interface MorphRelationsDeleteInterface
 {

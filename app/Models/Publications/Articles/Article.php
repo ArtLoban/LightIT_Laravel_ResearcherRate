@@ -7,11 +7,11 @@ use App\Models\Users\User;
 use App\Models\Publications\Author;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Publications\PublicationType;
-use App\Services\Utilities\Files\Contracts\HasFile;
+use App\Utilities\Files\Contracts\HasFile;
 use App\Models\Publications\Articles\Journal\Journal;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Services\Utilities\Repository\Interfaces\Publishable;
-use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
+use App\Utilities\Repository\Interfaces\Publishable;
+use App\Utilities\Repository\Interfaces\HasMorphRelations;
 
 class Article extends Model implements HasFile, HasMorphRelations, Publishable
 {

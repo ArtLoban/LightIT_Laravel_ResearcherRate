@@ -3,8 +3,8 @@
 namespace App\Services\Publications\Services\PublicationService\Contracts;
 
 use Illuminate\Http\UploadedFile;
-use App\Services\Utilities\Files\Contracts\HasFile;
-use App\Services\Utilities\Repository\Interfaces\Publishable;
+use App\Utilities\Files\Contracts\HasFile;
+use App\Utilities\Repository\Interfaces\Publishable;
 
 interface PublicationServiceInterface
 {

@@ -3,7 +3,7 @@
 namespace App\Services\Publications\Theses\ThesisDigest\Repository;
 
 use App\Models\Publications\Theses\ThesisDigest;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Publications\Theses\ThesisDigest\Repository\Contracts\Repository as ThesesRepository;
 
 class Repository extends RepositoryAbstract implements ThesesRepository

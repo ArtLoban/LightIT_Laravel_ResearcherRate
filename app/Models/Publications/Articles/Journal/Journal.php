@@ -3,7 +3,7 @@
 namespace App\Models\Publications\Articles\Journal;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Publications\Articles\Article\Article;
+use App\Models\Publications\Articles\Article;
 
 class Journal extends Model
 {

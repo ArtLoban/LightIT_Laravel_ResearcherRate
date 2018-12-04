@@ -9,8 +9,8 @@ use App\Observers\ArticleObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Publications\Patents\Patent;
 use App\Models\Publications\Articles\Article;
-use App\Services\Utilities\Observers\MorphRelationsDelete;
-use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
+use App\Utilities\Observers\MorphRelationsDelete;
+use App\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
 
 class ObserverServiceProvider extends ServiceProvider
 {

@@ -2,10 +2,10 @@
 
 namespace App\Models\Publications;
 
+use App\Models\Publications\Articles\Article;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Publications\Patents\Patent;
 use App\Models\Organization\Employees\Profile;
-use App\Models\Publications\Articles\Article\Article;
 
 class Author extends Model
 {

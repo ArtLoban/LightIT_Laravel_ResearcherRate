@@ -3,8 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Publications\Patents\Patent;
-use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
-use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
+use App\Utilities\Repository\Interfaces\HasMorphRelations;
+use App\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
 
 class PatentObserver
 {

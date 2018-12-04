@@ -3,7 +3,7 @@
 namespace App\Services\Users\BlankUser\Repository;
 
 use App\Models\Users\BlankUser;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
 
 class Repository extends RepositoryAbstract implements BlankUserRepository

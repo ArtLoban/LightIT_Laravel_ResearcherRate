@@ -3,19 +3,19 @@
 namespace App\Observers;
 
 use App\Models\Publications\Articles\Article;
-use App\Services\Utilities\Repository\Interfaces\HasMorphRelations;
-use App\Services\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
+use App\Utilities\Repository\Interfaces\HasMorphRelations;
+use App\Utilities\Observers\Contracts\MorphRelationsDeleteInterface;
 
 class ArticleObserver
 {
     /**
-     * @var MorphRelationsDeleteInterface
+     * @var \App\Utilities\Observers\Contracts\MorphRelationsDeleteInterface
      */
     private $service;
 
     /**
      * ArticleObserver constructor.
-     * @param MorphRelationsDeleteInterface $service
+     * @param \App\Utilities\Observers\Contracts\MorphRelationsDeleteInterface $service
      */
     public function __construct(MorphRelationsDeleteInterface $service)
     {

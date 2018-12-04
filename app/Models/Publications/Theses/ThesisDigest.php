@@ -2,8 +2,9 @@
 
 namespace App\Models\Publications\Theses;
 
+use Illuminate\Database\Eloquent\Model;
 
-class ThesisDigest
+class ThesisDigest extends Model
 {
 
 }

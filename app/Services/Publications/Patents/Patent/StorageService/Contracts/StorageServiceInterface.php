@@ -2,7 +2,7 @@
 
 namespace App\Services\Publications\Patents\Patent\StorageService\Contracts;
 
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Utilities\Repository\Interfaces\MainRepository;
 
 interface StorageServiceInterface
 {
