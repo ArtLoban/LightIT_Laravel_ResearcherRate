@@ -27,11 +27,20 @@
 
                         <input type="hidden" name="updatedPermissionId" value="{{ $permission->getKey() }}">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Name</label>
-                            <input type="text" class="form-control" name="name" id="exampleInputEmail1"
-                                   placeholder="" value="{{ $permission->name }}">
+                            <label for="inputName">Name<span class="field-required_star"> *</span></label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                id="inputName"
+                                value="{{ $permission->name }}">
                         </div>
                     </div>
+                </div>
+                <div class="box-body">
+                    <p class="help-block">
+                        <span class="field-required_star"> *</span> - Field is required
+                    </p>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

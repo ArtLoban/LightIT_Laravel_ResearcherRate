@@ -4,7 +4,7 @@ use App\Models\Organization\Employees\Profile;
 use Faker\Generator as Faker;
 
 $factory->define(Profile::class, function (Faker $faker) {
-    static $userPrimaryKey = 5;
+    static $userPrimaryKey = 4;
 
     return [
         'user_id' => $userPrimaryKey++,

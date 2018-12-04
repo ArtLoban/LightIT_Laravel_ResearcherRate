@@ -23,9 +23,9 @@ class RoleSeeder extends Seeder
     {
         return [
             ['id' => Role::USER ,'name' => 'User'],
-            ['id' => Role::ADMIN ,'name' => 'Admin'],
             ['id' => Role::SENIOR_ADMIN ,'name' => 'Senior Admin'],
             ['id' => Role::SUPER_ADMIN ,'name' => 'Super Admin'],
+            ['id' => Role::ADMIN ,'name' => 'Admin'],
         ];
     }
 }

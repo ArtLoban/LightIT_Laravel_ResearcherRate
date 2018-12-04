@@ -2,9 +2,9 @@
 
 namespace App\Models\Organization\Facility;
 
-use App\Models\Organization\Employees\Profile;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Organization\Employees\Profile;
 
 class Department extends Model
 {

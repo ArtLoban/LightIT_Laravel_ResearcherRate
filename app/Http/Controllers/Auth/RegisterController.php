@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\Users\User;
-use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Services\Users\User\UserRegister\Contracts\UserRegister;
+use App\Services\Users\BlankUser\Repository\Contracts\Repository as BlankUserRepository;
 
 class RegisterController extends Controller
 {
@@ -32,17 +31,21 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
-    private $blankUserRepository;
+    /**
+     * @var BlankUserRepository
+     */
+    private $userRegister;
 
     /**
-     * Create a new controller instance.
+     * Create a new controller instance
      *
-     * @return void
+     * RegisterController constructor.
+     * @param UserRegister $userRegister
      */
-    public function __construct(BlankUserRepository $blankUserRepository)
+    public function __construct(UserRegister $userRegister)
     {
         $this->middleware('guest');
-        $this->blankUserRepository = $blankUserRepository;
+        $this->userRegister = $userRegister;
     }
 
     /**
@@ -68,21 +71,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        dd($this->blankUserRepository->all()->where('personal_key', $data['personal_key'])->first());
-
-//        return User::create([
-//            'email' => $data['email'],
-//            'password' => Hash::make($data['password']),
-//        ]);
-
-
-
-        DB::transaction(function() use ($data)
-        {
-            User::create([
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-            ]);
-        });
+        return $this->userRegister->registrate($data);
     }
 }

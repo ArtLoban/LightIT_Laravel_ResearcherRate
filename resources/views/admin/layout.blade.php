@@ -45,20 +45,15 @@
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
-
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                     </li>
                     <li class="dropdown user user-menu">
-                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            @if(isset(Auth::user()->image->path))
-                                <img src="{{ asset( Auth::user()->image->path) }}" class="user-image" alt="User Image">
-                            @else
-                                <img src="{{ asset(App\Services\ImageUploader\ImageUpload::DEFAULT_MO_IMAGE_PATH) }}" class="user-image" alt="User Image">
-                            @endif
-                            <span class="hidden-xs">{{ Auth::user()->role->name }}</span>
-                        </a>--}}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ Auth::check() ? Auth::user()->role->name : '' }}</span>
+                        </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
@@ -112,17 +107,13 @@
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
-                {{--<div class="pull-left image">
-                    @if(isset(Auth::user()->image->path))
-                        <img src="{{ asset( Auth::user()->image->path) }}" class="img-circle" alt="User Image">
-                    @else
-                        <img src="{{ asset(App\Services\ImageUploader\ImageUpload::DEFAULT_MO_IMAGE_PATH) }}" class="img-circle" alt="User Image">
-                    @endif
+                <div class="pull-left image">
+                    <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{ Auth::user()->role->name }}</p>
-                    --}}{{--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--}}{{--
-                </div>--}}
+                    <p>{{ Auth::check() ? Auth::user()->role->name : '' }}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
             </div>
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
@@ -145,6 +136,7 @@
 
                 </li>
                 <hr>
+                @can('fullAccess')
                 <li>
                     <a href="{{ route('users.index') }}">
                         <i class="fa fa-users"></i><span>Users</span>
@@ -160,7 +152,13 @@
                         <i class="fa fa-check"></i><span>Permissions</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('assign_permissions.index') }}">
+                        <i class="fa fa-check-circle-o"></i><span>Assign permissions</span>
+                    </a>
+                </li>
                 <hr>
+                @endcan
                 <li>
                     <a href="{{ route('faculties.index') }}">
                         <i class="fa fa-graduation-cap"></i><span>Faculties</span>
@@ -172,17 +170,22 @@
                     </a>
                 </li>
                 <hr>
+                @can('seeProfiles')
                 <li>
                     <a href="{{ route('profiles.index') }}">
                         <i class="fa fa-files-o"></i><span>Profiles</span>
                     </a>
                 </li>
+                <hr>
+                @endcan
+                @can('fullAccess')
                 <li>
                     <a href="{{ route('blank_users.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Blank Users</span>
                     </a>
                 </li>
                 <hr>
+                @endcan
                 <li>
                     <a href="{{ route('positions.index') }}">
                         <i class="fa fa-paper-plane"></i><span>Positions</span>

@@ -17,7 +17,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="form-group">
-                        <a href="#" class="btn btn-success">Add</a>
+                        <a href="{{ route('academic_titles.create') }}" class="btn btn-success">Add</a>
                     </div>
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -33,15 +33,15 @@
                                 <td>{{ $academicTitle->getKey() }}</td>
                                 <td>{{ $academicTitle->name }}</td>
                                 <td>
-                                    {{--<a href="{{ route('permissions.edit', $academicTitle->getKey()) }}" class="fa fa-pencil"></a>
+                                    <a href="{{ route('academic_titles.edit', $academicTitle->getKey()) }}" class="fa fa-pencil"></a>
                                     {!! Form::open([
-                                        'route' => ['permissions.destroy', $academicTitle->getKey()],
+                                        'route' => ['academic_titles.destroy', $academicTitle->getKey()],
                                         'method' => 'delete'])
                                     !!}
                                     <button type="submit" class="delete-task" onclick="return confirm('Are you sure?')">
                                         <a class="fa fa-remove"></a>
                                     </button>
-                                    {!! Form::close() !!}--}}
+                                    {!! Form::close() !!}
                                 </td>
                             </tr>
                         @endforeach

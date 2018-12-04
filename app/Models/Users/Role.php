@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     const USER = 1;
-    const ADMIN = 2;
-    const SENIOR_ADMIN = 3;
-    const SUPER_ADMIN = 4;
+    const SENIOR_ADMIN = 2;
+    const SUPER_ADMIN = 3;
+    const ADMIN = 4;
 
     /**
      * The attributes that are mass assignable.

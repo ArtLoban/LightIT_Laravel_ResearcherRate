@@ -25,10 +25,15 @@
                     @include('admin.errors')
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
-                        <input type="text" class="form-control" name="name" id="exampleInputEmail1" placeholder="" required>
+                        <label for="inputName">Name<span class="field-required_star"> *</span></label>
+                        <input type="text" class="form-control" name="name" id="inputName" required>
                     </div>
                 </div>
+            </div>
+            <div class="box-body">
+                <p class="help-block">
+                    <span class="field-required_star"> *</span> - Field is required
+                </p>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

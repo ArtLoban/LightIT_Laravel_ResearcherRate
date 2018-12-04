@@ -45,9 +45,9 @@
                                             {{ $profile->user->getKey() }}
                                         </a>
                                     @else
-                                        <a href="{{ route('blank_users.show', $profile->blankUser->getKey()) }}">
+                                        {{--<a href="{{ route('blank_users.show', $profile->blankUser->getKey()) }}">--}}
                                             {{ 'blank' }}
-                                        </a>
+                                        {{--</a>--}}
                                     @endif
                                 </td>
                                 <td>{{ $profile->name }}</td>
@@ -59,8 +59,7 @@
                                 <td>{{ $profile->academicTitle->name }}</td>
                                 <td>{{ $profile->department->name }}</td>
                                 <td>
-                                    <a href="#" class="fa fa-pencil"></a>
-                                    {{--<a href="{{ route('profiles.edit', $profile->getKey()) }}" class="fa fa-pencil"></a>--}}
+                                    <a href="{{ route('profiles.edit', $profile->getKey()) }}" class="fa fa-pencil"></a>
                                     {!! Form::open([
                                         'route' => ['profiles.destroy', $profile->getKey()],
                                         'method' => 'delete'])

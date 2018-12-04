@@ -33,9 +33,9 @@
                                 <td>{{ $faculty->getKey() }}</td>
                                 <td>{{ $faculty->name }}</td>
                                 <td>
-                                    <a href="{{ route('permissions.edit', $faculty->getKey()) }}" class="fa fa-pencil"></a>
+                                    <a href="{{ route('faculties.edit', $faculty->getKey()) }}" class="fa fa-pencil"></a>
                                     {!! Form::open([
-                                        'route' => ['permissions.destroy', $faculty->getKey()],
+                                        'route' => ['faculties.destroy', $faculty->getKey()],
                                         'method' => 'delete'])
                                     !!}
                                     <button type="submit" class="delete-task" onclick="return confirm('Are you sure?')">

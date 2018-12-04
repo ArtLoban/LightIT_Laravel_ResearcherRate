@@ -2,9 +2,19 @@
 
 namespace App\Services\Users\User\Repository\Contracts;
 
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Models\Users\User;
 
-interface Repository extends MainRepository
+interface Repository
 {
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data);
 
+    /**
+     * @param int $userId
+     * @return User
+     */
+    public function getWithNestedRelationsById(int $userId): User;
 }

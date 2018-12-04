@@ -16,16 +16,15 @@
             <div class="box">
                 <!-- /.box-header -->
                 <div class="box-body">
-                    {{--<div class="form-group">--}}
-                        {{--<a href="{{ route('roles.create') }}" class="btn btn-success">Add</a>--}}
-                    {{--</div>--}}
+                    <div class="form-group">
+                        <a href="{{ route('roles.create') }}" class="btn btn-success">Add</a>
+                    </div>
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Manage permissions</th>
-                            {{--<th>Actions</th>--}}
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,18 +38,15 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('roles.edit', $role->getKey()) }}" class="fa fa-pencil"></a>
+                                    {!! Form::open([
+                                        'route' => ['roles.destroy', $role->getKey()],
+                                        'method' => 'delete'])
+                                    !!}
+                                    <button type="submit" class="delete-task" onclick="return confirm('Are you sure?')">
+                                        <a class="fa fa-remove"></a>
+                                    </button>
+                                    {!! Form::close() !!}
                                 </td>
-                                {{--<td>--}}
-                                    {{--<a href="{{ route('users.edit', $role->getKey()) }}" class="fa fa-pencil"></a>--}}
-                                    {{--{!! Form::open([--}}
-                                        {{--'route' => ['users.destroy', $role->getKey()],--}}
-                                        {{--'method' => 'delete'])--}}
-                                    {{--!!}--}}
-                                    {{--<button type="submit" class="delete-task" onclick="return confirm('Are you sure?')">--}}
-                                        {{--<a class="fa fa-remove"></a>--}}
-                                    {{--</button>--}}
-                                    {{--{!! Form::close() !!}--}}
-                                {{--</td>--}}
                             </tr>
                         @endforeach
                         </tbody>
