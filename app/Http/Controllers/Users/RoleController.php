@@ -1,12 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Users;
 
+use App\Models\Users\Role;
+use App\Services\Users\Role\Repository\Contracts\Repository as RoleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
+    /**
+     * @var RoleRepository
+     */
+    private $roleRepository;
+
+    /**
+     * UserController constructor.
+     * @param RoleRepository $role
+     */
+    public function __construct(RoleRepository $roleRepository)
+    {
+        $this->roleRepository = $roleRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +30,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        echo '<h1><a href="#">admin.users</a></h1>';
+        return view('admin.roles.index', [
+            'roles' => $this->roleRepository->all(),
+        ]);
     }
 
     /**
@@ -44,9 +62,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
+        $permissions = $this->roleRepository->getAllPermissionsByRoleId($role->getKey());
+
+        return view('admin.roles.show', ['role' => $role, 'permissions' => $permissions]);
     }
 
     /**

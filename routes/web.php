@@ -8,10 +8,15 @@ Route::get('/', function () {
 
 Route::group([
     'prefix' => 'admin',
-    'namespace' => 'Admin',
 //    'middleware' => 'auth'
 ], function() {
-    Route::resource('/users', 'UserController');
+    Route::resource('/', 'Admin\DashboardController');
+    Route::resource('/dashboard', 'Admin\DashboardController');
+    Route::resource('/users', 'Users\UserController');
+    Route::resource('/roles', 'Users\RoleController');
+    Route::resource('/permissions', 'Users\PermissionController');
+    Route::resource('/faculties', 'Organization\Facility\FacultyController');
+    Route::resource('/departments', 'Organization\Facility\DepartmentController');
 });
 
 Auth::routes();
