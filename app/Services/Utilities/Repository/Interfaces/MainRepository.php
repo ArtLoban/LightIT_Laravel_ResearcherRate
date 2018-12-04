@@ -28,7 +28,15 @@ interface MainRepository
      * @param array $relations
      * @return mixed
      */
-    public function getWithRelations(int $id, array $relations);
+    public function getWithRelationsById(int $id, array $relations);
+
+    /**
+     * @param string $column
+     * @param $value
+     * @param array $relations
+     * @return mixed
+     */
+    public function getAllWithRelationsBy(string $column, $value, array $relations);
 
     /**
      * @param int $id
@@ -63,4 +71,10 @@ interface MainRepository
      * @return mixed
      */
     public function delete($model);
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getByName(string $name);
 }

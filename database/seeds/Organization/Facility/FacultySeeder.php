@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Config\Repository as ConfigRepository;
 
 class FacultySeeder extends Seeder
 {

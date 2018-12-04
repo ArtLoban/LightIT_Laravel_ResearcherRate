@@ -2,10 +2,10 @@
 
 namespace App\Services\Utilities\Repository;
 
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Services\Utilities\Repository\Interfaces\MainRepository;
 
 abstract class RepositoryAbstract implements MainRepository
 {
@@ -45,6 +45,16 @@ abstract class RepositoryAbstract implements MainRepository
     }
 
     /**
+     * @param int $id
+     * @param array $relations
+     * @return mixed
+     */
+    public function getWithRelationsById(int $id, array $relations)
+    {
+        return $this->className::with($relations)->whereId($id)->first();
+    }
+
+    /**
      * @param array $relations
      * @return Collection|null
      */
@@ -54,13 +64,14 @@ abstract class RepositoryAbstract implements MainRepository
     }
 
     /**
-     * @param int $id
+     * @param string $column
+     * @param $value
      * @param array $relations
      * @return mixed
      */
-    public function getWithRelations(int $id, array $relations)
+    public function getAllWithRelationsBy(string $column, $value, array $relations)
     {
-        return $this->className::with($relations)->whereId($id)->first();
+        return $this->className::where($column, $value)->with($relations)->get();
     }
 
     /**
@@ -121,5 +132,14 @@ abstract class RepositoryAbstract implements MainRepository
     public function delete($model)
     {
         return $model->delete();
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getByName(string $name)
+    {
+        return $this->className::where('name', $name)->first();
     }
 }

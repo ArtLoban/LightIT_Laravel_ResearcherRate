@@ -2,10 +2,11 @@
 
 namespace App\Models\Organization\Employees;
 
-use App\Models\Organization\Facility\Department;
-use App\Models\Users\BlankUser;
 use App\Models\Users\User;
+use App\Models\Users\BlankUser;
+use App\Models\Publications\Author;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Organization\Facility\Department;
 
 class Profile extends Model
 {
@@ -72,5 +73,15 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the Author record associated with the Profile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function author()
+    {
+        return $this->hasOne(Author::class);
     }
 }

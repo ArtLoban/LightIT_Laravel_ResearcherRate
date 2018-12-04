@@ -27,7 +27,7 @@ class UpdateDataTransformer implements DataTransformer
      */
     public function transform(array $data): array
     {
-        return is_null($data['password']) ? $this->removePasswordData($data) : $this->preparePasswordData($data);
+        return ! $data['password'] ? $this->removePasswordData($data) : $this->preparePasswordData($data);
     }
 
     /**

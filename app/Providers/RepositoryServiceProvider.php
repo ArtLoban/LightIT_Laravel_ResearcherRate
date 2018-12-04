@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\Publications\Patent\Repository\Repository as PatentRepository;
+use App\Services\Publications\Article\Repository\Repository as ArticleRepository;
+use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
+use App\Services\Publications\Journal\Repository\Repository as JournalRepository;
+use App\Services\Publications\PublicationType\Repository\Repository as PublicationTypeRepository;
 use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
 use App\Services\Users\PermissionRole\Repository\Repository as PermissionRoleRepository;
 use App\Services\Users\Role\Repository\Repository as RoleRepository;
@@ -13,6 +18,9 @@ use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as 
 use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
 use App\Services\Organization\Employees\Position\Repository\Repository as PositionRepository;
 use App\Services\Organization\Employees\Profile\Repository\Repository as ProfileRepository;
+use App\Services\Publications\JournalType\Repository\Repository as JournalTypeRepository;
+use App\Services\Utilities\Files\Repository\Repository as FileRepository;
+use App\Services\Utilities\LanguageRepository\ConfigLanguageRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -66,5 +74,41 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Services\Organization\Employees\Profile\Repository\Contracts\Repository::class,
             ProfileRepository::class
         );
+        // Publications
+        $this->app->bind(
+            \App\Services\Publications\PublicationType\Repository\Contracts\Repository::class,
+            PublicationTypeRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Article\Repository\Contracts\Repository::class,
+            ArticleRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Patent\Repository\Contracts\Repository::class,
+            PatentRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Journal\Repository\Contracts\Repository::class,
+            JournalRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Author\Repository\Contracts\Repository::class,
+            AuthorRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\JournalType\Repository\Contracts\Repository::class,
+            JournalTypeRepository::class
+        );
+
+        $this->app->bind(
+            \App\Services\Utilities\Files\Repository\Contracts\Repository::class,
+            FileRepository::class
+        );
+
+        // LanguageRepository
+        $this->app->bind(
+            \App\Services\Utilities\LanguageRepository\Contracts\Repository::class,
+            ConfigLanguageRepository::class
+            );
     }
 }

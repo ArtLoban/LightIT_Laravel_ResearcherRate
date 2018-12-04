@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
              AcademicTitleSeeder::class,
              PositionSeeder::class,
              ProfileSeeder::class,
+             PublicationTypeSeeder::class,
+             JournalTypeSeeder::class,
+             JournalSeeder::class,
          ]);
     }
 }
