@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        @include('cabinet.publications.create_bulletin_modal')
+        @include('cabinet.publications.modals.create_bulletin_modal')
 
         <hr>
         {!! Form::open([

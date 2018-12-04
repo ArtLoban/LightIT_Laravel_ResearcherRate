@@ -34,7 +34,8 @@ $(function() {
     })
 });
 
-/* jQuery UI Autocomplete */
+/** jQuery UI Autocomplete **/
+/* Authors names */
 $("#articleAuthors").autocomplete({
     delay: 300,
     source: function($query, $result){
@@ -64,12 +65,64 @@ $("#articleAuthors").autocomplete({
 //     delay: 300
 // });
 
+/* Journals names */
 $("#journalName").autocomplete({
     delay: 300,
     source: function($query, $result){
         if ($query['term'] !== " ") {
             $.ajax({
                 url: $('#ajax-journal-autocomplete').val(),
+                type: 'GET',
+                data: { name : $query['term'] },
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                success: function ($data) {
+                    $result($.map($data, function (item) {
+                        return item;
+                    }));
+                },
+
+                error: function (msg){
+                    console.log("error");
+                }
+            });
+        }
+    }
+});
+
+/* Thesis Digests names */
+$("#digestName").autocomplete({
+    delay: 300,
+    source: function($query, $result){
+        if ($query['term'] !== " ") {
+            $.ajax({
+                url: $('#ajax-digest-autocomplete').val(),
+                type: 'GET',
+                data: { name : $query['term'] },
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                success: function ($data) {
+                    $result($.map($data, function (item) {
+                        return item;
+                    }));
+                },
+
+                error: function (msg){
+                    console.log("error");
+                }
+            });
+        }
+    }
+});
+
+// TODO add autocomplete
+// Modal form
+$("#digestName-Modal").autocomplete({
+    delay: 300,
+    source: function($query, $result){
+        if ($query['term'] !== " ") {
+            $.ajax({
+                url: $('#ajax-digest-autocomplete').val(),
                 type: 'GET',
                 data: { name : $query['term'] },
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

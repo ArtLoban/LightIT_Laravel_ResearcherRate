@@ -6,7 +6,9 @@ use App\Models\App\File;
 use App\Observers\FileObserver;
 use App\Observers\PatentObserver;
 use App\Observers\ArticleObserver;
+use App\Observers\ThesisObserver;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Publications\Theses\Thesis;
 use App\Models\Publications\Patents\Patent;
 use App\Models\Publications\Articles\Article;
 use App\Utilities\Observers\MorphRelationsDelete;
@@ -24,6 +26,7 @@ class ObserverServiceProvider extends ServiceProvider
         File::observe(FileObserver::class);
         Article::observe(ArticleObserver::class);
         Patent::observe(PatentObserver::class);
+        Thesis::observe(ThesisObserver::class);
     }
 
     /**

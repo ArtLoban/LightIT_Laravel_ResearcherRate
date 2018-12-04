@@ -6,7 +6,7 @@ use App\Models\Publications\PublicationType;
 use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Publications\PublicationType\Repository\Contracts\Repository as PublicationTypeRepository;
 
-class Repository extends \App\Utilities\Repository\RepositoryAbstract implements PublicationTypeRepository
+class Repository extends RepositoryAbstract implements PublicationTypeRepository
 {
     /**
      * @return string
@@ -21,7 +21,7 @@ class Repository extends \App\Utilities\Repository\RepositoryAbstract implements
      */
     public function getScientificId(): int
     {
-        return $this->className::where('name', 'Scientific')->first()->id;
+        return $this->className::where('name', 'Scientific')->first()->getKey();
     }
 
     /**
@@ -29,6 +29,6 @@ class Repository extends \App\Utilities\Repository\RepositoryAbstract implements
      */
     public function getAcademicId(): int
     {
-        return $this->className::where('name', 'Academic')->first()->id;
+        return $this->className::where('name', 'Academic')->first()->getKey();
     }
 }

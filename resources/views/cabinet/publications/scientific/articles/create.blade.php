@@ -13,7 +13,7 @@
         </div>
         <hr>
 
-        @include('cabinet.publications.create_journal_modal')
+        @include('cabinet.publications.modals.create_journal_modal')
 
         {!! Form::open(['route' => 'scientific.articles.store', 'files' => true]) !!}
 

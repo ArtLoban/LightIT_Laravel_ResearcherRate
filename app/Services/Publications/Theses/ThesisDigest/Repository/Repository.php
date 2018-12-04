@@ -12,4 +12,13 @@ class Repository extends RepositoryAbstract implements ThesesRepository
     {
         return ThesisDigest::class;
     }
+
+    /**
+     * @param string $query
+     * @return array|null
+     */
+    public function getDigestsNamesLikeQuery(string $query): ?array
+    {
+        return $this->where('name', 'like', '%' . $query . '%')->pluck('name')->all();
+    }
 }

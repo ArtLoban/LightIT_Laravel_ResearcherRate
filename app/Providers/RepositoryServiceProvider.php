@@ -10,6 +10,7 @@ use App\Services\Users\User\Repository\Repository as UserRepository;
 use App\Services\Users\BlankUser\Repository\Repository as BlankUserRepository;
 use App\Services\Publications\Author\Repository\Repository as AuthorRepository;
 use App\Services\Users\Permission\Repository\Repository as PermissionRepository;
+use App\Services\Publications\Theses\Thesis\Repository\Repository as ThesisRepository;
 use App\Services\Publications\Patents\Patent\Repository\Repository as PatentRepository;
 use App\Services\Users\PermissionRole\Repository\Repository as PermissionRoleRepository;
 use App\Services\Organization\Facility\Faculty\Repository\Repository as FacultyRepository;
@@ -20,6 +21,7 @@ use App\Services\Organization\Employees\Position\Repository\Repository as Positi
 use App\Services\Organization\Facility\Department\Repository\Repository as DepartmentRepository;
 use App\Services\Publications\PublicationType\Repository\Repository as PublicationTypeRepository;
 use App\Services\Publications\Articles\JournalType\Repository\Repository as JournalTypeRepository;
+use App\Services\Publications\Theses\ThesisDigest\Repository\Repository as ThesisDigestRepository;
 use App\Services\Organization\Employees\AcademicTitle\Repository\Repository as AcademicTitleRepository;
 use App\Services\Publications\Patents\PatentBulletin\Repository\Repository as PatentBulletinRepository;
 use App\Services\Organization\Employees\AcademicDegree\Repository\Repository as AcademicDegreeRepository;
@@ -49,6 +51,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Services\Users\User\Repository\Contracts\Repository::class, UserRepository::class);
         $this->app->bind(\App\Services\Users\BlankUser\Repository\Contracts\Repository::class, BlankUserRepository::class);
         $this->app->bind(\App\Services\Users\PermissionRole\Repository\Contracts\Repository::class, PermissionRoleRepository::class);
+
         // Organization/Facility
         $this->app->bind(
             \App\Services\Organization\Facility\Faculty\Repository\Contracts\Repository::class,
@@ -58,6 +61,7 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Services\Organization\Facility\Department\Repository\Contracts\Repository::class,
             DepartmentRepository::class
         );
+
         // Organization/Employees
         $this->app->bind(
             \App\Services\Organization\Employees\AcademicDegree\Repository\Contracts\Repository::class,
@@ -75,6 +79,7 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Services\Organization\Employees\Profile\Repository\Contracts\Repository::class,
             ProfileRepository::class
         );
+
         // Publications
         $this->app->bind(
             \App\Services\Publications\PublicationType\Repository\Contracts\Repository::class,
@@ -104,7 +109,16 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Services\Publications\Articles\JournalType\Repository\Contracts\Repository::class,
             JournalTypeRepository::class
         );
+        $this->app->bind(
+            \App\Services\Publications\Theses\Thesis\Repository\Contracts\Repository::class,
+            ThesisRepository::class
+        );
+        $this->app->bind(
+            \App\Services\Publications\Theses\ThesisDigest\Repository\Contracts\Repository::class,
+            ThesisDigestRepository::class
+        );
 
+        // FileRepository
         $this->app->bind(
             \App\Utilities\Files\Repository\Contracts\Repository::class,
             FileRepository::class

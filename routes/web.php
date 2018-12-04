@@ -48,6 +48,10 @@ Route::group([
     Route::get('/authors/ajax', 'Publications\AuthorController@authorsNamesByAjaxAutocomplete')->name('authors.ajax');
 
     Route::post('/patent_bulletin/store', 'Editions\PatentBulletinController@store')->name('scientific.patent_bulletin.store');
+
+    Route::get('/digests/ajax', 'Editions\ThesisDigestController@digestsNamesByAjaxAutocomplete')->name('digests.ajax');
+    Route::post('/digests/store', 'Editions\ThesisDigestController@store')->name('scientific.digests.store');
+
 });
 
 Route::group([
@@ -64,6 +68,8 @@ Route::group([
     Route::get('/patents/download/{id}', 'Patents\PatentController@downloadFile')->name('patents.download');
     Route::resource('/patents', 'Patents\PatentController');
 
+    Route::get('/theses/file/{id}', 'Theses\ThesisController@displayFile')->name('theses.file');
+    Route::get('/theses/download/{id}', 'Theses\ThesisController@downloadFile')->name('theses.download');
     Route::resource('/theses', 'Theses\ThesisController');
 
 });
@@ -78,6 +84,8 @@ Route::group([
     Route::get('/articles/download/{id}', 'Articles\ArticleController@downloadFile')->name('articles.download');
     Route::resource('/articles', 'Articles\ArticleController');
 
+    Route::get('/theses/file/{id}', 'Theses\ThesisController@displayFile')->name('theses.file');
+    Route::get('/theses/download/{id}', 'Theses\ThesisController@downloadFile')->name('theses.download');
     Route::resource('/theses', 'Theses\ThesisController');
 });
 

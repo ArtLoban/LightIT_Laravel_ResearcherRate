@@ -15,7 +15,7 @@
             </div>
         @endif
         <hr>
-        @include('cabinet.publications.create_bulletin_modal')
+        @include('cabinet.publications.modals.create_bulletin_modal')
 
         {!! Form::open(['route' => 'scientific.patents.store', 'files' => true]) !!}
 
