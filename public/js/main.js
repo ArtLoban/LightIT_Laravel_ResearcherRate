@@ -36,28 +36,55 @@ $(function() {
 
 /** jQuery UI Autocomplete **/
 /* Authors names */
-$("#articleAuthors").autocomplete({
-    delay: 300,
-    source: function($query, $result){
-        if ($query['term'] !== " ") {
-            $.ajax({
-                url: $('#ajax-authors-autocomplete').val(),
-                type: 'GET',
-                data: { name : $query['term'] },
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+// $("#articleAuthors").autocomplete({
+//     delay: 300,
+//     source: function($query, $result){
+//         if ($query['term'] !== " ") {
+//             $.ajax({
+//                 url: $('#ajax-authors-autocomplete').val(),
+//                 type: 'GET',
+//                 data: { name : $query['term'] },
+//                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+//
+//                 success: function ($data) {
+//                     $result($.map($data, function (item) {
+//                         return item;
+//                     }));
+//                 },
+//
+//                 error: function (msg) {
+//                     console.log("error");
+//                 }
+//             });
+//         }
+//     }
+// });
 
-                success: function ($data) {
-                    $result($.map($data, function (item) {
-                        return item;
-                    }));
-                },
+$('#articleAuthors').tokenfield({
+    autocomplete:{
+        delay:300,
+        source: function($query, $result){
+            if ($query['term'] !== " ") {
+                $.ajax({
+                    url: $('#ajax-authors-autocomplete').val(),
+                    type: 'GET',
+                    data: { name : $query['term'] },
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 
-                error: function (msg) {
-                    console.log("error");
-                }
-            });
+                    success: function ($data) {
+                        $result($.map($data, function (item) {
+                            return item;
+                        }));
+                    },
+
+                    error: function (msg) {
+                        console.log("error");
+                    }
+                });
+            }
         }
-    }
+    },
+    // showAutocompleteOnFocus: true
 });
 
 // $( "#articleAuthors" ).autocomplete({

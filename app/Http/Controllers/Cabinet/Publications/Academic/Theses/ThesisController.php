@@ -182,12 +182,6 @@ class ThesisController extends Controller
             return response()->download($file->path);
         }
 
-//        return response()->view('cabinet.errors.file_not_found');
-
-        $i=4;
-        $j=30;
-        $k=0;
-        $k=$j++/$i++;
-        echo $i, $j, $k;
+        return response()->view('cabinet.errors.file_not_found');
     }
 }
