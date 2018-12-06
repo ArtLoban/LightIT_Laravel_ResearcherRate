@@ -4,7 +4,7 @@ namespace App\Services\Organization\Employees\Profile\Repository;
 
 use Illuminate\Support\Collection;
 use App\Models\Organization\Employees\Profile;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use \App\Services\Organization\Employees\Profile\Repository\Contracts\Repository as ProfileRepository;
 
 class Repository extends RepositoryAbstract implements ProfileRepository

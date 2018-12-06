@@ -3,10 +3,10 @@
 namespace App\Services\Organization\Employees\Position\Repository;
 
 use App\Models\Organization\Employees\Position;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Organization\Employees\Position\Repository\Contracts\Repository as PositionRepository;
 
-class Repository extends RepositoryAbstract implements PositionRepository
+class Repository extends \App\Utilities\Repository\RepositoryAbstract implements PositionRepository
 {
     /**
      * @return string

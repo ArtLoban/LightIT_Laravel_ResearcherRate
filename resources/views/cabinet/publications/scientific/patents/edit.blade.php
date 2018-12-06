@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        @include('cabinet.publications.create_bulletin_modal')
+        @include('cabinet.publications.modals.create_bulletin_modal')
 
         <hr>
         {!! Form::open([
@@ -88,7 +88,7 @@
                 value="{{ $patent->authors->pluck('name')->implode(', ') }}"
                 required
             >
-            <small class="form-text text-muted">Enter the names of the inventors using ',' as a separator</small>
+            <small class="form-text text-muted">Type author name and hit enter</small>
             <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('authors.ajax') }}">
         </div>
         <div class="form-group">

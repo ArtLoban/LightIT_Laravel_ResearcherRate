@@ -2,8 +2,8 @@
 
 namespace App\Services\Publications\Patents\Patent\StorageService;
 
-use App\Services\Utilities\Files\Contracts\HasFile;
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Utilities\Files\Contracts\HasFile;
+use App\Utilities\Repository\Interfaces\MainRepository;
 use App\Services\Publications\Patents\Patent\StorageService\Contracts\StorageServiceInterface;
 use App\Services\Publications\Services\PublicationService\Contracts\PublicationServiceInterface;
 
@@ -26,7 +26,7 @@ class StorageService implements StorageServiceInterface
     /**
      * @param array $data
      * @param int $userId
-     * @param MainRepository $publication
+     * @param \App\Utilities\Repository\Interfaces\MainRepository $publication
      * @param MainRepository $edition
      * @return mixed|void
      */

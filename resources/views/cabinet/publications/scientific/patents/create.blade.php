@@ -15,7 +15,7 @@
             </div>
         @endif
         <hr>
-        @include('cabinet.publications.create_bulletin_modal')
+        @include('cabinet.publications.modals.create_bulletin_modal')
 
         {!! Form::open(['route' => 'scientific.patents.store', 'files' => true]) !!}
 
@@ -84,7 +84,7 @@
                         value="{{ old('authors') }}"
                         required
                 >
-                <small class="form-text text-muted">Enter the names of the inventors using ',' as a separator</small>
+                <small class="form-text text-muted">Type author name and hit enter</small>
                 <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('authors.ajax') }}">
             </div>
             <div class="form-group">

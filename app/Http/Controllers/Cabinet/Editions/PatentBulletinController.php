@@ -22,7 +22,10 @@ class PatentBulletinController extends Controller
         $this->patentBulletinRepository = $patentBulletinRepository;
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $this->patentBulletinRepository->create($request->all());

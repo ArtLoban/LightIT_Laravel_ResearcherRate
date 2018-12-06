@@ -4,10 +4,10 @@ namespace App\Services\Publications\Services\PublicationService;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
-use App\Services\Utilities\Files\Contracts\HasFile;
-use App\Services\Utilities\Files\FileUploader\FileUploader;
-use App\Services\Utilities\Repository\Interfaces\Publishable;
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Utilities\Files\Contracts\HasFile;
+use App\Utilities\Files\FileUploader\FileUploader;
+use App\Utilities\Repository\Interfaces\Publishable;
+use App\Utilities\Repository\Interfaces\MainRepository;
 use App\Services\Publications\Author\Repository\Contracts\Repository as AuthorRepository;
 use App\Services\Publications\Services\PublicationService\Contracts\PublicationServiceInterface;
 
@@ -19,7 +19,7 @@ class PublicationService implements PublicationServiceInterface
     private $authorRepository;
 
     /**
-     * @var FileUploader
+     * @var \App\Utilities\Files\FileUploader\FileUploader
      */
     private $fileUploader;
 
@@ -62,7 +62,7 @@ class PublicationService implements PublicationServiceInterface
 
     /**
      * @param string $editionName
-     * @param MainRepository $repository
+     * @param \App\Utilities\Repository\Interfaces\MainRepository $repository
      * @return int
      */
     private function getEntityIdByName(string $entityName, MainRepository $repository): int
@@ -88,7 +88,7 @@ class PublicationService implements PublicationServiceInterface
 
     /**
      * @param UploadedFile $file
-     * @param HasFile $publication
+     * @param \App\Utilities\Files\Contracts\HasFile $publication
      */
     public function storeFile(UploadedFile $file, HasFile $publication)
     {

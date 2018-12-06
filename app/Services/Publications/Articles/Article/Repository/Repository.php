@@ -4,10 +4,10 @@ namespace App\Services\Publications\Articles\Article\Repository;
 
 use Illuminate\Support\Collection;
 use App\Models\Publications\Articles\Article;
-use App\Services\Utilities\Repository\RepositoryAbstract;
+use App\Utilities\Repository\RepositoryAbstract;
 use App\Services\Publications\Articles\Article\Repository\Contracts\Repository as ArticleRepository;
 
-class Repository extends RepositoryAbstract implements ArticleRepository
+class Repository extends \App\Utilities\Repository\RepositoryAbstract implements ArticleRepository
 {
     /**
      * @return string

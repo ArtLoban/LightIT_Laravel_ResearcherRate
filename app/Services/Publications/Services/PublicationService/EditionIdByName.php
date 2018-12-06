@@ -2,13 +2,13 @@
 
 namespace App\Services\Publications\Services\PublicationService;
 
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Utilities\Repository\Interfaces\MainRepository;
 
 class EditionIdByName
 {
     /**
      * @param string $editionName
-     * @param MainRepository $repository
+     * @param \App\Utilities\Repository\Interfaces\MainRepository $repository
      * @return int
      */
     public function getEditionIdByName(string $editionName, MainRepository $repository): int

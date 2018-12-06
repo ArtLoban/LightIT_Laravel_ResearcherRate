@@ -13,7 +13,7 @@
         </div>
         <hr>
 
-        @include('cabinet.publications.create_journal_modal')
+        @include('cabinet.publications.modals.create_journal_modal')
 
         {!! Form::open(['route' => 'scientific.articles.store', 'files' => true]) !!}
 
@@ -32,11 +32,12 @@
                     type="text"
                     class="form-control form-control-sm"
                     id="articleAuthors"
+                    data-role="tagsinput"
                     name="authors"
                     value="{{ old('authors') }}"
                     required
                 >
-                <small class="form-text text-muted">Enter the names of the authors using ',' as a separator</small>
+                <small class="form-text text-muted">Type author name and hit enter</small>
                 <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('authors.ajax') }}">
             </div>
             <div class="form-group">

@@ -2,8 +2,8 @@
 
 namespace App\Services\Publications\Services\PublicationStorage\Contracts;
 
-use App\Services\Utilities\Repository\Interfaces\Publishable;
-use App\Services\Utilities\Repository\Interfaces\MainRepository;
+use App\Utilities\Repository\Interfaces\Publishable;
+use App\Utilities\Repository\Interfaces\MainRepository;
 
 interface PublicationStorageInterface
 {
@@ -13,7 +13,7 @@ interface PublicationStorageInterface
      * @param string $editionNameKey
      * @param string $editionIdKey
      * @param Publishable $publication
-     * @param MainRepository $edition
+     * @param \App\Utilities\Repository\Interfaces\MainRepository $edition
      * @return mixed
      */
     public function create(
@@ -30,8 +30,8 @@ interface PublicationStorageInterface
      * @param int $publicationId
      * @param string $editionNameKey
      * @param string $editionIdKey
-     * @param MainRepository $publication
-     * @param MainRepository $edition
+     * @param \App\Utilities\Repository\Interfaces\MainRepository $publication
+     * @param \App\Utilities\Repository\Interfaces\MainRepository $edition
      * @return mixed
      */
     public function update(
