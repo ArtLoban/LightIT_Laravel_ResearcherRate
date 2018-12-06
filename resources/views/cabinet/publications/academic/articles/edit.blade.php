@@ -35,7 +35,7 @@
                     value="{{ $article->authors->pluck('name')->implode(', ') }}"
                     required
                 >
-                <small class="form-text text-muted">Enter the names of the authors using ',' as a separator</small>
+                <small class="form-text text-muted">Type author name and hit enter</small>
                 <input type="hidden" id="ajax-authors-autocomplete" value="{{ route('authors.ajax') }}">
             </div>
             <div class="form-group">
