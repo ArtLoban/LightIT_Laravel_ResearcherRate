@@ -196,21 +196,21 @@
                 <hr>
                 <li class="header">PUBLICATIONS</li>
                 <li class="@include('components.is_active', ['url' => 'admin/authors'])">
-                    <a href="#">
+                    <a href="{{ route('admin.authors.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Authors</span>
                     </a>
                 </li>
-                <li class="@include('components.is_active', ['url' => 'admin/authors'])">
+                <li class="@include('components.is_active', ['url' => 'admin/articles'])">
                     <a href="{{ route('articles.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Articles</span>
                     </a>
                 </li>
-                <li class="@include('components.is_active', ['url' => 'admin/authors'])">
+                <li class="@include('components.is_active', ['url' => 'admin/patents'])">
                     <a href="{{ route('patents.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Patents</span>
                     </a>
                 </li>
-                <li class="@include('components.is_active', ['url' => 'admin/authors'])">
+                <li class="@include('components.is_active', ['url' => 'admin/theses'])">
                     <a href="{{ route('theses.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Theses</span>
                     </a>

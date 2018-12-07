@@ -10,7 +10,12 @@ class UserSeeder extends Seeder
     /**
      *
      */
-    const FAKE_USERS = 6;
+    const FAKE_USERS = 27;
+
+    /**
+     * Previous 3 are the custom users
+     */
+    const MIN_FAKE_RANDOM = 4;
 
     /**
      * Run the database seeds.

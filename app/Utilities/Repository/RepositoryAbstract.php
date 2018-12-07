@@ -2,10 +2,11 @@
 
 namespace App\Utilities\Repository;
 
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Utilities\Repository\Interfaces\MainRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class RepositoryAbstract implements MainRepository
 {
@@ -42,6 +43,50 @@ abstract class RepositoryAbstract implements MainRepository
     public function all(): ?Collection
     {
         return $this->className::all();
+    }
+
+    /**
+     * @param $relations
+     * @return mixed
+     */
+    public function with($relations)
+    {
+        return $this->className::with($relations);
+    }
+
+    /**
+     * @param string $column
+     * @param null $key
+     * @return Collection|null
+     */
+    public function pluck(string $column, $key = null): ?Collection
+    {
+        return $this->className::pluck($column, $key = null);
+    }
+
+    /**
+     * @param string $relation
+     * @param string $operator
+     * @param int $count
+     * @param string $boolean
+     * @param Closure|null $callback
+     * @return mixed
+     */
+    public function has(string $relation, string $operator = '>=', int $count = 1, string $boolean = 'and', Closure $callback = null)
+    {
+        return $this->className::has($relation, $operator = '>=', $count = 1, $boolean = 'and', $callback = null);
+    }
+
+    /**
+     * @param string $relation
+     * @param Closure|null $callback
+     * @param string $operator
+     * @param int $count
+     * @return mixed
+     */
+    public function whereHas(string $relation, Closure $callback = null, string $operator = '>=', int $count = 1)
+    {
+        return $this->className::whereHas($relation, $callback = null, $operator = '>=', $count = 1);
     }
 
     /**

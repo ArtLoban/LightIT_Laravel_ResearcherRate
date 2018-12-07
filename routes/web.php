@@ -31,6 +31,8 @@ Route::group([
     Route::resource('/positions', 'Organization\Employees\PositionController');
     Route::resource('/academic_degrees', 'Organization\Employees\AcademicDegreeController');
     Route::resource('/academic_titles', 'Organization\Employees\AcademicTitleController');
+
+    Route::resource('/authors', 'Publications\AuthorController', ["as"=>"admin"]);
     // Publications
     Route::resource('/articles', 'Publications\ArticleController');
     Route::resource('/patents', 'Publications\PatentController');
