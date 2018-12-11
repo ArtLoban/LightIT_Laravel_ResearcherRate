@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7cffa845ff9e0a15795bb2d97485d63",
+    "content-hash": "47757dae5bb1365d5b81660ee04c07cc",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -939,6 +939,51 @@
             "time": "2018-10-15T13:53:10+00:00"
         },
         {
+            "name": "mgargano/simplehtmldom",
+            "version": "1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matgargano/simplehtmldom.git",
+                "reference": "37fb0d7c1bda45c5a4cf14fdef56c1edf6aa42be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matgargano/simplehtmldom/zipball/37fb0d7c1bda45c5a4cf14fdef56c1edf6aa42be",
+                "reference": "37fb0d7c1bda45c5a4cf14fdef56c1edf6aa42be",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SimpleHtmlDom": "src/"
+                },
+                "files": [
+                    "src/simple_html_dom.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "The MIT License"
+            ],
+            "authors": [
+                {
+                    "name": "S.C. Chen",
+                    "email": "me578022@gmail.com"
+                }
+            ],
+            "description": "Composer package that gives you access to and (unlike all the others at this time) autoloads S.C. Chen's PHP Simple HTML DOM Parser Library",
+            "homepage": "http://simplehtmldom.sourceforge.net/",
+            "keywords": [
+                "Simple",
+                "dom",
+                "html"
+            ],
+            "time": "2014-01-05T18:17:34+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -1227,6 +1272,39 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "phpquery/phpquery",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elboza/PhpQuery.git",
+                "reference": "bb781306fec808e34f2143da9dff28547d742c12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elboza/PhpQuery/zipball/bb781306fec808e34f2143da9dff28547d742c12",
+                "reference": "bb781306fec808e34f2143da9dff28547d742c12",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpQuery\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Beerware"
+            ],
+            "authors": [
+                {
+                    "name": "Fernando Iazeolla",
+                    "email": "fernando.iazeolla@gmail.com"
+                }
+            ],
+            "description": "jquery for php",
+            "time": "2018-04-21T16:49:30+00:00"
         },
         {
             "name": "psr/container",

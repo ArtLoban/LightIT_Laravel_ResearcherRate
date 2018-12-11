@@ -14,6 +14,12 @@ interface MainRepository
     public function create(array $params);
 
     /**
+     * @param array $data
+     * @return mixed
+     */
+    public function insert(array $data);
+
+    /**
      * @return mixed
      */
     public function all();

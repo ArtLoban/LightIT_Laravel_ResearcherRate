@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+
+use App\Services\MoviePoster\Movie\Repository as MovieRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Utilities\LanguageRepository\ConfigLanguageRepository;
 use App\Utilities\Files\Repository\Repository as FileRepository;
@@ -128,6 +130,12 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Utilities\LanguageRepository\Contracts\Repository::class,
             ConfigLanguageRepository::class
+        );
+
+        //Movie Poster
+        $this->app->bind(
+            \App\Services\MoviePoster\Movie\Contracts\Repository::class,
+            MovieRepository::class
         );
     }
 }

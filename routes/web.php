@@ -98,6 +98,8 @@ Route::group([
     Route::resource('/theses', 'Theses\ThesisController');
 });
 
+Route::get('/movie_poster', 'MoviePoster\MoviePosterController@index')->name('movie_poster');
+
 Route::fallback(function () {
     print '<h1>404 -> Fallback route</h1>';
 });

@@ -15,7 +15,7 @@ class Repository extends \App\Utilities\Repository\RepositoryAbstract implements
     private $hasher;
 
     /**
-     * Repository constructor.
+     * MoviePoster constructor.
      * @param HasherInterface $hasher
      */
     public function __construct(HasherInterface $hasher)

@@ -38,6 +38,15 @@ abstract class RepositoryAbstract implements MainRepository
     }
 
     /**
+     * @param array $data
+     * @return mixed
+     */
+    public function insert(array $data)
+    {
+        return $this->className::insert($data);
+    }
+
+    /**
      * @return Collection|null
      */
     public function all(): ?Collection
