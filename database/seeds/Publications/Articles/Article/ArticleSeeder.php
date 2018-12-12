@@ -6,7 +6,7 @@ use App\Models\Publications\Articles\Article;
 class ArticleSeeder extends Seeder
 {
     const MIN_AUTHORS_PER_ARTICLE = 1;
-    const MAX_AUTHORS_PER_ARTICLE = 3;
+    const MAX_AUTHORS_PER_ARTICLE = 6;
     /**
      * Run the database seeds.
      *
@@ -14,7 +14,7 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        factory(Article::class, 200)->create()->each(function ($article) {
+        factory(Article::class, 1000)->create()->each(function ($article) {
             $article->authors()->attach($this->getRandomSetOfAuthors());;
         });
     }

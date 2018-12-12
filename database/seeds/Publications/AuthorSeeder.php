@@ -30,7 +30,7 @@ class AuthorSeeder extends Seeder
 
         foreach ($profiles as $profile) {
             $result[] = [
-                'name' => $profile->name . ' ' . $profile->surname,
+                'name' => $profile->surname . ' ' . $profile->name[0]. '.' . $profile->patronymic[0]. '.',
                 'profile_id' => $profile->getKey(),
             ];
         }
