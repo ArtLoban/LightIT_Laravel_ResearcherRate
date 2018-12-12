@@ -21,7 +21,7 @@ class Journal extends Model
     ];
 
     /**
-     * Get the Repository that owns the Journal
+     * Get the MoviePoster that owns the Journal
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

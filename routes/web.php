@@ -31,6 +31,15 @@ Route::group([
     Route::resource('/positions', 'Organization\Employees\PositionController');
     Route::resource('/academic_degrees', 'Organization\Employees\AcademicDegreeController');
     Route::resource('/academic_titles', 'Organization\Employees\AcademicTitleController');
+
+    Route::resource('/authors', 'Publications\AuthorController', ["as"=>"admin"]);
+    // Publications
+    Route::resource('/articles', 'Publications\ArticleController');
+    Route::resource('/patents', 'Publications\PatentController');
+    Route::resource('/theses', 'Publications\ThesisController');
+
+    // Editions
+    Route::resource('/journals', 'Publications\Editions\JournalController', ["as"=>"admin"]);
 });
 
 Route::group([
@@ -88,6 +97,8 @@ Route::group([
     Route::get('/theses/download/{id}', 'Theses\ThesisController@downloadFile')->name('theses.download');
     Route::resource('/theses', 'Theses\ThesisController');
 });
+
+Route::get('/movie_poster', 'MoviePoster\MoviePosterController@index')->name('movie_poster');
 
 Route::fallback(function () {
     print '<h1>404 -> Fallback route</h1>';

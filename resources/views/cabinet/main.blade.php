@@ -7,7 +7,7 @@
                 <h4 class="my-4">Private room</h4>
                 <div class="list-group">
                     <a href="{{ route('cabinet.profile') }}"
-                        class="list-group-item  {{ Request::is('cabinet/profile') ? 'active' : '' }}">
+                        class="list-group-item  {{ request()->is('cabinet/profile') ? 'active' : '' }}">
                         Profile
                     </a>
                     <div>

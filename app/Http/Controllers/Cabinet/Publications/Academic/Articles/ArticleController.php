@@ -57,6 +57,10 @@ class ArticleController extends Controller
         $this->publicationTypeRepository = $publicationTypeRepository;
     }
 
+    /**
+     * @param Auth $auth
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Auth $auth)
     {
         $publicationTypeId = $this->publicationTypeRepository->getAcademicId();

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
              JournalTypeSeeder::class,
              JournalSeeder::class,
              PatentBulletinSeeder::class,
+             AuthorSeeder::class,
+             ArticleSeeder::class,
          ]);
     }
 }

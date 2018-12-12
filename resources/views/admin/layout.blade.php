@@ -118,21 +118,10 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-            <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-                </div>
-            </form>
-            <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
+            <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="treeview">
+                <li class="treeview @include('components.is_active', ['url' => 'admin/dashboard'])">
                     <a href="{{ route('dashboard.index') }}">
                         <i class="fa fa-dashboard"></i><span>Dashboard</span>
                     </a>
@@ -140,68 +129,106 @@
                 </li>
                 <hr>
                 @can('fullAccess')
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/users'])">
                     <a href="{{ route('users.index') }}">
                         <i class="fa fa-users"></i><span>Users</span>
                     </a>
                 </li>
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/roles'])">
                     <a href="{{ route('roles.index') }}">
                         <i class="fa fa-user"></i><span>Roles</span>
                     </a>
                 </li>
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/permissions'])">
                     <a href="{{ route('permissions.index') }}">
                         <i class="fa fa-check"></i><span>Permissions</span>
                     </a>
                 </li>
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/assign_permissions'])">
                     <a href="{{ route('assign_permissions.index') }}">
                         <i class="fa fa-check-circle-o"></i><span>Assign permissions</span>
                     </a>
                 </li>
                 <hr>
                 @endcan
-                <li>
-                    <a href="{{ route('faculties.index') }}">
-                        <i class="fa fa-graduation-cap"></i><span>Faculties</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('departments.index') }}">
-                        <i class="fa fa-clone"></i><span>Departments</span>
-                    </a>
-                </li>
-                <hr>
                 @can('seeProfiles')
-                <li>
-                    <a href="{{ route('profiles.index') }}">
-                        <i class="fa fa-files-o"></i><span>Profiles</span>
-                    </a>
-                </li>
-                <hr>
+                    <li class="@include('components.is_active', ['url' => 'admin/profiles'])">
+                        <a href="{{ route('profiles.index') }}">
+                            <i class="fa fa-files-o"></i><span>Profiles</span>
+                        </a>
+                    </li>
+                    <hr>
                 @endcan
                 @can('fullAccess')
-                <li>
-                    <a href="{{ route('blank_users.index') }}">
-                        <i class="fa fa-circle-thin"></i><span>Blank Users</span>
-                    </a>
-                </li>
-                <hr>
+                    <li class="@include('components.is_active', ['url' => 'admin/blank_users'])">
+                        <a href="{{ route('blank_users.index') }}">
+                            <i class="fa fa-circle-thin"></i><span>Blank Users</span>
+                        </a>
+                    </li>
+                    <hr>
                 @endcan
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/faculties'])">
+                <a href="{{ route('faculties.index') }}">
+                <i class="fa fa-graduation-cap"></i><span>Faculties</span>
+                    </a>
+                    </li>
+                <li class="@include('components.is_active', ['url' => 'admin/departments'])">
+                <a href="{{ route('departments.index') }}">
+                <i class="fa fa-clone"></i><span>Departments</span>
+                    </a>
+                    </li>
+                <hr>
+                <li class="@include('components.is_active', ['url' => 'admin/positions'])">
                     <a href="{{ route('positions.index') }}">
                         <i class="fa fa-paper-plane"></i><span>Positions</span>
                     </a>
                 </li>
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/academic_degrees'])">
                     <a href="{{ route('academic_degrees.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Academic Degrees</span>
                     </a>
                 </li>
-                <li>
+                <li class="@include('components.is_active', ['url' => 'admin/academic_titles'])">
                     <a href="{{ route('academic_titles.index') }}">
                         <i class="fa fa-circle-thin"></i><span>Academic Titles</span>
+                    </a>
+                </li>
+                <hr>
+                <li class="header">PUBLICATIONS</li>
+                <li class="@include('components.is_active', ['url' => 'admin/authors'])">
+                    <a href="{{ route('admin.authors.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Authors</span>
+                    </a>
+                </li>
+                <li class="@include('components.is_active', ['url' => 'admin/articles'])">
+                    <a href="{{ route('articles.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Articles</span>
+                    </a>
+                </li>
+                <li class="@include('components.is_active', ['url' => 'admin/patents'])">
+                    <a href="{{ route('patents.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Patents</span>
+                    </a>
+                </li>
+                <li class="@include('components.is_active', ['url' => 'admin/theses'])">
+                    <a href="{{ route('theses.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Theses</span>
+                    </a>
+                </li>
+                <li class="header">EDITIONS</li>
+                <li class="@include('components.is_active', ['url' => 'admin/journals'])">
+                    <a href="{{ route('admin.journals.index') }}">
+                        <i class="fa fa-circle-thin"></i><span>Journals</span>
+                    </a>
+                </li>
+                <li class="@include('components.is_active', ['url' => 'admin/patents'])">
+                    <a href="#">
+                        <i class="fa fa-circle-thin"></i><span>Patents</span>
+                    </a>
+                </li>
+                <li class="@include('components.is_active', ['url' => 'admin/theses'])">
+                    <a href="#">
+                        <i class="fa fa-circle-thin"></i><span>Theses</span>
                     </a>
                 </li>
             </ul>
@@ -423,6 +450,5 @@
 <!-- ./wrapper -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/js/admin.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" charset="utf-8"></script>
 </body>
 </html>

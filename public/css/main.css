@@ -56,3 +56,11 @@ footer {
 a.close {
     color: #FFFFFF;
 }
+/* */
+
+img.card-img-top {
+    height: 300px;
+    width: 220px;
+    /*max-width: 300px;*/
+    /*max-height: 300px;*/
+}

@@ -33,8 +33,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Item
-                        </a>
+                        <a class="nav-link" href="{{ route('movie_poster') }}">Movie poster</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Item</a>
